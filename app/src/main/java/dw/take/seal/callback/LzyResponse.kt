@@ -1,5 +1,6 @@
 package dw.take.seal.callback
 
+import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.model.OrganizationModel
 import dw.take.seal.model.ShopModel
 import java.io.Serializable
@@ -24,4 +25,5 @@ class LzyResponse<T> : Serializable {
     var Success: Boolean = false
     var time: T?=null
     var remindCount: String=""
+    var Data:OrganizationJianModel?=null
 }

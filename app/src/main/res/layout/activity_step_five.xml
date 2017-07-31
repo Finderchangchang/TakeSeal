@@ -32,8 +32,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="第五步：申请完成 "
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textColor="@color/__picker_text_40"
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -44,22 +44,23 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/bg_button"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="申请完成，请等待审批短信通知。 " />
+                android:text="申请完成，请等待审批短信通知。 "
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="印章信息申请确认 "
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textColor="@color/__picker_text_40"
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -79,7 +80,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="申请单位："
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/__picker_text_40"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -99,7 +102,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="申请人："
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/__picker_text_40"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,7 +124,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="申请时间："
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/__picker_text_40"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -133,8 +140,8 @@
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:text="申请印章信息  "
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textColor="@color/__picker_text_40"
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -154,7 +161,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="申请单位："
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/__picker_text_40"
+                    android:textSize="12sp"
+                    android:id="@+id/textView6"
+                    android:layout_marginLeft="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -168,8 +178,8 @@
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:text="自选刻章企业  "
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textColor="@color/__picker_text_40"
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -189,7 +199,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="名称："
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/__picker_text_40"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -209,7 +221,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="地址："
-                    android:textColor="@android:color/black" />
+                    android:textSize="12sp"
+                    android:textColor="@color/__picker_text_40"
+                    android:layout_marginLeft="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -223,13 +237,17 @@
                 android:orientation="horizontal"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
+
                 android:paddingTop="5dp">
 
                 <TextView
+                    android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="电话："
-                    android:textColor="@android:color/black" />
+                    android:textSize="12sp"
+                    android:textColor="@color/__picker_text_40"
+                    android:layout_marginLeft="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -245,6 +263,7 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:paddingLeft="10dp"
+                android:textSize="12sp"
                 android:text="温馨提示：接到通过公安机关核准备案的短信通知后下一步需网上或到刻章企业办理刻章手续。" />
 
 
@@ -262,24 +281,26 @@
             android:id="@+id/close_btn"
             style="@style/btn_style"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="上一步" />
+            android:text="上一步"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/next_btn"
             style="@style/btn_style"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:text="下一步" />
+            android:text="下一步"
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

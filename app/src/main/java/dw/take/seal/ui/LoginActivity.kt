@@ -21,15 +21,23 @@ import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.support.annotation.NonNull
 import dw.take.seal.control.IScan_result
 import dw.take.seal.control.ScanCodeLogin
+import dw.take.seal.model.OrganizationJianModel
 
 
 /***
  * 登录
  */
 class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.PermissionCallbacks {
-    override fun scan_result(result: String) {
+    override fun scan_result(sucess: Boolean, model: OrganizationJianModel, result: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if(sucess){
+            //营业执照识别成功，跳页显示营业执照内容
 
+        }else {
+            toast(result)
+        }
     }
+
 
     /**
      * 获得失败的权限
@@ -70,6 +78,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         scan_login_btn.setOnClickListener {
             startActivity(Intent(this, ScanLoginActivity::class.java))
         }
+        //拍摄营业执照
         scan_code_login_btn.setOnClickListener {
             if(check_camera_permission()) {
                 val intent = Intent(this@LoginActivity, CaptureActivity::class.java)

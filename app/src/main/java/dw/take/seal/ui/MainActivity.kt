@@ -26,7 +26,7 @@ class MainActivity : BaseActivity(){
          * */
         next_btn.setOnClickListener {
             if (yes_rb.isChecked) {
-                startActivity(Intent(this,StepTwoActivity::class.java))
+                startActivity(Intent(this,OrganizationActivity::class.java))
             } else {
                 Snackbar.make(next_btn, "请点击同意备案协议！", Toast.LENGTH_SHORT).show()
             }

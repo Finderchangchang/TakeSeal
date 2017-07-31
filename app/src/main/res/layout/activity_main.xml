@@ -34,15 +34,21 @@
                 android:layout_marginLeft="5dp"
                 android:text="印章刻制备案入网信息确认书 "
                 android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/line_bg" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:lineSpacingExtra="2dp"
+                android:textColor="@color/__picker_text_40"
                 android:text="@string/tg_val"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
             <RadioGroup
                 android:id="@+id/yes_no_rg"
@@ -83,11 +89,12 @@
             android:id="@+id/finish_btn"
             style="@style/btn_style"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
+            android:textSize="12sp"
             android:layout_weight="1"
             android:text="上一步" />
 
@@ -95,12 +102,13 @@
             android:id="@+id/next_btn"
             style="@style/btn_style"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
+            android:textSize="12sp"
             android:text="下一步" />
     </LinearLayout>
 </LinearLayout>

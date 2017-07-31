@@ -24,6 +24,10 @@ import wai.gr.cla.method.Utils
 import java.util.*
 
 class StepTwoActivity : BaseActivity(), mMain {
+    override fun check_code_result(result: Boolean, toast: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun send_code_result(result: Boolean, toast: String) {
         Snackbar.make(get_code_btn, toast, Toast.LENGTH_SHORT).show()
         if (!result) {//发送失败，重置按钮

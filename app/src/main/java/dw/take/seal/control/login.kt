@@ -29,6 +29,7 @@ interface mMain {
     fun show_user_info(user: OrganizationModel)
     fun show_shops(shops: List<ShopModel>)
     fun send_code_result(result: Boolean, toast: String)
+    fun check_code_result(result: Boolean,toast: String);
 }
 
 interface mFour {
@@ -143,7 +144,27 @@ class login {
                     }
                 })
     }
+    /**
+     * 验证验证码功能
+     * */
+    fun Check_code(code: String, main: mMain) {
+        OkGo.get(app_url.url_get_code_by_tel + "CheckVerificationCode&VerificationCode=" + code)
+                .execute(object : JsonCallback<LzyResponse<String>>() {
+                    override fun onSuccess(model: LzyResponse<String>, call: Call, response: Response) {
+                        var toast_result = ""
+                        if (model.Success) {
+                            toast_result = "发送成功"
+                        } else {
+                            toast_result = "发送失败，请稍后重试"
+                        }
+                        main.check_code_result(model.Success, toast_result)
+                    }
 
+                    override fun onError(call: Call?, response: Response?, e: Exception?) {
+                        main.check_code_result(false, "请检查网络连接")
+                    }
+                })
+    }
     /**
      * 后台扫描图片内容
      * */
@@ -162,7 +183,38 @@ class login {
                     }
                 })
     }
+    /**
+     * 身份证照片识别图片内容
+     * */
+    fun cardRecognition_img(img: String) {
+        OkGo.post(app_url.url_scan_img + "CardRecognition&Image="+img)
+                .execute(object : StringCallback() {
+                    override fun onSuccess(s: String, call: Call, response: Response) {
+                        val a = ""
+                        Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show()
+                    }
 
+                    override fun onError(call: Call?, response: Response?, e: Exception?) {
+                        super.onError(call, response, e)
+                    }
+                })
+    }
+    /**
+     * 身份证照片识别+本人照片比较相似度图片内容
+     * */
+    fun card_fackRecognition_img(img: String,faceimg: String) {
+        OkGo.post(app_url.url_scan_img + "FaceCardRecognition&FaceImage="+faceimg+"&CardImage="+img)
+                .execute(object : StringCallback() {
+                    override fun onSuccess(s: String, call: Call, response: Response) {
+                        val a = ""
+                        Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError(call: Call?, response: Response?, e: Exception?) {
+                        super.onError(call, response, e)
+                    }
+                })
+    }
     /**
      * toast内容
      * */
