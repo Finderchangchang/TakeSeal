@@ -1,18 +1,50 @@
 package dw.take.seal.ui
 
+import android.Manifest
 import android.content.Intent
+import android.os.Bundle
 import android.text.TextUtils
+import android.widget.Toast
+import com.uuzuche.lib_zxing.activity.CaptureActivity
+import com.uuzuche.lib_zxing.activity.CodeUtils
+import com.uuzuche.lib_zxing.activity.ZXingLibrary
 import dw.take.seal.R
 import dw.take.seal.control.login
 import dw.take.seal.control.mLogin
 import kotlinx.android.synthetic.main.activity_login.*
 import me.iwf.photopicker.PhotoPicker
 import wai.gr.cla.base.BaseActivity
+import pub.devrel.easypermissions.EasyPermissions
+import android.Manifest.permission
+import android.Manifest.permission.CALL_PHONE
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.support.annotation.NonNull
+import dw.take.seal.control.IScan_result
+import dw.take.seal.control.ScanCodeLogin
+
 
 /***
  * 登录
  */
-class LoginActivity : BaseActivity(), mLogin {
+class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.PermissionCallbacks {
+    override fun scan_result(result: String) {
+
+    }
+
+    /**
+     * 获得失败的权限
+     * */
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
+        var s=""
+    }
+    /**
+     * 获得的权限
+     * */
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
+        val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
+        startActivityForResult(intent, 1)
+    }
+
     override fun initViews() {
         setContentView(R.layout.activity_login)
     }
@@ -38,6 +70,54 @@ class LoginActivity : BaseActivity(), mLogin {
         scan_login_btn.setOnClickListener {
             startActivity(Intent(this, ScanLoginActivity::class.java))
         }
+        scan_code_login_btn.setOnClickListener {
+            if(check_camera_permission()) {
+                val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
+                startActivityForResult(intent, 1)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        /**
+         * 处理二维码扫描结果
+         */
+        if (requestCode == 1) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                var bundle: Bundle? = data.extras ?: return;
+                toast(bundle.toString())
+                if (bundle!!.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    var result = bundle.getString(CodeUtils.RESULT_STRING);
+                    ScanCodeLogin().scan_login(result,this)
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    Toast.makeText(this@LoginActivity, "解析二维码失败", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        //把申请权限的回调交由EasyPermissions处理
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+    /**
+     * 检测相机权限
+     * */
+    fun check_camera_permission():Boolean {
+        val perms = arrayOf<String>(Manifest.permission.CAMERA)
+        if (EasyPermissions.hasPermissions(this, *perms)) {//检查是否获取该权限
+            return true
+        } else {
+            //第二个参数是被拒绝后再次申请该权限的解释
+            //第三个参数是请求码
+            //第四个参数是要申请的权限
+            EasyPermissions.requestPermissions(this, "必要的权限", 0, *perms)
+        }
+        return false
     }
 
     /**

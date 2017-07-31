@@ -1,10 +1,10 @@
-package dw.take.Seal.model
+package dw.take.seal.model
 
 /**
  * Created by lenovo on 2017/7/9.
  */
 
-class Seal() {
+class SealModel {
     var SealContent: String = ""
     var SealType: String = ""
     var SealSpecificationId: String = ""

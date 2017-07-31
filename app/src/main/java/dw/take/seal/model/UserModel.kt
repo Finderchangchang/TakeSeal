@@ -1,6 +1,6 @@
 package dw.take.seal.model
 
-import dw.take.Seal.model.Seal
+import dw.take.seal.model.SealModel
 
 /**
  * 当前登录账户信息
@@ -15,6 +15,6 @@ class UserModel {
      */
 
     var group: OrganizationModel? = null
-    var seals: List<Seal>? = null
+    var seals: List<SealModel>? = null
 
 }

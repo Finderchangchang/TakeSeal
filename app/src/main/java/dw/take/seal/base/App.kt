@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cookie.store.MemoryCookieStore
+import com.uuzuche.lib_zxing.activity.ZXingLibrary
 
 
 /**
@@ -17,6 +18,7 @@ class App : Application() {
         context = applicationContext
         OkGo.init(this)
         OkGo.getInstance().setCookieStore(MemoryCookieStore())
+        ZXingLibrary.initDisplayOpinion(this);
     }
 
     companion object {

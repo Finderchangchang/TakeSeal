@@ -46,4 +46,13 @@
         android:text="证照识别登录"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
+    <Button
+        android:id="@+id/scan_code_login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/login_btn"
+        android:text="扫码识别"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 </LinearLayout>

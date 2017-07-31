@@ -71,10 +71,10 @@ class ScanLoginActivity : BaseActivity(), IScanLogin {
     fun scan(path: String) {
         val newFile = CompressHelper.getDefault(this).compressToFile(File(path))
         var bm = Utils.getimage(this, path)
-        var bos = BufferedOutputStream(FileOutputStream(newFile));
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-        bos.flush();
-        bos.close();
+        var bos = BufferedOutputStream(FileOutputStream(newFile))
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, bos)
+        bos.flush()
+        bos.close()
         iv.setImageBitmap(bm)
         ScanLogin().scan_login(Gson().toJson(ImgModel(ImgUtils().bitmapToBase64(bm))), this)
     }

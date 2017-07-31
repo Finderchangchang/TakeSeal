@@ -13,5 +13,6 @@ object app_url{
     var url_get_code_by_tel=base_url+"/Service/Message.aspx?Action="//获得验证码
     var url_scan_img=base_url+"/Service/Recognition.aspx?Action="
     var url_upload_img= base_url+"/Service/SealProcess.aspx?Action="//提交图片接口
-
+    //扫码识别营业执照
+    var scan_code="http://www.hbgdfw.com/Service/Recognition.aspx?Action=BusinessAnalysis"
 }

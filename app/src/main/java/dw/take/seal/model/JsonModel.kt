@@ -1,6 +1,6 @@
 package dw.take.seal.model
 
-import dw.take.Seal.model.Seal
+import dw.take.seal.model.SealModel
 import java.io.Serializable
 
 /**
@@ -9,5 +9,5 @@ import java.io.Serializable
 
 class JsonModel:Serializable{
     var Group: OrganizationModel? = null
-    var Seals: List<Seal>? = null
+    var Seals: List<SealModel>? = null
 }
