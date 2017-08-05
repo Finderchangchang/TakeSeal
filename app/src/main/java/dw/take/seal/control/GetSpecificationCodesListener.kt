@@ -1,6 +1,5 @@
 package dw.take.seal.control
 
-import android.text.TextUtils
 import com.lzy.okgo.OkGo
 import dw.take.seal.callback.JsonCallback
 import dw.take.seal.callback.LzyResponse
@@ -31,9 +30,9 @@ class GetSpecificationCodesListener {
                 .execute(object : JsonCallback<LzyResponse<CodeModel>>() {
                     override fun onSuccess(s: LzyResponse<CodeModel>, call: Call, response: Response) {
                         if (s.Success) {
-                            main.GetSpecificationCodesResult(true, s.Codes as ArrayList<CodeModel>, "")
-                        } else {
-                            main.error_toast(s.Message)
+                            main.GetSpecificationCodesResult(true,s.Codes as ArrayList<CodeModel>,"")
+                        }else{
+                            main.GetSpecificationCodesResult(false,s.Codes as ArrayList<CodeModel>,s.Message)
                         }
                     }
 
@@ -43,6 +42,7 @@ class GetSpecificationCodesListener {
                     }
                 })
     }
+
 }
 
 interface GetSpecificationCodesView : IBaseInter {

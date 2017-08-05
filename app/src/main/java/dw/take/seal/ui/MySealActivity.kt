@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.design.widget.Snackbar
 import android.widget.Toast
 import dw.take.seal.R
+import dw.take.seal.control.GetSpecificationCodesListener
 import dw.take.seal.control.GetSpecificationCodesView
 import dw.take.seal.method.CommonAdapter
 import dw.take.seal.method.CommonViewHolder
@@ -19,10 +20,16 @@ import java.util.*
  */
 
 class MySealActivity : BaseActivity(), GetSpecificationCodesView {
-    var selectType: Int = 1
+    var selectType: String = "01"
+    var guige: String = ""
+
     override fun GetSpecificationCodesResult(success: Boolean, list: ArrayList<CodeModel>?, mes: String) {
         //印章规格
-
+        if (success) {
+            if(mes.equals("01")){
+               // list[1].
+            }
+        }
     }
 
     var list: ArrayList<SealModel>? = null
@@ -30,6 +37,7 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
     override fun initViews() {
         setContentView(R.layout.activity_myseal)
         LoadData()
+        GetSpecificationCodesListener().getSpecificationSeal(this, selectType)
     }
 
     override fun initEvents() {
@@ -37,9 +45,9 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
             override fun convert(holder: CommonViewHolder, model: SealModel, position: Int) {
                 holder.setText(R.id.is_tv_type, model.SealTypeName)
                 holder.setText(R.id.is_tv_num, "数量：" + model.num)
-                holder.setText(R.id.is_tv_guige, "规格：" + model.SealSpecificationName)
+                holder.setText(R.id.is_tv_guige, "规格：" + "40行政章")
                 holder.setText(R.id.is_tv_content, "内容：" + model.SealContent)
-                holder.setText(R.id.is_tv_caizhi, "未设置")
+                holder.setText(R.id.is_tv_caizhi, "材质：未设置")
                 holder.setSelect(R.id.seal_ck, model.isSelect)
                 if(position==0||position==1){//控制checkbox是否可以点击
                     holder.setEnable(R.id.seal_ck,false)
@@ -65,6 +73,7 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         model!!.SealContent = "保定亮达机电设备安装服务有限公司"
         model!!.SealTypeName = "单位专用章"
         model!!.isSelect = true
+
         model!!.num = 1
         list!!.add(model)
         var model1: SealModel = SealModel()
