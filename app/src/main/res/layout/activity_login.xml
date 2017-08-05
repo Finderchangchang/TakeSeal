@@ -55,6 +55,7 @@
         android:background="@drawable/login_btn"
         android:text="证照识别登录"
         android:textColor="@android:color/white"
+        android:visibility="gone"
         android:textSize="16sp" />
 
     <Button

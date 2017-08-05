@@ -32,7 +32,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         if(sucess){
             //营业执照识别成功，跳页显示营业执照内容
 
-            val intent = Intent(this@LoginActivity, ShopListActivity::class.java)
+            val intent = Intent(this@LoginActivity, OrganizationActivity::class.java)
             intent.putExtra("OrgModel",model)
             startActivity(intent)
         }else {

@@ -54,7 +54,7 @@
         <activity android:name=".ui.ScanResultActivity" />
         <activity android:name=".ui.FaceCameraActivity" />
         <activity android:name=".ui.FaceActivity" />
-        <activity android:name=".ui.LoginActivity"/>
+        <activity android:name=".ui.LoginActivity" />
         <activity
             android:name="com.uuzuche.lib_zxing.activity.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -66,7 +66,9 @@
         <activity android:name=".ui.MobileCheckActivity" />
         <activity android:name=".ui.CheckCodeActivity" />
         <activity android:name=".ui.CJYingYeActivity" />
-        <activity android:name=".ui.SelectSealActivity"></activity>
+        <activity android:name=".ui.SelectSealActivity" />
+        <activity android:name=".ui.ShowInfoActivity" />
+        <activity android:name=".ui.CompleteActivity"></activity>
     </application>
 
 </manifest>
