@@ -7,32 +7,34 @@ import android.text.TextUtils
 import android.widget.Toast
 import com.uuzuche.lib_zxing.activity.CaptureActivity
 import com.uuzuche.lib_zxing.activity.CodeUtils
-import com.uuzuche.lib_zxing.activity.ZXingLibrary
 import dw.take.seal.R
 import dw.take.seal.control.login
 import dw.take.seal.control.mLogin
 import kotlinx.android.synthetic.main.activity_login.*
-import me.iwf.photopicker.PhotoPicker
 import wai.gr.cla.base.BaseActivity
 import pub.devrel.easypermissions.EasyPermissions
-import android.Manifest.permission
-import android.Manifest.permission.CALL_PHONE
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.support.annotation.NonNull
+import android.widget.Button
 import dw.take.seal.control.IScan_result
 import dw.take.seal.control.ScanCodeLogin
 import dw.take.seal.model.OrganizationJianModel
+import net.tsz.afinal.view.LoadingDialog
 
 
 /***
  * 登录
  */
 class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.PermissionCallbacks {
+    var pdialog: LoadingDialog?=null
     override fun scan_result(sucess: Boolean, model: OrganizationJianModel, result: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if(pdialog!=null){
+            pdialog!!.dismiss()
+        }
         if(sucess){
             //营业执照识别成功，跳页显示营业执照内容
 
+            val intent = Intent(this@LoginActivity, ShopListActivity::class.java)
+            intent.putExtra("OrgModel",model)
+            startActivity(intent)
         }else {
             toast(result)
         }
@@ -51,6 +53,10 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
         val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
         startActivityForResult(intent, 1)
+        var btn:Button?=null
+        btn!!.setOnClickListener { view ->
+
+        }
     }
 
     override fun initViews() {
@@ -73,12 +79,12 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
             }
         }
         /**
-         * 扫描营业执照登录
+         * 拍摄营业执照登录
          * */
         scan_login_btn.setOnClickListener {
             startActivity(Intent(this, ScanLoginActivity::class.java))
         }
-        //拍摄营业执照
+        //扫描营业执照
         scan_code_login_btn.setOnClickListener {
             if(check_camera_permission()) {
                 val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
@@ -95,12 +101,17 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         if (requestCode == 1) {
             //处理扫描结果（在界面上显示）
             if (null != data) {
+                pdialog= LoadingDialog(this)
+                pdialog!!.show()
                 var bundle: Bundle? = data.extras ?: return;
                 toast(bundle.toString())
                 if (bundle!!.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     var result = bundle.getString(CodeUtils.RESULT_STRING);
-                    ScanCodeLogin().scan_login(result,this)
+                    ScanCodeLogin().scan_login_xin(result,this)
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    if(pdialog!=null){
+                        pdialog!!.dismiss()
+                    }
                     Toast.makeText(this@LoginActivity, "解析二维码失败", Toast.LENGTH_LONG).show();
                 }
             }
@@ -134,7 +145,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
      * */
     override fun load(result: Int) {
         if (result == 1) {
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            startActivity(Intent(this@LoginActivity, ShopListActivity::class.java))
             finish()
         }
     }

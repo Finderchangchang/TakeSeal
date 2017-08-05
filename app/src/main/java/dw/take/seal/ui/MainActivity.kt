@@ -10,12 +10,14 @@ import android.widget.Toast
 import dw.take.seal.R
 import dw.take.seal.control.login
 import dw.take.seal.control.mMain
+import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.model.OrganizationModel
 import dw.take.seal.model.ShopModel
 import kotlinx.android.synthetic.main.activity_main.*
 import wai.gr.cla.base.BaseActivity
 
 class MainActivity : BaseActivity(){
+    var org:OrganizationJianModel?=null;
     override fun initViews() {
         setContentView(R.layout.activity_main)
     }
@@ -26,7 +28,11 @@ class MainActivity : BaseActivity(){
          * */
         next_btn.setOnClickListener {
             if (yes_rb.isChecked) {
-                startActivity(Intent(this,OrganizationActivity::class.java))
+                org = intent.getSerializableExtra("OrgModel") as OrganizationJianModel?
+                val intent = Intent(this, OrganizationActivity::class.java)
+                intent.putExtra("OrgModel",org)
+                startActivity(intent)
+               // startActivity(Intent(this,OrganizationActivity::class.java),putExtraData("OrgModel",org))
             } else {
                 Snackbar.make(next_btn, "请点击同意备案协议！", Toast.LENGTH_SHORT).show()
             }

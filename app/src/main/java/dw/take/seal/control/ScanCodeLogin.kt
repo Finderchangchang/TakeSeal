@@ -1,5 +1,6 @@
 package dw.take.seal.control
 
+import com.google.gson.Gson
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.callback.StringCallback
 import dw.take.seal.callback.JsonCallback
@@ -23,11 +24,30 @@ class ScanCodeLogin {
     fun scan_login(url: String, scan: IScan_result) {
         OkGo.get(app_url.scan_code)
                 .params("businessUrl", url)
-                .execute(object : JsonCallback<LzyResponse<OrganizationModel>>() {
-                    override fun onSuccess(model: LzyResponse<OrganizationModel>, call: Call, response: Response) {
+                .execute(object : JsonCallback<LzyResponse<OrganizationJianModel>>() {
+                    override fun onSuccess(model: LzyResponse<OrganizationJianModel>, call: Call, response: Response) {
                         if (model.Data == null) {
                             scan.scan_result(false, OrganizationJianModel(), "数据异常")
                         } else {
+                            //var org= Gson().fromJson(model.Data,OrganizationJianModel::class.java)
+                            scan.scan_result(model.Success!!,model.Data!!, "")
+                        }
+                    }
+
+                    override fun onError(call: Call?, response: Response?, e: Exception?) {
+                        scan.error_net()
+                    }
+                })
+    }
+    fun scan_login_xin(url: String, scan: IScan_result) {
+        OkGo.get(app_url.scan_code_xin)
+                .params("businessUrl", url)
+                .execute(object : JsonCallback<LzyResponse<OrganizationJianModel>>() {
+                    override fun onSuccess(model: LzyResponse<OrganizationJianModel>, call: Call, response: Response) {
+                        if (model.Data == null) {
+                            scan.scan_result(false, OrganizationJianModel(), "数据异常")
+                        } else {
+                           // v//ar org= Gson().fromJson(model.Data,OrganizationJianModel::class.java)
                             scan.scan_result(model.Success!!, model.Data!!, "")
                         }
                     }

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_step_three"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,30 +9,24 @@
         android:layout_height="47dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:text="第四步"
+        android:text="编辑"
         android:textColor="@android:color/white"
         android:textSize="19sp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="选择刻章企业"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
-
-    <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/line_bg" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:padding="10dp"
+        android:text="选择印章"
+        android:textColor="@color/__picker_black_40"
+        android:textSize="16sp" />
 
     <ListView
-        android:id="@+id/shop_main_lv"
+        android:id="@+id/myseal_lv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"></ListView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,7 +36,7 @@
         android:paddingTop="5dp">
 
         <Button
-            android:id="@+id/shop_close_btn"
+            android:id="@+id/select_close_btn"
             style="@style/btn_style"
             android:layout_width="0dp"
             android:layout_height="35dp"
@@ -54,10 +46,10 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:text="上一步"
-            android:textSize="12sp"/>
+            android:textSize="12dp" />
 
         <Button
-            android:id="@+id/shop_next_btn"
+            android:id="@+id/select_next_btn"
             style="@style/btn_style"
             android:layout_width="0dp"
             android:layout_height="35dp"
@@ -67,6 +59,6 @@
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:text="下一步"
-            android:textSize="12sp"/>
+            android:textSize="12dp" />
     </LinearLayout>
 </LinearLayout>

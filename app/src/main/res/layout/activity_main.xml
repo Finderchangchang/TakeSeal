@@ -34,7 +34,7 @@
                 android:layout_marginLeft="5dp"
                 android:text="印章刻制备案入网信息确认书 "
                 android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                 android:lineSpacingExtra="2dp"
                 android:textColor="@color/__picker_text_40"
                 android:text="@string/tg_val"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <RadioGroup
                 android:id="@+id/yes_no_rg"

@@ -1,12 +1,17 @@
 package dw.take.seal.model
 
+import java.io.Serializable
+
 /**
  * Created by lenovo on 2017/7/9.
  */
 
-class SealModel {
+class SealModel : Serializable {
     var SealContent: String = ""
     var SealType: String = ""
     var SealSpecificationId: String = ""
+    var SealSpecificationName:String=""
     var SealTypeName: String = ""
+    var num:Int=1;
+    var isSelect:Boolean=false;
 }

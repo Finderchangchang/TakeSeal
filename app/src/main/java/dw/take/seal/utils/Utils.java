@@ -543,9 +543,8 @@ public class Utils {
 
 
     public static Bitmap compressImage(Bitmap image) {
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        image.compress(Bitmap.CompressFormat.JPEG,80, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 100;
         while (baos.toByteArray().length / 1024 > 1024) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
             baos.reset();//重置baos即清空baos
@@ -584,7 +583,6 @@ public class Utils {
     public static Bitmap rotaingImageView(int angle, Bitmap bitmap) {
         //旋转图片 动作
         Matrix matrix = new Matrix();
-        ;
         matrix.postRotate(angle);
         System.out.println("angle2=" + angle);
         // 创建新的图片
@@ -640,7 +638,6 @@ public class Utils {
     public static String URLEncodeImage(String text) {
         if (Utils.isEmptyString(text))
             return "";
-
         return URLEncoder.encode(text);
     }
 

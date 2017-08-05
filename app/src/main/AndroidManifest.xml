@@ -22,6 +22,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+
     <application
         android:name=".base.App"
         android:allowBackup="true"
@@ -30,22 +34,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name=".ui.MySealActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.LegalPersonActivity" />
         <activity android:name="me.iwf.photopicker.PhotoPickerActivity" />
         <activity android:name="me.iwf.photopicker.PhotoPagerActivity" />
         <activity android:name=".ui.StepTwoActivity" />
         <activity android:name=".ui.StepThreeActivity" />
-        <activity android:name=".ui.StepFourActivity" />
+        <activity android:name=".ui.ShopListActivity" />
+        <activity android:name=".ui.CameraPersonActivity" />
         <activity android:name=".ui.StepFiveActivity" />
         <activity android:name=".ui.ScanLoginActivity" />
         <activity android:name=".ui.ImgActivity" />
         <activity android:name=".ui.ScanResultActivity" />
+        <activity android:name=".ui.FaceCameraActivity" />
+        <activity android:name=".ui.FaceActivity" />
+        <activity android:name=".ui.LoginActivity"/>
         <activity
             android:name="com.uuzuche.lib_zxing.activity.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -54,7 +63,10 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.OrganizationActivity" />
-        <activity android:name=".ui.MobileCheckActivity"></activity>
+        <activity android:name=".ui.MobileCheckActivity" />
+        <activity android:name=".ui.CheckCodeActivity" />
+        <activity android:name=".ui.CJYingYeActivity" />
+        <activity android:name=".ui.SelectSealActivity"></activity>
     </application>
 
 </manifest>

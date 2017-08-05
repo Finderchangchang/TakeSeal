@@ -1,29 +1,22 @@
 package dw.take.seal.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
 import android.util.AttributeSet;
-import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,15 +25,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import dw.take.seal.R;
-import dw.take.seal.utils.CameraUtil;
-
 /**
- * Created by lenovo on 2017/7/10.
+ * 开启前置摄像头
+ * Created by Administrator on 2017/8/4.
  */
 
-public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Camera.AutoFocusCallback {
-
+public class CameraQianSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Camera.AutoFocusCallback {
     private static final String TAG = "CameraSurfaceView";
 
     private SurfaceHolder holder;
@@ -49,15 +39,15 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     private int mScreenWidth;
     private int mScreenHeight;
 
-    public CameraSurfaceView(Context context) {
+    public CameraQianSurfaceView(Context context) {
         this(context, null);
     }
 
-    public CameraSurfaceView(Context context, AttributeSet attrs) {
+    public CameraQianSurfaceView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CameraSurfaceView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CameraQianSurfaceView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
         getScreenMetrix(context);
@@ -82,16 +72,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public void surfaceCreated(SurfaceHolder holder) {
         Log.i(TAG, "surfaceCreated");
 
-        if (mCamera == null) {
-            mCamera = Camera.open();//开启相机
-            try {
-                mCamera.setPreviewDisplay(holder);//摄像头画面显示在Surface上
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            setCameraParams(mCamera, mScreenWidth, mScreenHeight);
-        }
-       // change();
+        change();
     }
 
     @Override
@@ -116,7 +97,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         }
     }
 
-    public void takePicture(final onScan onsan) {
+    public void takePicture(final CameraSurfaceView.onScan onsan) {
         //设置参数,并拍照
         setCameraParams(mCamera, mScreenWidth, mScreenHeight);
         // 当调用camera.takePiture方法后，camera关闭了预览，这时需要调用startPreview()来重新开启预览
@@ -302,7 +283,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         return buffer;
     }
 
-    onScan scan;
+    CameraSurfaceView.onScan scan;
 
     public interface onScan {
         void get(String url);
@@ -399,6 +380,17 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
                     break;
                 }
             }
+
+            if (mCamera == null) {
+                mCamera = Camera.open();//开启相机
+                try {
+                    mCamera.setPreviewDisplay(holder);//摄像头画面显示在Surface上
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                setCameraParams(mCamera, mScreenWidth, mScreenHeight);
+            }
+
 
         }
     }

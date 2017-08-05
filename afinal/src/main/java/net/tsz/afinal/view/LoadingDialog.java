@@ -32,8 +32,8 @@ public class LoadingDialog extends ProgressDialog {
         setCanceledOnTouchOutside(false);
         setContentView(R.layout.loading_dialog);
         WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.width = 300;
+        params.height = 300;
         getWindow().setAttributes(params);
     }
 

@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <dw.take.seal.view.CameraSurfaceView
-            android:id="@+id/main_cv"
+        <dw.take.seal.view.CameraQianSurfaceView
+            android:id="@+id/qian_main_cv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>
@@ -23,7 +23,7 @@
         android:background="@mipmap/camera" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/qian_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -35,7 +35,7 @@
         android:text="请将营业执照与四个角对齐" />
 
     <Button
-        android:id="@+id/take_pic_btn"
+        android:id="@+id/qian_take_pic_btn"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_alignParentBottom="true"

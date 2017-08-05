@@ -107,7 +107,14 @@ public class CommonViewHolder {
         view.setVisibility(View.VISIBLE);
         return this;
     }
-    public CommonViewHolder setCbText(int viewId, String text,boolean checked) {
+
+    public CommonViewHolder setSelect(int viewid, boolean isSelect) {
+        CheckBox cb = getView(viewid);
+        cb.setChecked(isSelect);
+        return this;
+    }
+
+    public CommonViewHolder setCbText(int viewId, String text, boolean checked) {
         CheckBox view = getView(viewId);
         view.setText(text + "");
         view.setChecked(checked);
@@ -204,7 +211,8 @@ public class CommonViewHolder {
         GlideImgManager.glideLoader(mContext, url, R.mipmap.ic_launcher, R.mipmap.ic_launcher, img, 0);
         return this;
     }
-    public CommonViewHolder setGlideImageYuan(int vid,String url){
+
+    public CommonViewHolder setGlideImageYuan(int vid, String url) {
         ImageView img = getView(vid);
         GlideImgManager.glideLoader(mContext, url, R.mipmap.ic_launcher, R.mipmap.ic_launcher, img, 0);
         return this;

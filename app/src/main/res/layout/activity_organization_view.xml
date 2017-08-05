@@ -42,7 +42,7 @@
                     android:layout_marginLeft="5dp"
                     android:text="信息确认，营业执照信息"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -57,7 +57,8 @@
                     android:layout_height="35dp"
                     android:layout_margin="20dp"
                     android:textSize="12sp"
-                    android:text="请扫描营业执照二维码确认信息" />
+                    android:text="请扫描营业执照二维码确认信息"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:id="@+id/org_ll_content"
@@ -80,7 +81,7 @@
                             android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:textColor="@color/__picker_text_40"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:text="社会信用代码" />
 
                         <TextView
@@ -102,7 +103,7 @@
                             android:layout_height="40dp"
                             android:textColor="@color/__picker_text_40"
                             android:gravity="center_vertical"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:text="企  业  名  称" />
 
                         <TextView
@@ -124,7 +125,7 @@
                             android:layout_height="40dp"
                             android:gravity="center_vertical"
                             android:textColor="@color/__picker_text_40"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:text="成  立  时  间" />
 
                         <TextView
@@ -145,7 +146,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/__picker_text_40"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:text="法              人"
                             android:id="@+id/textView4" />
 
@@ -169,7 +170,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/__picker_text_40"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:text="企  业  地  址" />
 
                         <TextView
@@ -184,39 +185,7 @@
                         android:layout_height="3dp"
                         android:background="@drawable/line_bg" />
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="请选择操作人员身份"
-                        android:textColor="@color/red" />
 
-                    <RadioGroup
-                        android:id="@+id/yes_no_rg"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <RadioButton
-                            android:id="@+id/yes_fr"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="40dp"
-                            android:checked="true"
-                            android:text="法人" />
-
-                        <RadioButton
-                            android:id="@+id/no_jbr"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="-32.5dp"
-                            android:text="经办人" />
-
-                    </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

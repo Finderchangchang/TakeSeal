@@ -23,35 +23,34 @@ import wai.gr.cla.base.BaseActivity
 @Suppress("UNREACHABLE_CODE")
 //第二步，扫描营业执照信息
 class OrganizationActivity : BaseActivity(), IScan_result {
+    var isSaoMiao: Boolean = false;
+    var OrgModel: OrganizationJianModel? = null;
     override fun scan_result(istrue: Boolean, model: OrganizationJianModel, result: String) {
-
         if (istrue) {
+            isSaoMiao = true;
             //营业执照识别成功，跳页显示营业执照内容
-            code_id_tv.text = model.organizationUSCC
-            name_tv.text = model.organizationName
-            qy_tv.text = model.organizationEstablishDate
-            fr_tv.text = model.organizationLeader
+            code_id_tv.text = OrgModel!!.organizationUSCC
+            name_tv.text = OrgModel!!.organizationName
+            qy_tv.text = OrgModel!!.organizationEstablishDate
+            fr_tv.text = OrgModel!!.organizationLeader
             org_ll_content.visibility = View.VISIBLE
             address_tv.text = model.organizationAddress
         } else {
+            btn_org_saomiao.isEnabled = true;
             toast(result)
         }
     }
 
     override fun initEvents() {
-
         btn_org_saomiao.setOnClickListener {
             if (check_camera_permission()) {
-                val intent = Intent(this@OrganizationActivity, CaptureActivity::class.java)
+                btn_org_saomiao.isEnabled = false;
+                val intent = Intent(this@OrganizationActivity, MainActivity::class.java)
                 startActivityForResult(intent, 1)
             }
         }
         org_next_btn.setOnClickListener {
-            if (yes_fr.isChecked || no_jbr.isChecked) {
-                startActivity(Intent(this, StepTwoActivity::class.java))
-            } else {
-                Snackbar.make(org_next_btn, "请选择办理人员！", Toast.LENGTH_SHORT).show()
-            }
+            startActivity(Intent(this, LegalPersonActivity::class.java).putExtra("isFaRen",0).putExtra("OrgModel", OrgModel))
         }
         org_close_btn.setOnClickListener { finish() }
     }
@@ -90,12 +89,15 @@ class OrganizationActivity : BaseActivity(), IScan_result {
                 }
             }
         }
-
     }
 
     override fun initViews() {
         setContentView(R.layout.activity_organization_view)
+        OrgModel = intent.getSerializableExtra("OrgModel") as OrganizationJianModel?
+        code_id_tv.text = OrgModel!!.organizationUSCC
+        name_tv.text = OrgModel!!.organizationName
+        qy_tv.text = OrgModel!!.organizationEstablishDate
+        fr_tv.text = OrgModel!!.organizationLeader
+        address_tv.text = OrgModel!!.organizationAddress
     }
-
-
 }

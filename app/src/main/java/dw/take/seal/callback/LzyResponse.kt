@@ -25,5 +25,6 @@ class LzyResponse<T> : Serializable {
     var Success: Boolean = false
     var time: T?=null
     var remindCount: String=""
-    var Data:OrganizationJianModel?=null
+    var Data:T?=null
+    var Codes:List<T>?=null
 }

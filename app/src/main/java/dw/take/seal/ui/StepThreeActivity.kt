@@ -1,8 +1,6 @@
 package dw.take.seal.ui
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.widget.Toast
 import dw.take.seal.R
@@ -61,7 +59,7 @@ class StepThreeActivity : BaseActivity() {
         seal_type_list.add(SealTypeModel("法定人名代表章", false, 1))
         seal_type_adapter!!.refresh(seal_type_list)
         next_btn.setOnClickListener {
-            startActivity(Intent(this,StepFourActivity::class.java))
+            startActivity(Intent(this, ShopListActivity::class.java))
         }
     }
 }

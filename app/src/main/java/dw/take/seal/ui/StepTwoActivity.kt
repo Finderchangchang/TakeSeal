@@ -18,15 +18,14 @@ import android.text.Editable
 import android.text.TextUtils
 import android.view.View
 import com.bumptech.glide.Glide
+import dw.take.seal.model.CardInfoModel
 import dw.take.seal.model.JsonModel
 import me.iwf.photopicker.PhotoPicker
 import wai.gr.cla.method.Utils
 import java.util.*
 
 class StepTwoActivity : BaseActivity(), mMain {
-    override fun check_code_result(result: Boolean, toast: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
 
     override fun send_code_result(result: Boolean, toast: String) {
         Snackbar.make(get_code_btn, toast, Toast.LENGTH_SHORT).show()
@@ -225,5 +224,14 @@ class StepTwoActivity : BaseActivity(), mMain {
         get_code_btn.text = "重新发送"
         num = 0
     }
+    override fun card_info_result(result: Boolean, info: CardInfoModel, type: Boolean, mes: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
+    override fun check_code_result(result: Boolean, toast: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+    override fun face_result(result: Boolean, compar: Boolean, mes: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
