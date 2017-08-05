@@ -17,7 +17,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -81,7 +80,6 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         Log.i(TAG, "surfaceCreated");
-
         if (mCamera == null) {
             mCamera = Camera.open();//开启相机
             try {
@@ -91,7 +89,6 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
             }
             setCameraParams(mCamera, mScreenWidth, mScreenHeight);
         }
-       // change();
     }
 
     @Override
@@ -116,7 +113,8 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         }
     }
 
-    public void takePicture(final onScan onsan) {
+
+    public void takePicture(final onScan scan) {
         //设置参数,并拍照
         setCameraParams(mCamera, mScreenWidth, mScreenHeight);
         // 当调用camera.takePiture方法后，camera关闭了预览，这时需要调用startPreview()来重新开启预览
@@ -124,15 +122,16 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
                 mCamera.cancelAutoFocus(); //这一句很关键
-                String path = save(data);
-                System.out.println();
-                onsan.get(path);
+                String path=save(data);
+                scan.get(path);
                 //scan.result(bitmapToBase64(compressImage(bmp)));
                 camera.stopPreview();
                 camera.startPreview();
             }
         });
     }
+
+
 
 
     /**
@@ -304,7 +303,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
     onScan scan;
 
-    public interface onScan {
+    interface onScan {
         void get(String url);
     }
 
@@ -350,56 +349,5 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
-    }
-
-    private int cameraPosition = 1;
-
-    public void change() {
-        //切换前后摄像头
-        int cameraCount = 0;
-        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-        cameraCount = Camera.getNumberOfCameras();//得到摄像头的个数
-
-        for (int i = 0; i < cameraCount; i++) {
-            Camera.getCameraInfo(i, cameraInfo);//得到每一个摄像头的信息
-            if (cameraPosition == 1) {
-                //现在是后置，变更为前置
-                if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {//代表摄像头的方位，CAMERA_FACING_FRONT前置      CAMERA_FACING_BACK后置
-
-                    if (mCamera != null) {
-                        mCamera.stopPreview();//停掉原来摄像头的预览
-                        mCamera.release();//释放资源
-                        mCamera = null;//取消原来摄像头
-                    }
-                    mCamera = Camera.open(i);//打开当前选中的摄像头
-                    try {
-                        mCamera.setPreviewDisplay(holder);//通过surfaceview显示取景画面
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //mCamera.startPreview();//开始预览
-                    setCameraParams(mCamera, mScreenWidth, mScreenHeight);
-                    break;
-                }
-            } else {
-                //现在是前置， 变更为后置
-                if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {//代表摄像头的方位，CAMERA_FACING_FRONT前置      CAMERA_FACING_BACK后置
-                    mCamera.stopPreview();//停掉原来摄像头的预览
-                    mCamera.release();//释放资源
-                    mCamera = null;//取消原来摄像头
-                    mCamera = Camera.open(i);//打开当前选中的摄像头
-                    try {
-                        mCamera.setPreviewDisplay(holder);//通过surfaceview显示取景画面
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    mCamera.startPreview();//开始预览
-                    cameraPosition = 1;
-                    break;
-                }
-            }
-
-        }
     }
 }

@@ -113,6 +113,11 @@ public class CommonViewHolder {
         cb.setChecked(isSelect);
         return this;
     }
+    public CommonViewHolder setEnable(int viewId,boolean enable){
+        View view=getView(viewId);
+        view.setEnabled(enable);
+        return this;
+    }
 
     public CommonViewHolder setCbText(int viewId, String text, boolean checked) {
         CheckBox view = getView(viewId);

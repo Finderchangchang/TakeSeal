@@ -32,7 +32,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         if(sucess){
             //营业执照识别成功，跳页显示营业执照内容
 
-            val intent = Intent(this@LoginActivity, ShopListActivity::class.java)
+            val intent = Intent(this@LoginActivity, MySealActivity::class.java)
             intent.putExtra("OrgModel",model)
             startActivity(intent)
         }else {
@@ -91,6 +91,9 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
                 startActivityForResult(intent, 1)
             }
         }
+        test_btn.setOnClickListener {
+            ScanCodeLogin().scan_login_xin("http://www.hebscztxyxx.gov.cn/noticehb/query/queryEntInfoMain.do?uuid=XVd2MWuqNrcg8lrqJP.32zDEvtmAo694",this)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -145,7 +148,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
      * */
     override fun load(result: Int) {
         if (result == 1) {
-            startActivity(Intent(this@LoginActivity, ShopListActivity::class.java))
+            startActivity(Intent(this@LoginActivity, MySealActivity::class.java))
             finish()
         }
     }

@@ -2,6 +2,7 @@ package dw.take.seal.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import dw.take.seal.R
 import dw.take.seal.control.GetShopInfoListener
 import dw.take.seal.control.GetShopView
@@ -22,6 +23,10 @@ class StepFiveActivity : BaseActivity(),GetShopView {
     }
 
     override fun initEvents() {
-
+        var tv:TextView?=null
+        tv!!.setOnTouchListener { v, event ->
+            var a=event.x
+            true
+        }
     }
 }

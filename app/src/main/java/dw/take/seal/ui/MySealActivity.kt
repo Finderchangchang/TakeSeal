@@ -41,17 +41,18 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
                 holder.setText(R.id.is_tv_content, "内容：" + model.SealContent)
                 holder.setText(R.id.is_tv_caizhi, "未设置")
                 holder.setSelect(R.id.seal_ck, model.isSelect)
+                if(position==0||position==1){//控制checkbox是否可以点击
+                    holder.setEnable(R.id.seal_ck,false)
+                }else{
+                    holder.setEnable(R.id.seal_ck,true)
+                }
                 holder.setOnClickListener(R.id.is_tv_edit) {
                     //跳转到编辑界面
-                    startActivity(Intent(this@MySealActivity, SelectSealActivity::class.java).putExtra("SealModel", model))
+                    startActivityForResult(Intent(this@MySealActivity, SelectSealActivity::class.java).putExtra("SealModel", model),0)
                 }
                 holder.setOnClickListener(R.id.seal_ck) {
                     //选择
-                    if (model.isSelect) {
-                        list!![position].isSelect = false
-                    } else {
-                        list!![position].isSelect = true
-                    }
+                    list!![position].isSelect = !model.isSelect
                 }
             }
         }

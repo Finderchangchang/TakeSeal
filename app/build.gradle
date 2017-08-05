@@ -26,6 +26,8 @@ dependencies {
     compile project(':afinal')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    //图片压缩工具
+    //权限管理
     compile 'com.android.support:appcompat-v7:25.0.3'
     compile 'com.lzy.net:okgo:2.1.4'
     compile 'com.lzy.net:okrx:0.1.2'
@@ -34,7 +36,8 @@ dependencies {
     compile 'com.android.support:design:25.2.0'
     compile 'me.iwf.photopicker:PhotoPicker:0.9.5@aar'
     compile 'com.google.code.gson:gson:2.5'
-    compile 'com.github.nanchen2251:CompressHelper:1.0.2'//图片压缩工具
+    compile 'com.github.nanchen2251:CompressHelper:1.0.2'
     compile 'cn.yipianfengye.android:zxing-library:2.1'
-    compile 'pub.devrel:easypermissions:0.2.0'//权限管理
+    compile 'pub.devrel:easypermissions:0.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

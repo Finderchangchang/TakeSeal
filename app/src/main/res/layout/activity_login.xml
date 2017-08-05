@@ -44,8 +44,7 @@
         android:background="@drawable/login_btn"
         android:text="登录"
         android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:visibility="gone" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/scan_login_btn"
@@ -64,6 +63,15 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/login_btn"
         android:text="扫码登录"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+    <Button
+        android:id="@+id/test_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/login_btn"
+        android:text="测试"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
 </LinearLayout>
