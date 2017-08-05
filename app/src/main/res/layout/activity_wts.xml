@@ -5,11 +5,12 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_wts_title"
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:text="第三步"
+        android:text="第十步"
         android:textColor="@android:color/white"
         android:textSize="19sp" />
 
@@ -17,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="采集营业执照"
+        android:text="采集委托书"
         android:textColor="@color/__picker_black_40"
         android:textSize="16dp" />
 
@@ -34,8 +35,9 @@
         android:orientation="vertical">
 
 
+
         <ImageView
-            android:id="@+id/ying_iv_farenz"
+            android:id="@+id/wts_iv_farenz"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_margin="10dp"
@@ -47,7 +49,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/ying_tv_name"
+                android:id="@+id/lp_tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -73,7 +75,7 @@
         android:paddingTop="5dp">
 
         <Button
-            android:id="@+id/ying_close_btn"
+            android:id="@+id/wts_close_btn"
             style="@style/btn_style"
             android:layout_width="0dp"
             android:layout_height="35dp"
@@ -86,7 +88,7 @@
             android:textSize="12dp" />
 
         <Button
-            android:id="@+id/ying_next_btn"
+            android:id="@+id/wts_next_btn"
             style="@style/btn_style"
             android:layout_width="0dp"
             android:layout_height="35dp"

@@ -9,7 +9,7 @@
         android:layout_height="47dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:text="第三步"
+        android:text="第五步"
         android:textColor="@android:color/white"
         android:textSize="19sp" />
 
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="采集营业执照"
+        android:text="经办人身份证采集识别"
         android:textColor="@color/__picker_black_40"
         android:textSize="16dp" />
 
@@ -33,9 +33,8 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-
         <ImageView
-            android:id="@+id/ying_iv_farenz"
+            android:id="@+id/jbr_iv_farenz"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_margin="10dp"
@@ -47,20 +46,20 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/ying_tv_name"
+                android:id="@+id/jbr_tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="姓名：某某"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
-                android:id="@+id/lp_tv_cardid"
+                android:id="@+id/jbr_tv_cardid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="身份证号码：1234567891234"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 
@@ -73,7 +72,7 @@
         android:paddingTop="5dp">
 
         <Button
-            android:id="@+id/ying_close_btn"
+            android:id="@+id/jbr_close_btn"
             style="@style/btn_style"
             android:layout_width="0dp"
             android:layout_height="35dp"
@@ -86,7 +85,7 @@
             android:textSize="12dp" />
 
         <Button
-            android:id="@+id/ying_next_btn"
+            android:id="@+id/jbr_next_btn"
             style="@style/btn_style"
             android:layout_width="0dp"
             android:layout_height="35dp"

@@ -3,40 +3,27 @@ package dw.take.seal.ui
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Bitmap
-import android.provider.MediaStore
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-
 import dw.take.seal.R
 import dw.take.seal.control.ZJSBListener
 import dw.take.seal.control.card_view
 import dw.take.seal.model.CardInfoModel
+import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.utils.ImgUtils
-import dw.take.seal.view.CameraSurfaceView
 import kotlinx.android.synthetic.main.ac_legal_person.*
+import kotlinx.android.synthetic.main.activity_jbr.*
+import net.tsz.afinal.view.LoadingDialog
 import wai.gr.cla.base.BaseActivity
 import wai.gr.cla.method.Utils
-import android.content.DialogInterface
-import android.content.pm.PackageManager
-import android.hardware.Camera
-import android.net.Uri
-import android.os.Build
-import android.util.Log
-import android.widget.Toast
-import dw.take.seal.model.OrganizationJianModel
-import net.tsz.afinal.view.LoadingDialog
-import java.io.File
-
 
 /**
- * 法人证件照片上传
- * Created by Administrator on 2017/8/2.
+ * Created by Administrator on 2017/8/5.
  */
 
-class LegalPersonActivity : BaseActivity(), card_view {
+class JBRActivity : BaseActivity(), card_view {
     //图片保存路径
     private var path = StringBuffer()
     var cardInfo: CardInfoModel? = null
@@ -48,42 +35,45 @@ class LegalPersonActivity : BaseActivity(), card_view {
         if (pdialog != null) {
             pdialog!!.dismiss()
         }
+        isSuccess=result
         if (result) {
             if (info != null) {
                 cardInfo = info
-                lp_tv_name.visibility = View.VISIBLE
-                lp_tv_cardid.visibility = View.VISIBLE
-                lp_tv_name.text = "姓名：" + info.personName
-                lp_tv_cardid.text = "身份证号码：" + info.identyNumber
+                jbr_tv_name.visibility = View.VISIBLE
+                jbr_tv_cardid.visibility = View.VISIBLE
+                jbr_tv_name.text = "姓名：" + info.personName
+                jbr_tv_cardid.text = "身份证号码：" + info.identyNumber
             } else {
-                lp_tv_name.visibility = View.VISIBLE
-                lp_tv_name.text = mes;
-                lp_tv_cardid.visibility = View.GONE
+                jbr_tv_name.visibility = View.VISIBLE
+                jbr_tv_name.text = mes;
+                jbr_tv_cardid.visibility = View.GONE
             }
         } else {
-            lp_tv_name.visibility = View.VISIBLE
-            lp_tv_name.text = mes;
-            lp_tv_cardid.visibility = View.GONE
+            jbr_tv_name.visibility = View.VISIBLE
+            jbr_tv_name.text = mes;
+            jbr_tv_cardid.visibility = View.GONE
         }
-    }
-
-
-    override fun initViews() {
-        setContentView(R.layout.ac_legal_person)
-
-
     }
 
     override fun initEvents() {
-        btn_upload_faren!!.setOnClickListener {
+
+        jbr_iv_farenz!!.setOnClickListener {
             startActivityForResult(Intent(this, CameraPersonActivity::class.java), 12)
         }
-        lp_next_btn.setOnClickListener {
+        jbr_next_btn.setOnClickListener {
             if (isSuccess) {
-                startActivity(Intent(this, FaceActivity::class.java))
+                startActivity(Intent(this, FaceActivity::class.java).putExtra("ISFAREN",false))
+            }else{
+                toast("请先上传经办人证件照片,验证通过才可进入下一步")
             }
         }
-        lp_close_btn.setOnClickListener { finish() }
+        jbr_close_btn.setOnClickListener { finish() }
+
+    }
+
+    override fun initViews() {
+        setContentView(R.layout.activity_jbr)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -102,7 +92,7 @@ class LegalPersonActivity : BaseActivity(), card_view {
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
             pdialog = LoadingDialog(this)
             pdialog!!.show()
-            lp_iv_farenz!!.setImageBitmap(photo)
+            jbr_iv_farenz!!.setImageBitmap(photo)
 //            val bm = Utils.compressImagexin(photo, 200)
             ZJSBListener().cardRecognition_img(ImgUtils().bitmapToBase64(photo!!), this)
         }

@@ -34,7 +34,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.MySealActivity">
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,7 +54,7 @@
         <activity android:name=".ui.ScanResultActivity" />
         <activity android:name=".ui.FaceCameraActivity" />
         <activity android:name=".ui.FaceActivity" />
-        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.MySealActivity" />
         <activity
             android:name="com.uuzuche.lib_zxing.activity.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -68,7 +68,8 @@
         <activity android:name=".ui.CJYingYeActivity" />
         <activity android:name=".ui.SelectSealActivity" />
         <activity android:name=".ui.ShowInfoActivity" />
-        <activity android:name=".ui.CompleteActivity"></activity>
+        <activity android:name=".ui.CompleteActivity" />
+
     </application>
 
 </manifest>

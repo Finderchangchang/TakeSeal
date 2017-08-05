@@ -31,14 +31,16 @@ class FaceCameraActivity : BaseActivity() {
             qian_main_cv.takePicture { result ->
                 System.out.println("path:::"+result)
                 //返回人员头像
-                if(pdialog!=null){
-                    pdialog!!.dismiss()
-                }
+
                 var myintent= Intent(this,FaceActivity::class.java)
                 myintent.putExtra("PATH",result)
                 setResult(12,myintent)
+                if(pdialog!=null){
+                    pdialog!!.dismiss()
+                }
                 finish()
             }
+
         }
     }
 

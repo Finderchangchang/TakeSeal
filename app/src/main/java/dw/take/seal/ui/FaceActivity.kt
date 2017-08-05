@@ -27,25 +27,25 @@ import java.io.File
  * 自拍照片
  * Created by Administrator on 2017/8/3.
  */
-class FaceActivity:BaseActivity(), FaceView {
+class FaceActivity : BaseActivity(), FaceView {
     //图片保存路径
     private var path = StringBuffer()
-    var isSuccess:Boolean=false;
+    var isSuccess: Boolean = false;
     override fun face_result(result: Boolean, mes: String) {
 
-        if(pdialog!=null){
+        if (pdialog != null) {
             pdialog!!.dismiss()
         }
-        isSuccess=result
-        face_tv_name.visibility= View.VISIBLE
-        face_tv_name.text=mes
+        isSuccess = result
+        face_tv_name.visibility = View.VISIBLE
+        face_tv_name.text = mes
     }
 
-    var orgModel:OrganizationJianModel?=null
+    var orgModel: OrganizationJianModel? = null
     val CAMERA_REQUEST = 8888
-    var isfaren:Boolean=true
-    var pdialog: ProgressDialog?=null
-    var carInfofa:CardInfoModel?=null
+    var isfaren: Boolean = true
+    var pdialog: ProgressDialog? = null
+    var carInfofa: CardInfoModel? = null
     override fun initEvents() {
         btn_face_upload_faren.setOnClickListener {
             //            //拍照
@@ -53,56 +53,57 @@ class FaceActivity:BaseActivity(), FaceView {
 //            intent.putExtra("android.intent.extras.CAMERA_FACING", 1)
 //            // 调用前置摄像头
 //            startActivityForResult(intent, CAMERA_REQUEST)
-           //startCamera(11)
-            startActivityForResult(Intent(this, FaceCameraActivity::class.java),12)
+            //startCamera(11)
+            startActivityForResult(Intent(this, FaceCameraActivity::class.java), 12)
         }
-            face_next_btn.setOnClickListener {
+        face_next_btn.setOnClickListener {
 
-                //手机验证码
-                if(isSuccess) {
-                    startActivity(Intent(this, CheckCodeActivity::class.java).putExtra("isFaRen", false).putExtra("OrgModel", orgModel))
-                }else{
-                    toast("请先上传您的自拍照片,验证通过才可进入下一步")
-                }
+            //手机验证码
+            if (isSuccess) {
+                startActivity(Intent(this, MySealActivity::class.java).putExtra("isFaRen", false).putExtra("OrgModel", orgModel))
+            } else {
+                toast("请先上传您的自拍照片,验证通过才可进入下一步")
             }
-            face_close_btn.setOnClickListener {
-                finish()
-            }
+        }
+        face_close_btn.setOnClickListener {
+            finish()
+        }
 
     }
 
     override fun initViews() {
         setContentView(R.layout.activity_face)
-        isfaren=intent.getBooleanExtra("isFaRen",true)
-        carInfofa= intent.getSerializableExtra("CardInfo") as CardInfoModel?
-        if(isfaren){
-            face_tv_title.text="法人自拍"
-        }else{
-            face_tv_title.text="经办人自拍"
+        isfaren = intent.getBooleanExtra("isFaRen", true)
+        carInfofa = intent.getSerializableExtra("CardInfo") as CardInfoModel?
+        if (isfaren) {
+            face_tv_title.text = "法人自拍"
+        } else {
+            face_tv_title.text = "经办人自拍"
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 11 && resultCode == Activity.RESULT_OK) {
-            pdialog=LoadingDialog(this);
+            pdialog = LoadingDialog(this);
             pdialog!!.show();
-            val photo =Utils.getimage(200, path.toString())
+            val photo = Utils.getimage(200, path.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
             face_iv_farenz!!.setImageBitmap(photo)
-            //val bm = Utils.compressImagexin(photo, 100)
-            if(carInfofa!=null){
-                FaceListener().card_fackRecognition_img(ImgUtils().bitmapToBase64(photo!!),carInfofa!!.personFaceImage,this)
-            }else{
-                if(pdialog!=null){
+            val bm = Utils.compressImagexin(photo, 100)
+            if (carInfofa != null) {
+                FaceListener().card_fackRecognition_img(ImgUtils().bitmapToBase64(photo!!), carInfofa!!.personFaceImage, this)
+            } else {
+                if (pdialog != null) {
                     pdialog!!.dismiss()
                 }
                 toast("已超时，请重新登录")
                 finish()
             }
 
-        }else if(requestCode==12&& resultCode == 12){
-            var mmypath=data!!.getStringExtra("PATH")
-            pdialog=LoadingDialog(this);
+        } else if (requestCode == 12 && resultCode == 12) {
+            var mmypath = data!!.getStringExtra("PATH")
+            pdialog = LoadingDialog(this);
             pdialog!!.show();
             val newFile = CompressHelper.getDefault(this).compressToFile(File(mmypath))
             var bm = dw.take.seal.utils.Utils.getimage(this, mmypath)
@@ -110,19 +111,21 @@ class FaceActivity:BaseActivity(), FaceView {
 //            bm.compress(Bitmap.CompressFormat.JPEG, 100, bos)
 //            bos.flush()
 //            bos.close()
+            // var jiaodu = Utils.readPictureDegree(mmypath)
+            bm = Utils.rotaingImageView(-90, bm)
             face_iv_farenz!!.setImageBitmap(bm)
-            if(carInfofa!=null){
-                FaceListener().card_fackRecognition_img(ImgUtils().bitmapToBase64(bm!!),carInfofa!!.personFaceImage,this)
-            }else{
-                if(pdialog!=null){
+            if (carInfofa != null) {
+                FaceListener().card_fackRecognition_img(ImgUtils().bitmapToBase64(bm!!), carInfofa!!.personFaceImage, this)
+            } else {
+                if (pdialog != null) {
                     pdialog!!.dismiss()
                 }
                 toast("已超时，请重新登录")
                 finish()
             }
-
         }
     }
+
     //开启拍照
     fun startCamera(type: Int) {
         // 利用系统自带的相机应用:拍照

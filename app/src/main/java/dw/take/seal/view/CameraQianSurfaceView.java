@@ -109,6 +109,7 @@ public class CameraQianSurfaceView extends SurfaceView implements SurfaceHolder.
                 System.out.println();
                 onsan.get(path);
                 //scan.result(bitmapToBase64(compressImage(bmp)));
+                setPictureDegreeZero(path);
                 camera.stopPreview();
                 camera.startPreview();
             }
