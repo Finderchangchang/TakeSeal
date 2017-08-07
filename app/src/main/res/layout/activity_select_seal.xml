@@ -4,9 +4,9 @@
     android:id="@+id/activity_select_seal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical"
-    tools:context="dw.take.seal.ui.SelectSealActivity"
-    android:background="#ffffff">
+    tools:context="dw.take.seal.ui.SelectSealActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -17,19 +17,27 @@
         android:textColor="@android:color/white"
         android:textSize="19sp" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:padding="10dp"
-        android:text="选择印章"
-        android:textColor="@color/__picker_black_40"
-        android:textSize="16sp" />
-    <TextView
-        android:id="@+id/seal_tv_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="10dp"
+            android:text="选择印章"
+            android:textColor="@color/__picker_black_40"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/seal_tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp" />
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="match_parent"
@@ -103,7 +111,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:text="请选择印章数量:" />
+        android:text="请输入印章数量:" />
 
     <LinearLayout
         android:id="@+id/seal_ll_num"
@@ -115,14 +123,17 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
+        <EditText
             android:id="@+id/seal_tv_num"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:background="@null"
+            android:hint="请输入印章数量（不能大于10个）"
             android:inputType="number"
-            android:hint="请输入印章数量（不能大于10个）" />
+            android:padding="10dp"
+            android:text="1"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -130,11 +141,12 @@
         android:layout_height="0dp"
         android:layout_weight="1"></LinearLayout>
 
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/login_btn"
-    android:layout_margin="20dp"
-    android:textColor="#ffffff"
-    android:text="保存"/>
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/login_btn"
+        android:text="保存"
+        android:textColor="#ffffff" />
 </LinearLayout>

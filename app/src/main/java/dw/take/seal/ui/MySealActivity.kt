@@ -26,14 +26,15 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
     override fun GetSpecificationCodesResult(success: Boolean, list: ArrayList<CodeModel>?, mes: String) {
         //印章规格
         if (success) {
-            if(mes.equals("01")){
-               // list[1].
+            if (mes.equals("01")) {
+                // list[1].
             }
         }
     }
 
     var list: ArrayList<SealModel>? = null
     var adapter: CommonAdapter<SealModel>? = null
+    var click_position: Int = 0
     override fun initViews() {
         setContentView(R.layout.activity_myseal)
         LoadData()
@@ -49,14 +50,15 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
                 holder.setText(R.id.is_tv_content, "内容：" + model.SealContent)
                 holder.setText(R.id.is_tv_caizhi, "材质：未设置")
                 holder.setSelect(R.id.seal_ck, model.isSelect)
-                if(position==0||position==1){//控制checkbox是否可以点击
-                    holder.setEnable(R.id.seal_ck,false)
-                }else{
-                    holder.setEnable(R.id.seal_ck,true)
+                if (position == 0 || position == 1) {//控制checkbox是否可以点击
+                    holder.setEnable(R.id.seal_ck, false)
+                } else {
+                    holder.setEnable(R.id.seal_ck, true)
                 }
                 holder.setOnClickListener(R.id.is_tv_edit) {
+                    click_position = position//当前点击的列表位置
                     //跳转到编辑界面
-                    startActivityForResult(Intent(this@MySealActivity, SelectSealActivity::class.java).putExtra("SealModel", model),0)
+                    startActivityForResult(Intent(this@MySealActivity, SelectSealActivity::class.java).putExtra("SealModel", model), 0)
                 }
                 holder.setOnClickListener(R.id.seal_ck) {
                     //选择
@@ -65,6 +67,20 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
             }
         }
         myseal_lv.adapter = adapter
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        //选择完以后的处理结果
+        if (requestCode == 0 && resultCode == 1) {
+            var code = data!!.getSerializableExtra("code") as CodeModel
+            var specifi = data!!.getSerializableExtra("specifi") as CodeModel
+            var num = data!!.getStringExtra("num")
+            list!![click_position].SealSpecificationId = specifi.Key
+            list!![click_position].SealSpecificationName = specifi.Value
+            list!![click_position].SealSpecificationId = specifi.Key
+            list!![click_position].SealSpecificationName = specifi.Value
+        }
     }
 
     fun LoadData() {

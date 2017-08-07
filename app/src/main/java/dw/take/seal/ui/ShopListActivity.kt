@@ -18,7 +18,7 @@ class ShopListActivity : BaseActivity(), GetShopsView {
         if (list != null) {
             seal_type_list = list
             if (seal_type_list.size > 0) {
-                seal_type_list[0].setIs_check(true)
+                seal_type_list[0].is_check = true
                 seal_type_adapter!!.refresh(seal_type_list)
             }
         } else {
@@ -33,17 +33,17 @@ class ShopListActivity : BaseActivity(), GetShopsView {
         setContentView(R.layout.activity_step_four)
         seal_type_adapter = object : CommonAdapter<CodeModel>(this@ShopListActivity, seal_type_list, R.layout.item_shop) {
             override fun convert(holder: CommonViewHolder, model: CodeModel, position: Int) {
-                holder.setText(R.id.company_name_tv, model.value)
-                holder.setText(R.id.company_address_tv, model.parameter)
+                holder.setText(R.id.company_name_tv, model.Value)
+                holder.setText(R.id.company_address_tv, model.Parameter)
                 holder.setOnClickListener(R.id.shop_ll) {
                     //刷新checkbox点击状态
                     var seal = seal_type_list[position]
                     var i: Int = 0;
                     for (model in seal_type_list) {
-                        seal_type_list[i].setIs_check(false)
+                        seal_type_list[i].is_check = false
                         i++
                     }
-                    seal_type_list[position].setIs_check(true)
+                    seal_type_list[position].is_check = true
                     seal_type_adapter!!.refresh(seal_type_list)
                 }
             }

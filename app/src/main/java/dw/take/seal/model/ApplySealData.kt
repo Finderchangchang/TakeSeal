@@ -6,13 +6,13 @@ package dw.take.seal.model
  */
 class ApplySealData {
     //印章内容，根据指定规则构建
-    var SealContent: String? = null
+    var SealContent: String=""
     //印章类型，根据指定规则构建
-    var SealType: String? = null
+    var SealType: String=""
     //章体材料，根据指定规则构建
-    var SealMaterial: String? = null
+    var SealMaterial: String=""
     //印章规格，根据GetSpecificationCodes接口调取
-    var SealSpecificationId: String? = null
+    var SealSpecificationId: String=""
     //始终为1
     var SealUsageMode: String = "1"
     //始终为0
