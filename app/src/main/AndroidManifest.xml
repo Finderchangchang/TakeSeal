@@ -70,6 +70,8 @@
         <activity android:name=".ui.CheckCodeActivity" />
         <activity android:name=".ui.CJYingYeActivity" />
         <activity android:name=".ui.SelectSealActivity"></activity>
+        <activity android:name=".ui.CompleteActivity"/>
+
     </application>
 
 </manifest>

@@ -124,6 +124,6 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         mode14!!.isSelect = false
         mode14!!.num = 0
         list!!.add(mode14)
-        //adapter!!.notifyDataSetChanged()
+
     }
 }

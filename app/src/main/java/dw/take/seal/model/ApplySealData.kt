@@ -23,5 +23,4 @@ class ApplySealData : Serializable {
     var SealUsageYear: String = "0"
     //备注
     var SealRemark: String? = null
-    var num: Int = 0
 }

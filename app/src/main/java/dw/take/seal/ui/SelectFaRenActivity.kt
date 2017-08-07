@@ -18,11 +18,11 @@ class SelectFaRenActivity : BaseActivity(){
             if(faren_rb_fa.isChecked){
                 //是法人本人
                 it.setClass(this,LegalPersonActivity::class.java)
-                dw.take.seal.utils.Utils().WriteString(key.KEY_TAKESEAL_ISFAREN,"1")
+                dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_ISFAREN,"1")
             }else{
                 //经办人
                 it.setClass(this,JBRActivity::class.java)
-                dw.take.seal.utils.Utils().WriteString(key.KEY_TAKESEAL_ISFAREN,"0")
+                dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_ISFAREN,"0")
             }
 
             startActivity(it)

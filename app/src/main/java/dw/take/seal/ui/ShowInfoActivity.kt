@@ -1,5 +1,7 @@
 package dw.take.seal.ui
 
+import android.app.ProgressDialog
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import dw.take.seal.R
@@ -9,39 +11,101 @@ import wai.gr.cla.method.Utils
 import java.util.*
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
+import android.support.design.widget.Snackbar
 import android.util.Base64
+import android.widget.Toast
 import com.google.gson.Gson
 import dw.take.seal.control.SubmitListener
 import dw.take.seal.control.SubmitView
+import dw.take.seal.method.CommonAdapter
+import dw.take.seal.method.CommonViewHolder
 import dw.take.seal.model.*
+import kotlinx.android.synthetic.main.activity_show_info.*
+import kotlinx.android.synthetic.main.activity_step_three.*
+import net.tsz.afinal.view.LoadingDialog
+import wai.gr.cla.model.key
 
-
+//信息确认
 class ShowInfoActivity : BaseActivity(), SubmitView {
     var regionid: String = ""
+    var adapter: CommonAdapter<SealModel>? = null
+    var list: MutableList<SealModel>? = null
+    var isFa: Boolean = true
+    var pdialog: ProgressDialog? = null
     override fun getCertifyNumberResult(success: Boolean, result: String) {
+        if (pdialog != null) {
+            pdialog!!.dismiss()
+        }
         if (success) {
             regionid = result
             loadData()
+            //是否成功界面
         } else {
-            toast(result)
+            toast("提交出错：" + result)
         }
+
     }
 
     override fun SubmitResult(success: Boolean, result: String) {
-
+        if (success) {
+            val intent = Intent(this@ShowInfoActivity, ShowInfoActivity::class.java)
+            startActivity(intent)
+        } else {
+            toast("提交出错：" + result)
+        }
     }
 
     override fun initEvents() {
-
+        adapter = object : CommonAdapter<SealModel>(this@ShowInfoActivity, list, R.layout.item_seal_info) {
+            override fun convert(holder: CommonViewHolder?, t: SealModel?, position: Int) {
+                holder!!.setText(R.id.item_seal_info_type, t!!.SealTypeName)
+                holder!!.setText(R.id.item_seal_info_cz, t!!.SealGGName)
+                holder!!.setText(R.id.item_seal_info_num, t!!.num.toString())
+                holder!!.setText(R.id.item_seal_info_gg, t!!.SealSpecificationName)
+            }
+        }
+        showinfo_next_btn.setOnClickListener {
+            pdialog = LoadingDialog(this);
+            pdialog!!.show();
+            var models: MutableList<OrganizationJianModel>? = findb!!.findAll(OrganizationJianModel::class.java)
+            if (models!!.size > 0) {
+                SubmitListener().getCertifyNumber(this, models[0].organizationRegionId)
+            }
+        }
+        showinfo_lv.adapter = adapter
     }
 
     override fun initViews() {
         setContentView(R.layout.activity_show_info)
-        var models: MutableList<OrganizationJianModel>? = findb!!.findAll(OrganizationJianModel::class.java)
-        if (models!!.size > 0) {
-            SubmitListener().getCertifyNumber(this, models[0].organizationRegionId)
-        }
+        list = findb!!.findAll(SealModel::class.java)
 
+        var orgs: MutableList<OrganizationJianModel>? = findb!!.findAll(OrganizationJianModel::class.java)
+        var where = "true"
+        isFa = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
+        if (isFa) {
+            where = "true"
+            showinfo_tv_faren.text = "法人信息"
+            showinfo_tv_title.text = "第十步"
+        } else {
+            where = "false"
+            showinfo_tv_faren.text = "经办人信息"
+            showinfo_tv_title.text = "第十二步"
+        }
+        //加载法人信息
+        var cards: MutableList<CardInfoModel>? = findb!!.findAllByWhere(CardInfoModel::class.java, "isfaren=" + where + "")
+        if (cards!!.size > 0) {
+            showinfo_tv_jingname.text = cards[0].personName
+            show_info_zj.text = cards[0].identyNumber
+            showinfo_tv_jmobile.text = dw.take.seal.utils.Utils(this).ReadString(key.KEY_MOBILE_NUMBER)
+        }
+        if (orgs!!.size > 0) {
+            showinfo_tv_uc.text = orgs[0].organizationUSCC
+            showinfo_tv_cname.text = orgs[0].organizationName
+            showinfo_tv_daibiao.text = orgs[0].organizationLeader
+        } else {
+            toast("加载数据失败")
+            finish()
+        }
 
     }
 

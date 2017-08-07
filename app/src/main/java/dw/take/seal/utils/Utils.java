@@ -30,26 +30,34 @@ import java.util.Date;
  */
 public class Utils {
     Context context;
+
+    public Utils(Context context) {
+        this.context = context;
+    }
+
     static long myMax = 1099511627775L;
+
     //时加分
     public static String GetNOWTIMEPASSWORD() {
         String psw = "HBGD";
         String time = getNOWTime().substring(12);
-        System.out.println("nowtiem:"+time);
+        System.out.println("nowtiem:" + time);
         String shi = time.substring(0, 2);
         String fen = time.substring(3, 5);
         int num1 = Integer.parseInt(shi.substring(0, 1)) + Integer.parseInt(fen.substring(0, 1));
         int num2 = Integer.parseInt(shi.substring(1)) + Integer.parseInt(fen.substring(1));
-        if(num1>=10){
-            num1=num1-10;
+        if (num1 >= 10) {
+            num1 = num1 - 10;
         }
-        if(num2>=10){
-            num2-=10;
+        if (num2 >= 10) {
+            num2 -= 10;
         }
-        return psw+num1+num2;
+        return psw + num1 + num2;
     }
+
     /**
      * 获取版本号
+     *
      * @return 当前应用的版本号
      */
     public String getVersion() {
@@ -57,12 +65,13 @@ public class Utils {
             PackageManager manager = context.getPackageManager();
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             String version = info.versionName;
-            return   version;
+            return version;
         } catch (Exception e) {
             e.printStackTrace();
             return "获取版本号失败";
         }
     }
+
     /**
      * 比较两个日期之间的大小
      *
@@ -90,6 +99,7 @@ public class Utils {
         }
 
     }
+
     /**
      * 获取描述码
      */
@@ -344,7 +354,6 @@ public class Utils {
     }
 
 
-
     //base64 string转换为bitmap
     public static Bitmap getBitmapByte(String str) {
         Bitmap bitmap = null;
@@ -416,7 +425,7 @@ public class Utils {
      * @return 存储的值
      */
     public String ReadString(String key) {
-        SharedPreferences sp = context.getSharedPreferences("yanzheng",
+        SharedPreferences sp = context.getSharedPreferences("takeseal",
                 Context.MODE_PRIVATE);
         if (sp != null) {
             return sp.getString(key, "");
@@ -542,7 +551,7 @@ public class Utils {
 
     public static Bitmap compressImage(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG,80, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        image.compress(Bitmap.CompressFormat.JPEG, 80, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 100;
         while (baos.toByteArray().length / 1024 > 1024) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
             baos.reset();//重置baos即清空baos
@@ -620,7 +629,7 @@ public class Utils {
      * @param value 值
      */
     public void WriteString(String key, String value) {
-        SharedPreferences sp = context.getSharedPreferences("yanzheng",
+        SharedPreferences sp = context.getSharedPreferences("takeseal",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(key, value);

@@ -43,9 +43,9 @@ class FaceActivity : BaseActivity(), FaceView {
             pdialog!!.dismiss()
         }
         if(result){
-            dw.take.seal.utils.Utils().WriteString(key.KEY_TAKESEAL_XSD,mes)
+            dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_XSD,mes)
         }else{
-            dw.take.seal.utils.Utils().WriteString(key.KEY_TAKESEAL_XSD,"")
+            dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_XSD,"")
         }
         isSuccess = result
         face_tv_name.visibility = View.VISIBLE
@@ -85,7 +85,7 @@ class FaceActivity : BaseActivity(), FaceView {
 
     override fun initViews() {
         setContentView(R.layout.activity_face)
-        isfaren = dw.take.seal.utils.Utils().ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
+        isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         carInfofa = intent.getSerializableExtra("CardInfo") as CardInfoModel?
         var list: MutableList<CardInfoModel>
         if (isfaren) {

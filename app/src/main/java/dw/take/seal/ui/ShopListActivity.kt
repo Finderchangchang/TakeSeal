@@ -43,7 +43,7 @@ class ShopListActivity : BaseActivity(), GetShopsView {
     var selectindex:Int=0;
     override fun initViews() {
         setContentView(R.layout.activity_step_four)
-        isfaren = dw.take.seal.utils.Utils().ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
+        isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         if (isfaren) {
 
             shop_list_title.text="第九步"
@@ -74,7 +74,7 @@ class ShopListActivity : BaseActivity(), GetShopsView {
         shop_close_btn.setOnClickListener { finish() }
         shop_next_btn.setOnClickListener {
             //信息展示
-            dw.take.seal.utils.Utils().WriteString(key.KEY_SHOP_ID,seal_type_list[selectindex].Key)
+            dw.take.seal.utils.Utils(this).WriteString(key.KEY_SHOP_ID,seal_type_list[selectindex].Key)
             val intent = Intent(this@ShopListActivity, ShopListActivity::class.java)
             startActivity(intent)
         }

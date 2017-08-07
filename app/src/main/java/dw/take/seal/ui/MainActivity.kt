@@ -14,15 +14,24 @@ import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.model.OrganizationModel
 import dw.take.seal.model.ShopModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_show_info.*
 import wai.gr.cla.base.BaseActivity
+import wai.gr.cla.model.key
 
 class MainActivity : BaseActivity(){
     var org:OrganizationJianModel?=null;
+    var isFa: Boolean = true
     override fun initViews() {
         setContentView(R.layout.activity_main)
     }
 
     override fun initEvents() {
+        isFa = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
+        if (isFa) {
+            main_title.text = "第七步"
+        } else {
+            main_title.text = "第九步"
+        }
         /**
          * 第一个下一步点击事件
          * */

@@ -47,7 +47,7 @@ class CJYingYeActivity : BaseActivity() {
 
     override fun initViews() {
         setContentView(R.layout.activity_cjying_ye)
-        isfaren = dw.take.seal.utils.Utils().ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
+        isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         if(isfaren) {
             tv_yingye_title.text = "第六步"
         }else{

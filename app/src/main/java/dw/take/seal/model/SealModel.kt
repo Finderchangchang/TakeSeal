@@ -7,6 +7,7 @@ import java.io.Serializable
  */
 
 class SealModel : Serializable {
+    var id:Int?=null
     var SealContent: String = ""
     var SealType: String = ""
     var SealGGId: String = ""//印章规格ID

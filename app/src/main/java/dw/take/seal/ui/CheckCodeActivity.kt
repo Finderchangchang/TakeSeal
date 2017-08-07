@@ -41,7 +41,7 @@ class CheckCodeActivity : BaseActivity(), SendCodeView {
 
     override fun initViews() {
         setContentView(R.layout.activity_check_code)
-        isfaren = dw.take.seal.utils.Utils().ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
+        isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         if(isfaren) {
             check_code_title.text = "第五步"
         }else{

@@ -20,14 +20,17 @@ class SubmitListener {
         OkGo.post(app_url.url_upload_img + "ApplySeal")
                 .params("SerializeType", "Json")
                 .params("Command", json)
-                .execute(object : StringCallback() {
-                    override fun onSuccess(s: String, call: Call, response: Response) {
-                        val a = ""
-                        Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show()
+                .execute(object : JsonCallback<LzyResponse<String>>() {
+                    override fun onSuccess(t: LzyResponse<String>?, call: Call?, response: Response?) {
+                        if(t!!.Message!=null){
+                            main.SubmitResult(t!!.Success,t.Message)
+                        }else {
+                            main.SubmitResult(t!!.Success,"保存成功")
+                        }
                     }
-
                     override fun onError(call: Call?, response: Response?, e: Exception?) {
                         super.onError(call, response, e)
+                        main.SubmitResult(false,"数据错误:"+e!!.message)
                     }
                 })
     }

@@ -4,15 +4,17 @@
     android:id="@+id/activity_show_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     android:orientation="vertical"
     tools:context="dw.take.seal.ui.ShowInfoActivity">
 
     <TextView
+        android:id="@+id/showinfo_tv_title"
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:text="第五步"
+        android:text="第十步"
         android:textColor="@android:color/white"
         android:textSize="19sp" />
 
@@ -24,11 +26,22 @@
         android:text="信息确认"
         android:textColor="@color/__picker_black_40"
         android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/huang"
+        android:padding="10dp"
+        android:text="温馨提示：承诺在办理公章刻制备案信息采集过程中提供的所有证件材料均为原件且真实有效，否则，由此所产生的一切责任及经济损失均由我单位承担。"
+        android:textColor="@color/__picker_black_40" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/line_bg" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -39,184 +52,262 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="企业信息"
-                android:layout_marginLeft="10dp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/line_bg" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:background="@color/textColor"
+                android:orientation="vertical"
                 android:padding="10dp">
 
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="统一社会信用代码：" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="统一社会信用代码" />
+                    android:layout_marginLeft="10dp"
+                    android:text="企业信息"
+                    android:textColor="@color/__picker_black_40" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/line_bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="统一社会信用代码：" />
+
+                    <TextView
+                        android:id="@+id/showinfo_tv_uc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="统一社会信用代码" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="企     业      名     称：" />
+
+                    <TextView
+                        android:id="@+id/showinfo_tv_cname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="企业名称" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="法    定   代   表  人：" />
+
+                    <TextView
+                        android:id="@+id/showinfo_tv_daibiao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="法定代表人" />
+                </LinearLayout>
             </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@color/textColor"
+                android:orientation="vertical"
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_width="140dp"
+                    android:id="@+id/showinfo_tv_faren"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="企业名称：" />
+                    android:layout_marginLeft="10dp"
+                    android:text="法人信息"
+                    android:textColor="@color/__picker_black_40" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/line_bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="姓        名：" />
+
+                    <TextView
+                        android:id="@+id/showinfo_tv_jingname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="经办人" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="证件号码：" />
+
+                    <TextView
+                        android:id="@+id/show_info_zj"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="经办人证件号码" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="手机号码：" />
+
+                    <TextView
+                        android:id="@+id/showinfo_tv_jmobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="经办人手机" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/textColor"
+                android:orientation="vertical"
+                android:padding="10dp">
+
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="企业名称" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                    android:layout_marginLeft="10dp"
+                    android:text="印章列表"
+                    android:textColor="@color/__picker_black_40" />
 
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="法定代表人：" />
-
-                <TextView
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="法定代表人" />
-            </LinearLayout>
+                    android:layout_height="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/line_bg" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/line_bg" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="经办人信息"
-                android:layout_marginLeft="10dp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/line_bg" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="经办人：" />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="经办人" />
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="印章类型"
+                        android:textColor="@color/__picker_black_40" />
 
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="经办人证件号码：" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="印章规格"
+                        android:textColor="@color/__picker_black_40" />
 
-                <TextView
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="印章材质"
+                        android:textColor="@color/__picker_black_40" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="印章数量"
+                        android:textColor="@color/__picker_black_40" />
+                </LinearLayout>
+
+                <dw.take.seal.view.LoadListView
+                    android:id="@+id/showinfo_lv"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="经办人证件号码" />
+                    android:layout_height="match_parent"></dw.take.seal.view.LoadListView>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="经办人手机：" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="经办人手机" />
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/line_bg" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="印章列表"
-                android:layout_marginLeft="10dp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/line_bg" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="印章类型" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="印章规格" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="印章数量" />
-            </LinearLayout>
-            <dw.take.seal.view.LoadListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></dw.take.seal.view.LoadListView>
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
+
+        <Button
+            android:id="@+id/showinfo_close_btn"
+            style="@style/btn_style"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="上一步"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/showinfo_next_btn"
+            style="@style/btn_style"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:text="下一步"
+            android:textSize="12dp" />
+    </LinearLayout>
 </LinearLayout>
