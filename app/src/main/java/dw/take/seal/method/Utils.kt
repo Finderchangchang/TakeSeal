@@ -48,6 +48,8 @@ import java.util.regex.Pattern
 import rx.Observable
 
 import android.content.Context.MODE_PRIVATE
+import android.graphics.Matrix
+import android.media.ExifInterface
 import dw.take.seal.base.App
 
 /**
@@ -297,7 +299,7 @@ object Utils {
 
         val baos = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.JPEG, 80, baos)//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-        var options =50
+        var options = 50
         while (baos.toByteArray().size / 1024 > context) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
             baos.reset()//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, options, baos)//这里压缩options%，把压缩后的数据存放到baos中
@@ -306,6 +308,36 @@ object Utils {
         val isBm = ByteArrayInputStream(baos.toByteArray())//把压缩后的数据baos存放到ByteArrayInputStream中
         val bitmap = BitmapFactory.decodeStream(isBm, null, null)//把ByteArrayInputStream数据生成图片
         return bitmap
+    }
+
+    //得到旋转的角度
+    fun readPictureDegree(path: String): Int {
+        var degree = 0
+        try {
+            val exifInterface = ExifInterface(path)
+            val orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+            when (orientation) {
+                ExifInterface.ORIENTATION_ROTATE_90 -> degree = 90
+                ExifInterface.ORIENTATION_ROTATE_180 -> degree = 180
+                ExifInterface.ORIENTATION_ROTATE_270 -> degree = 270
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return degree
+    }
+
+    //旋转图片
+    fun rotaingImageView(angle: Int, bitmap: Bitmap): Bitmap {
+        //旋转图片 动作
+        val matrix = Matrix()
+        matrix.postRotate(angle.toFloat())
+        println("angle2=" + angle)
+        // 创建新的图片
+        val resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                bitmap.width, bitmap.height, matrix, true)
+        return resizedBitmap
     }
 
     /**

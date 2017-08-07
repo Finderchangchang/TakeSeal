@@ -27,7 +27,7 @@ class CJYingYeActivity : BaseActivity() {
     var isPai: Boolean = false;
     override fun initEvents() {
 
-        ying_upload_faren.setOnClickListener {
+        ying_iv_farenz.setOnClickListener {
             //拍照
             startCamera(11)
         }
@@ -39,6 +39,7 @@ class CJYingYeActivity : BaseActivity() {
                 toast("请先上传营业执照照片")
             }
         }
+        ying_close_btn.setOnClickListener { finish() }
     }
 
     override fun initViews() {
@@ -50,8 +51,9 @@ class CJYingYeActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 12 && resultCode == 12) {
             var mypath = data!!.getStringExtra("PATH")
-            val photo = Utils.getimage(200, mypath.toString())
+            var photo = Utils.getimage(200, mypath.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
+            photo = Utils.rotaingImageView(-90, photo)
             ying_iv_farenz!!.setImageBitmap(photo)
             isPai = true
         }

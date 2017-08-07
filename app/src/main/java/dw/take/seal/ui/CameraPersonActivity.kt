@@ -33,13 +33,14 @@ class CameraPersonActivity : BaseActivity() {
             pdialog!!.show()
             main_cv.takePicture { result ->
                 System.out.println("path:::"+result)
+
+                var myintent=intent
+                myintent.putExtra("PATH",result)
+                setResult(12,myintent)
                 //返回人员头像
                 if(pdialog!=null){
                     pdialog!!.dismiss()
                 }
-                var myintent=intent
-                myintent.putExtra("PATH",result)
-                setResult(12,myintent)
                 finish()
             }
         }

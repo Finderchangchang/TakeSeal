@@ -29,9 +29,8 @@ class FaceListener {
                             if (s.Data!!.isSamePerson) {
                                 main.face_result(true, "证照比对成功")
                             } else {
-                                main.face_result(false, "证照人像比对失败，相似度太低")
+                                main.face_result(false, "证照人像比对失败，相似度太低"+s.Data!!.faceScore)
                             }
-
                         } else {
                             if (s.Message != null) {
                                 main.face_result(false, "证照比对失败：" + s.Message)
