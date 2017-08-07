@@ -37,7 +37,7 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
     override fun initViews() {
         setContentView(R.layout.activity_myseal)
         LoadData()
-        GetSpecificationCodesListener().getSpecificationSeal(this, selectType)
+        //GetSpecificationCodesListener().getSpecificationSeal(this, selectType)
     }
 
     override fun initEvents() {
