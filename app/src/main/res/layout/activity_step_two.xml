@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="信息确认，填写经办人信息"
+                    android:text="信息确认，填写信息"
                     android:textColor="@android:color/black"
                     android:textSize="20sp" />
 
