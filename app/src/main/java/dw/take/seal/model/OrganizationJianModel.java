@@ -8,6 +8,7 @@ import java.io.Serializable;
  */
 
 public class OrganizationJianModel implements Serializable {
+    private  int id;
     //91130602MA0832AR0J
     //信用代码
     private String OrganizationUSCC;
@@ -22,6 +23,24 @@ public class OrganizationJianModel implements Serializable {
     private String OrganizationAddress;
     //2016-12-21 00:00 成立时间
     private String OrganizationEstablishDate;
+    //辖区
+    private String OrganizationRegionId;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getOrganizationRegionId() {
+        return OrganizationRegionId;
+    }
+
+    public void setOrganizationRegionId(String organizationRegionId) {
+        OrganizationRegionId = organizationRegionId;
+    }
 
     public String getOrganizationUSCC() {
         return OrganizationUSCC;

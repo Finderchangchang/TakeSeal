@@ -24,18 +24,19 @@ import net.tsz.afinal.view.LoadingDialog
  * 登录
  */
 class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.PermissionCallbacks {
-    var pdialog: LoadingDialog?=null
+    var pdialog: LoadingDialog? = null
     override fun scan_result(sucess: Boolean, model: OrganizationJianModel, result: String) {
-        if(pdialog!=null){
+        if (pdialog != null) {
             pdialog!!.dismiss()
         }
-        if(sucess){
+        if (sucess) {
             //营业执照识别成功，跳页显示营业执照内容
-
-            val intent = Intent(this@LoginActivity, MySealActivity::class.java)
-            intent.putExtra("OrgModel",model)
+            findb!!.deleteAll(OrganizationJianModel::class.java)
+            findb!!.save(model)
+            val intent = Intent(this@LoginActivity, ShowInfoActivity::class.java)
+            intent.putExtra("OrgModel", model)
             startActivity(intent)
-        }else {
+        } else {
             toast(result)
         }
     }
@@ -45,15 +46,16 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
      * 获得失败的权限
      * */
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
-        var s=""
+        var s = ""
     }
+
     /**
      * 获得的权限
      * */
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
         val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
         startActivityForResult(intent, 1)
-        var btn:Button?=null
+        var btn: Button? = null
         btn!!.setOnClickListener { view ->
 
         }
@@ -86,13 +88,13 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         }
         //扫描营业执照
         scan_code_login_btn.setOnClickListener {
-            if(check_camera_permission()) {
+            if (check_camera_permission()) {
                 val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
                 startActivityForResult(intent, 1)
             }
         }
         test_btn.setOnClickListener {
-            ScanCodeLogin().scan_login_xin("http://www.hebscztxyxx.gov.cn/noticehb/query/queryEntInfoMain.do?uuid=XVd2MWuqNrcg8lrqJP.32zDEvtmAo694",this)
+            ScanCodeLogin().scan_login_xin("http://www.hebscztxyxx.gov.cn/noticehb/query/queryEntInfoMain.do?uuid=XVd2MWuqNrcg8lrqJP.32zDEvtmAo694", this)
         }
     }
 
@@ -104,15 +106,15 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         if (requestCode == 1) {
             //处理扫描结果（在界面上显示）
             if (null != data) {
-                pdialog= LoadingDialog(this)
+                pdialog = LoadingDialog(this)
                 pdialog!!.show()
                 var bundle: Bundle? = data.extras ?: return;
                 toast(bundle.toString())
                 if (bundle!!.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     var result = bundle.getString(CodeUtils.RESULT_STRING);
-                    ScanCodeLogin().scan_login_xin(result,this)
+                    ScanCodeLogin().scan_login_xin(result, this)
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    if(pdialog!=null){
+                    if (pdialog != null) {
                         pdialog!!.dismiss()
                     }
                     Toast.makeText(this@LoginActivity, "解析二维码失败", Toast.LENGTH_LONG).show();
@@ -127,10 +129,11 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         //把申请权限的回调交由EasyPermissions处理
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
+
     /**
      * 检测相机权限
      * */
-    fun check_camera_permission():Boolean {
+    fun check_camera_permission(): Boolean {
         val perms = arrayOf<String>(Manifest.permission.CAMERA)
         if (EasyPermissions.hasPermissions(this, *perms)) {//检查是否获取该权限
             return true

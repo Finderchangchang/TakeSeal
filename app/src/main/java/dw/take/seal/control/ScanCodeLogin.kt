@@ -1,8 +1,10 @@
 package dw.take.seal.control
 
+import android.widget.Toast
 import com.google.gson.Gson
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.callback.StringCallback
+import dw.take.seal.base.App
 import dw.take.seal.callback.JsonCallback
 import dw.take.seal.callback.LzyResponse
 import dw.take.seal.model.OrganizationJianModel
@@ -39,6 +41,20 @@ class ScanCodeLogin {
                     }
                 })
     }
+    fun scan_login_xin1(url: String, scan: IScan_result) {
+        OkGo.get(app_url.scan_code_xin)
+                .params("businessUrl", url)
+                .execute(object : StringCallback() {
+                    override fun onSuccess(s: String, call: Call, response: Response) {
+                        val a = ""
+                        Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError(call: Call?, response: Response?, e: Exception?) {
+                        super.onError(call, response, e)
+                    }
+                })
+    }
     fun scan_login_xin(url: String, scan: IScan_result) {
         OkGo.get(app_url.scan_code_xin)
                 .params("businessUrl", url)
@@ -47,7 +63,7 @@ class ScanCodeLogin {
                         if (model.Data == null) {
                             scan.scan_result(false, OrganizationJianModel(), "数据异常")
                         } else {
-                           // v//ar org= Gson().fromJson(model.Data,OrganizationJianModel::class.java)
+                            // v//ar org= Gson().fromJson(model.Data,OrganizationJianModel::class.java)
                             scan.scan_result(model.Success!!, model.Data!!, "")
                         }
                     }

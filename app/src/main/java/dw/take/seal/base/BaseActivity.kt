@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import dw.take.seal.R
 import dw.take.seal.control.IBaseInter
+import net.tsz.afinal.FinalDb
 
 /**
  * BaseActivity声明相关通用方法
@@ -17,10 +18,12 @@ import dw.take.seal.control.IBaseInter
  */
 abstract class BaseActivity : AppCompatActivity(), IBaseInter {
     internal var dialog: ProgressDialog? = null
+    var findb:FinalDb?=null
 
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        findb=FinalDb.create(this);
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//强制竖屏
         initViews()

@@ -3,13 +3,19 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/logo_03" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="印章申请"
         android:textSize="20sp" />
@@ -54,8 +60,8 @@
         android:background="@drawable/login_btn"
         android:text="证照识别登录"
         android:textColor="@android:color/white"
-        android:visibility="gone"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/scan_code_login_btn"
@@ -66,6 +72,7 @@
         android:text="扫码登录"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
+
     <Button
         android:id="@+id/test_btn"
         android:layout_width="match_parent"

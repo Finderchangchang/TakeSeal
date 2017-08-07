@@ -18,4 +18,5 @@ object app_url{
     //扫码识别营业执照
     var scan_code="http://www.hbgdfw.com/Service/Recognition.aspx?Action=BusinessAnalysis"
     var scan_code_xin="http://www.hbgdfw.com/Service/User.aspx?Action=BusinessAnalysisLogin"
+    var url_get_certifynumber=base_url+"/Service/Common.aspx?Action="
 }

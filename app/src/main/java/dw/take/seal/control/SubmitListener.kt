@@ -13,10 +13,24 @@ import okhttp3.Response
  */
 
 class SubmitListener {
-    fun Submit(json: String) {
+    fun Submit(json: String,main:SubmitView) {
         OkGo.post(app_url.url_upload_img + "ApplySeal")
                 .params("SerializeType", "Json")
                 .params("Command", json)
+                .execute(object : StringCallback() {
+                    override fun onSuccess(s: String, call: Call, response: Response) {
+                        val a = ""
+                        Toast.makeText(App.context, s, Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError(call: Call?, response: Response?, e: Exception?) {
+                        super.onError(call, response, e)
+                    }
+                })
+    }
+    fun getCertifyNumber(main:SubmitView,ID:String){
+        OkGo.post(app_url.url_get_certifynumber + "GetCertifyNumber")
+                .params("RegionId",ID)
                 .execute(object : StringCallback() {
                     override fun onSuccess(s: String, call: Call, response: Response) {
                         val a = ""
