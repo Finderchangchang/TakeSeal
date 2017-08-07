@@ -9,9 +9,11 @@ import java.io.Serializable
 class SealModel : Serializable {
     var SealContent: String = ""
     var SealType: String = ""
+    var SealGGId: String = ""//印章规格ID
+    var SealGGName: String = ""//印章规格
     var SealSpecificationId: String = ""
-    var SealSpecificationName:String=""
+    var SealSpecificationName: String = ""
     var SealTypeName: String = ""
-    var num:Int=1;
-    var isSelect:Boolean=false;
+    var num: Int = 1;
+    var isSelect: Boolean = false;
 }

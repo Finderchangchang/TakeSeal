@@ -2,6 +2,7 @@ package dw.take.seal.ui
 
 import android.content.Intent
 import android.support.design.widget.Snackbar
+import android.text.TextUtils
 import android.widget.Toast
 import dw.take.seal.R
 import dw.take.seal.control.GetSpecificationCodesListener
@@ -46,19 +47,22 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
             override fun convert(holder: CommonViewHolder, model: SealModel, position: Int) {
                 holder.setText(R.id.is_tv_type, model.SealTypeName)
                 holder.setText(R.id.is_tv_num, "数量：" + model.num)
-                holder.setText(R.id.is_tv_guige, "规格：" + "40行政章")
-                holder.setText(R.id.is_tv_content, "内容：" + model.SealContent)
-                holder.setText(R.id.is_tv_caizhi, "材质：未设置")
-                holder.setSelect(R.id.seal_ck, model.isSelect)
-                if (position == 0 || position == 1) {//控制checkbox是否可以点击
-                    holder.setEnable(R.id.seal_ck, false)
+                if (TextUtils.isEmpty(model.SealGGName)) {
+                    holder.setText(R.id.is_tv_guige, "规格：未选择")
                 } else {
-                    holder.setEnable(R.id.seal_ck, true)
+                    holder.setText(R.id.is_tv_guige, "规格：" + model.SealGGName)
                 }
+                if (TextUtils.isEmpty(model.SealGGName)) {
+                    holder.setText(R.id.is_tv_content, "内容：未选择")
+                } else {
+                    holder.setText(R.id.is_tv_content, "内容：" + model.SealContent)
+                }
+                holder.setText(R.id.is_tv_caizhi, "材质：" + model.SealSpecificationName)
+                holder.setSelect(R.id.seal_ck, model.isSelect)
                 holder.setOnClickListener(R.id.is_tv_edit) {
                     click_position = position//当前点击的列表位置
                     //跳转到编辑界面
-                    startActivityForResult(Intent(this@MySealActivity, SelectSealActivity::class.java).putExtra("SealModel", model), 0)
+                    startActivityForResult(Intent(this@MySealActivity, SelectSealActivity::class.java).putExtra("SealModel", model), 1)
                 }
                 holder.setOnClickListener(R.id.seal_ck) {
                     //选择
@@ -70,16 +74,20 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        //选择完以后的处理结果
-        if (requestCode == 0 && resultCode == 1) {
-            var code = data!!.getSerializableExtra("code") as CodeModel
-            var specifi = data!!.getSerializableExtra("specifi") as CodeModel
-            var num = data!!.getStringExtra("num")
-            list!![click_position].SealSpecificationId = specifi.Key
-            list!![click_position].SealSpecificationName = specifi.Value
-            list!![click_position].SealSpecificationId = specifi.Key
-            list!![click_position].SealSpecificationName = specifi.Value
+
+        if (requestCode == 1 && resultCode == 1) {
+//            var code = data!!.getSerializableExtra("code") as CodeModel
+//            var specifi = data!!.getSerializableExtra("specifi") as CodeModel
+//            var num = data!!.getStringExtra("num")
+//            list!![click_position].SealGGId = code.Key
+//            list!![click_position].SealGGName = code.Value
+//            list!![click_position].SealSpecificationId = specifi.Key
+//            list!![click_position].SealSpecificationName = specifi.Value
+//            list!![click_position].num = num.toInt()
+//            list!![click_position].isSelect = true
+            var code = data!!.getSerializableExtra("select_model") as SealModel
+            list!![click_position] = code
+            adapter!!.refresh(list)
         }
     }
 

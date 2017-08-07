@@ -40,25 +40,26 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
 
     var now_click = 1//1.选择规格，2.选择材质
     override fun initEvents() {
-        seal_tv_num.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                var txt = seal_tv_num.text.toString().toInt()
-                if (txt > 10) {
-                    seal_tv_num.setText("10")
-                    toast("章的数量不能大于10")
-                }
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-
-            }
-        })
         seal_model = intent.getSerializableExtra("SealModel") as SealModel
         seal_tv_type.text = seal_model!!.SealTypeName
+        var seal_num = seal_model!!.num.toString()
+        if (TextUtils.isEmpty(seal_num)) {
+            seal_tv_num.text = "1"
+        } else {
+            if (seal_num.toInt() == 0) {
+                seal_num = "1"
+            }
+            seal_tv_num.text = seal_num
+        }
+        if (!TextUtils.isEmpty(seal_model!!.SealGGName)) {
+            seal_tv_guige.text = seal_model!!.SealGGName
+        }
+        if (!TextUtils.isEmpty(seal_model!!.SealSpecificationName)) {
+            seal_tv_caizhi.text = seal_model!!.SealSpecificationName
+        }
+        if (seal_model!!.num.toInt() > 0) {
+            seal_tv_num.setText(seal_model!!.num.toString())
+        }
         /**
          * 选择印章规格
          */
@@ -73,22 +74,37 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
             now_click = 2
             GetSpecificationCodesListener().getSpecificationSeal(this, "2", "")
         }
+        jia_iv.setOnClickListener {
+            var num = seal_tv_num.text.toString().toInt()
+            if (num < 10) {
+                seal_tv_num.text = (num + 1).toString()
+            }
+        }
+        jian_iv.setOnClickListener {
+            var num = seal_tv_num.text.toString().toInt()
+            if (num > 1) {
+                seal_tv_num.text = (num - 1).toString()
+            }
+        }
     }
 
     override fun initViews() {
         setContentView(R.layout.activity_select_seal)
         save_btn.setOnClickListener {
-            if (TextUtils.isEmpty(seal_tv_guige.text)) {
+            if (("请选择印章规格").equals(seal_tv_guige.text)) {
                 toast("请选择印章规格")
-            } else if (TextUtils.isEmpty(seal_tv_guige.text)) {
+            } else if (("请选择印章材质").equals(seal_tv_caizhi.text)) {
                 toast("请选择印章材质")
-            } else if (TextUtils.isEmpty(seal_tv_num.text)) {
-                toast("请输入印章数量")
             } else {
                 var intent = Intent()
-                intent.putExtra("code", seal_code)
-                intent.putExtra("specifi", seal_specifi)
-                intent.putExtra("num", seal_tv_num.text)
+//                intent.putExtra("code", seal_code)
+//                intent.putExtra("specifi", seal_specifi)
+//                intent.putExtra("num", seal_tv_num.text.toString())
+                var num = seal_tv_num.text.toString().toInt()
+                seal_model!!.num = num
+                seal_model!!.isSelect = true
+                intent.putExtra("select_model", seal_model)
+                setResult(1, intent)
                 finish()
             }
         }
@@ -105,11 +121,15 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
                 when (now_click) {
                     1 -> {
                         seal_tv_guige.text = `model`.Value
-                        seal_code = model
+                        //seal_code = model
+                        seal_model!!.SealGGId = model.Key
+                        seal_model!!.SealGGName = model.Value
                     }
                     else -> {
                         seal_tv_caizhi.text = `model`.Value
-                        seal_specifi = model
+                        //seal_specifi = model
+                        seal_model!!.SealSpecificationId = model.Key
+                        seal_model!!.SealSpecificationName = model.Value
                     }
                 }
             }

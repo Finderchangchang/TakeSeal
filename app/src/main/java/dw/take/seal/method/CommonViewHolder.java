@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -113,8 +114,22 @@ public class CommonViewHolder {
         cb.setChecked(isSelect);
         return this;
     }
-    public CommonViewHolder setEnable(int viewId,boolean enable){
-        View view=getView(viewId);
+
+    public CommonViewHolder setCBChecked(int viewid, final boolean can_checked) {
+        final CheckBox cb = getView(viewid);
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!can_checked) {
+                    cb.setChecked(false);
+                }
+            }
+        });
+        return this;
+    }
+
+    public CommonViewHolder setEnable(int viewId, boolean enable) {
+        View view = getView(viewId);
         view.setEnabled(enable);
         return this;
     }
