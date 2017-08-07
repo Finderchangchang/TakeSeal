@@ -8,11 +8,38 @@ import java.io.Serializable;
  */
 
 public class CardInfoModel implements Serializable {
+    private int id;
     private String IdentyNumber;
     private String PersonName;
     private String PersonNation;
     private String PersonAddress;
     private String PersonFaceImage;
+    private Boolean isFaren;//true法人  false 经办人
+    private String PersonBaseImg;//身份证照片
+
+    public String getPersonBaseImg() {
+        return PersonBaseImg;
+    }
+
+    public void setPersonBaseImg(String personBaseImg) {
+        PersonBaseImg = personBaseImg;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Boolean getFaren() {
+        return isFaren;
+    }
+
+    public void setFaren(Boolean faren) {
+        isFaren = faren;
+    }
 
     public String getIdentyNumber() {
         return IdentyNumber;

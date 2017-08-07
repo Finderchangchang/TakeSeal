@@ -27,4 +27,5 @@ class LzyResponse<T> : Serializable {
     var remindCount: String=""
     var Data:T?=null
     var Codes:List<T>?=null
+    var CertifyNumber:String?=null
 }

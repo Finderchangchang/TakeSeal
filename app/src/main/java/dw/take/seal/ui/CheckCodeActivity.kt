@@ -14,12 +14,14 @@ import kotlinx.android.synthetic.main.activity_check_code.*
 import kotlinx.android.synthetic.main.activity_mobilecheck.*
 import wai.gr.cla.base.BaseActivity
 import wai.gr.cla.method.Utils
+import wai.gr.cla.model.key
 import java.util.*
 
 class CheckCodeActivity : BaseActivity(), SendCodeView {
     var task: TimerTask? = null
     internal var num = 600
     val timer = Timer()
+    var isfaren:Boolean=true
     override fun yan_code_result(result: Boolean, toast: String) {
 
         if (result) {
@@ -27,7 +29,7 @@ class CheckCodeActivity : BaseActivity(), SendCodeView {
             //免责
             //方便测试就直接到选章
 
-            startActivity(Intent(this, CJYingYeActivity::class.java).putExtra("isFaRen", false))
+            startActivity(Intent(this, CJYingYeActivity::class.java))
         } else {
             toast(toast)
         }
@@ -39,6 +41,12 @@ class CheckCodeActivity : BaseActivity(), SendCodeView {
 
     override fun initViews() {
         setContentView(R.layout.activity_check_code)
+        isfaren = dw.take.seal.utils.Utils().ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
+        if(isfaren) {
+            check_code_title.text = "第五步"
+        }else{
+            check_code_title.text = "第六步"
+        }
     }
 
     override fun initEvents() {

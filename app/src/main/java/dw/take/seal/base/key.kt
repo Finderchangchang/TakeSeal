@@ -6,5 +6,7 @@ package wai.gr.cla.model
  */
 
 object key {
-    val KEY_TAKESEAL_ISFAREN="KEY_TAKESEAL_ISFAREN"//是否为法人
+    val KEY_TAKESEAL_ISFAREN="KEY_TAKESEAL_ISFAREN"//是否为法人 1是法人0经办人
+    val KEY_TAKESEAL_XSD="KEY_TAKESEAL_SXD"//人像比对相似度
+    val KEY_SHOP_ID="KEY_SHOP_ID"//刻制单位编码
 }

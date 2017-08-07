@@ -343,9 +343,7 @@ public class Utils {
         return "";
     }
 
-    public Utils(Context con) {
-        context = con;
-    }
+
 
     //base64 string转换为bitmap
     public static Bitmap getBitmapByte(String str) {

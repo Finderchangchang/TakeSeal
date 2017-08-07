@@ -27,7 +27,7 @@ class FaceListener {
                     override fun onSuccess(s: LzyResponse<FaceCompare>, call: Call, response: Response) {
                         if (s.Success) {
                             if (s.Data!!.isSamePerson) {
-                                main.face_result(true, "证照比对成功")
+                                main.face_result(true, "证照比对成功，比对分值为"+s.Data!!.faceScore)
                             } else {
                                 main.face_result(false, "证照人像比对失败，相似度太低"+s.Data!!.faceScore)
                             }

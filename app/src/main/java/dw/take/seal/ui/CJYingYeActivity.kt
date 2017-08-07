@@ -15,21 +15,24 @@ import dw.take.seal.control.ZJSBListener
 import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.utils.ImgUtils
 import kotlinx.android.synthetic.main.ac_legal_person.*
+import kotlinx.android.synthetic.main.activity_check_code.*
 import kotlinx.android.synthetic.main.activity_cjying_ye.*
 import wai.gr.cla.base.BaseActivity
 import wai.gr.cla.method.Utils
+import wai.gr.cla.model.key
 import java.io.File
 
+//营业执照采集
 class CJYingYeActivity : BaseActivity() {
-    private var path = StringBuffer()
-    var orgModel: OrganizationJianModel? = null
-    var isfaren: Int = 0  //0法人1经办人2
+
+
     var isPai: Boolean = false;
+    var isfaren:Boolean=true
     override fun initEvents() {
 
         ying_iv_farenz.setOnClickListener {
             //拍照
-            startCamera(11)
+            startActivityForResult(Intent(this, CameraPersonActivity::class.java), 12)
         }
         ying_next_btn.setOnClickListener {
             //下一步
@@ -44,7 +47,12 @@ class CJYingYeActivity : BaseActivity() {
 
     override fun initViews() {
         setContentView(R.layout.activity_cjying_ye)
-
+        isfaren = dw.take.seal.utils.Utils().ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
+        if(isfaren) {
+            tv_yingye_title.text = "第六步"
+        }else{
+            tv_yingye_title.text = "第七步"
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -59,24 +67,5 @@ class CJYingYeActivity : BaseActivity() {
         }
     }
 
-    //开启拍照
-    fun startCamera(type: Int) {
-        // 利用系统自带的相机应用:拍照
-        val pm = packageManager
-        val hasACamera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
-                || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)
-                || Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD
-                || Camera.getNumberOfCameras() > 0
-        if (hasACamera) {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            path = StringBuffer()
-            path.append(this@CJYingYeActivity.getExternalFilesDir(null)).append("/header3.jpg")
-            val file = File(path.toString())
-            val uri = Uri.fromFile(file)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-            startActivityForResult(intent, type)
-        } else {
-            Toast.makeText(this@CJYingYeActivity, "请检查相机功能是否正常!", Toast.LENGTH_SHORT).show()
-        }
-    }
+
 }

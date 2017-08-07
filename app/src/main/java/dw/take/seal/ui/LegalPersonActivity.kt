@@ -51,6 +51,8 @@ class LegalPersonActivity : BaseActivity(), card_view {
         if (result) {
             if (info != null) {
                 cardInfo = info
+                cardInfo!!.faren = true
+                findb!!.save(cardInfo)
                 lp_tv_name.visibility = View.VISIBLE
                 lp_tv_cardid.visibility = View.VISIBLE
                 lp_tv_name.text = "姓名：" + info.personName
@@ -83,7 +85,10 @@ class LegalPersonActivity : BaseActivity(), card_view {
                 startActivity(Intent(this, FaceActivity::class.java))
             }
         }
-        lp_close_btn.setOnClickListener { finish() }
+        lp_close_btn.setOnClickListener {
+            findb!!.deleteByWhere(CardInfoModel::class.java,"isFaren=true")
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -104,7 +109,9 @@ class LegalPersonActivity : BaseActivity(), card_view {
             pdialog!!.show()
             lp_iv_farenz!!.setImageBitmap(photo)
 //            val bm = Utils.compressImagexin(photo, 200)
-            ZJSBListener().cardRecognition_img(ImgUtils().bitmapToBase64(photo!!), this)
+            cardInfo= CardInfoModel()
+            cardInfo!!.personBaseImg=ImgUtils().bitmapToBase64(photo!!)
+            ZJSBListener().cardRecognition_img(cardInfo!!.personBaseImg, this)
         }
     }
 

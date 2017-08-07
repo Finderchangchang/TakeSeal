@@ -2,16 +2,24 @@ package dw.take.seal.ui
 
 import android.content.Intent
 import dw.take.seal.R
+import dw.take.seal.model.ApplySealCertificateData
+import dw.take.seal.utils.ImgUtils
+import kotlinx.android.synthetic.main.activity_cjying_ye.*
 import kotlinx.android.synthetic.main.activity_wts.*
 import wai.gr.cla.base.BaseActivity
 import wai.gr.cla.method.Utils
+import wai.gr.cla.model.key
 
 //委托书采集
 class WTSActivity : BaseActivity() {
     var isSuccess: Boolean = false
 
+    var facemodel: ApplySealCertificateData = ApplySealCertificateData()
     override fun initViews() {
         setContentView(R.layout.activity_wts)
+        facemodel.SealCertificateType="04"
+        facemodel.SealCertificateName="委托书（法人/乡政府委托书/首席代表）"
+
     }
 
     override fun initEvents() {
@@ -20,10 +28,12 @@ class WTSActivity : BaseActivity() {
             startActivityForResult(Intent(this, CameraPersonActivity::class.java), 12)
         }
         wts_close_btn.setOnClickListener {
+            findb!!.deleteByWhere(ApplySealCertificateData::class.java,"SealCertificateType='04'")
             finish()
         }
         wts_next_btn.setOnClickListener {
             if (isSuccess) {
+                findb!!.save(facemodel)
                 val intent = Intent(this@WTSActivity, MainActivity::class.java)
                 startActivity(intent)
             } else {
@@ -40,6 +50,9 @@ class WTSActivity : BaseActivity() {
             val photo = Utils.getimage(200, mypath.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
             wts_iv_farenz!!.setImageBitmap(photo)
+            isSuccess=true
+            facemodel.SealCertificateImageString= ImgUtils().bitmapToBase64(photo!!)
+
         }
     }
 

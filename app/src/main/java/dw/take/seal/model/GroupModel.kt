@@ -69,4 +69,5 @@ class GroupModel : Serializable {
     var SealDeliverDepartmentEnable: Boolean = false
     //始终为0。
     var SealMediumCount: Int = 0
+    var SealRegisteDepartmentId:String?=null
 }

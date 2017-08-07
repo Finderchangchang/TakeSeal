@@ -23,7 +23,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseInter {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        findb=FinalDb.create(this);
+        findb=FinalDb.create(this,"taskseal.db");
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//强制竖屏
         initViews()

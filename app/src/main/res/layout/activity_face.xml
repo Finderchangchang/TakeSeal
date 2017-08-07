@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/face_tv_title1"
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:background="@color/colorPrimary"
@@ -46,9 +47,9 @@
         <ImageView
             android:id="@+id/face_iv_farenz"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:src="@mipmap/moren" />
+            android:src="@mipmap/zhuomian" />
 
             <TextView
                 android:id="@+id/face_tv_name"

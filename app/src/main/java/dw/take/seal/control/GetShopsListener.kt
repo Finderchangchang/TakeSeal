@@ -39,5 +39,5 @@ class GetShopsListener{
 
 }
 interface GetShopsView{
-    fun GetshopResult(success:Boolean, list: List<CodeModel>?, mes:String)
+    fun GetshopResult(success:Boolean, list: ArrayList<CodeModel>?, mes:String)
 }

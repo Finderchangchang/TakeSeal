@@ -35,10 +35,13 @@ class JBRActivity : BaseActivity(), card_view {
         if (pdialog != null) {
             pdialog!!.dismiss()
         }
-        isSuccess=result
+
+        isSuccess = result
         if (result) {
             if (info != null) {
+                cardInfo!!.faren = false
                 cardInfo = info
+                findb!!.save(cardInfo)
                 jbr_tv_name.visibility = View.VISIBLE
                 jbr_tv_cardid.visibility = View.VISIBLE
                 jbr_tv_name.text = "姓名：" + info.personName
@@ -62,12 +65,14 @@ class JBRActivity : BaseActivity(), card_view {
         }
         jbr_next_btn.setOnClickListener {
             if (isSuccess) {
-                startActivity(Intent(this, FaceActivity::class.java).putExtra("ISFAREN",false))
-            }else{
+                startActivity(Intent(this, FaceActivity::class.java))
+            } else {
                 toast("请先上传经办人证件照片,验证通过才可进入下一步")
             }
         }
-        jbr_close_btn.setOnClickListener { finish() }
+        jbr_close_btn.setOnClickListener {
+            findb!!.deleteByWhere(CardInfoModel::class.java,"isfaren=false")
+            finish() }
 
     }
 
@@ -93,8 +98,10 @@ class JBRActivity : BaseActivity(), card_view {
             pdialog = LoadingDialog(this)
             pdialog!!.show()
             jbr_iv_farenz!!.setImageBitmap(photo)
+            cardInfo = CardInfoModel()
+            cardInfo!!.personBaseImg = ImgUtils().bitmapToBase64(photo!!)
 //            val bm = Utils.compressImagexin(photo, 200)
-            ZJSBListener().cardRecognition_img(ImgUtils().bitmapToBase64(photo!!), this)
+            ZJSBListener().cardRecognition_img(cardInfo!!.personBaseImg, this)
         }
     }
 
