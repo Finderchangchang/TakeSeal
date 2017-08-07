@@ -12,7 +12,9 @@ import dw.take.seal.method.CommonViewHolder
 import dw.take.seal.model.CodeModel
 import dw.take.seal.model.SealModel
 import kotlinx.android.synthetic.main.activity_myseal.*
+import kotlinx.android.synthetic.main.activity_step_four.*
 import wai.gr.cla.base.BaseActivity
+import wai.gr.cla.model.key
 import java.util.*
 
 /**
@@ -23,6 +25,7 @@ import java.util.*
 class MySealActivity : BaseActivity(), GetSpecificationCodesView {
     var selectType: String = "01"
     var guige: String = ""
+    var isfaren: Boolean = true
 
     override fun GetSpecificationCodesResult(success: Boolean, list: ArrayList<CodeModel>?, mes: String) {
         //印章规格
@@ -38,6 +41,12 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
     var click_position: Int = 0
     override fun initViews() {
         setContentView(R.layout.activity_myseal)
+        isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
+        if (isfaren) {
+            shop_list_title.text="第八步"
+        } else {
+            shop_list_title.text="第十步"
+        }
         LoadData()
         //GetSpecificationCodesListener().getSpecificationSeal(this, selectType)
     }

@@ -45,7 +45,6 @@ class ShopListActivity : BaseActivity(), GetShopsView {
         setContentView(R.layout.activity_step_four)
         isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         if (isfaren) {
-
             shop_list_title.text="第九步"
         } else {
             shop_list_title.text="第十一步"
