@@ -106,7 +106,6 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         model!!.SealContent = "保定亮达机电设备安装服务有限公司"
         model!!.SealTypeName = "单位专用章"
         model!!.isSelect = true
-
         model!!.num = 1
         list!!.add(model)
         var model1: SealModel = SealModel()

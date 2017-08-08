@@ -33,7 +33,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
             //营业执照识别成功，跳页显示营业执照内容
             findb!!.deleteAll(OrganizationJianModel::class.java)
             findb!!.save(model)
-            val intent = Intent(this@LoginActivity, LegalPersonActivity::class.java)
+            val intent = Intent(this@LoginActivity, OrganizationActivity::class.java)
             intent.putExtra("OrgModel", model)
             startActivity(intent)
         } else {

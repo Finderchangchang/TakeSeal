@@ -45,12 +45,12 @@ class OrganizationActivity : BaseActivity(), IScan_result {
         btn_org_saomiao.setOnClickListener {
             if (check_camera_permission()) {
                 btn_org_saomiao.isEnabled = false;
-                val intent = Intent(this@OrganizationActivity, MainActivity::class.java)
+                val intent = Intent(this@OrganizationActivity, LegalPersonActivity::class.java)
                 startActivityForResult(intent, 1)
             }
         }
         org_next_btn.setOnClickListener {
-            startActivity(Intent(this, ShopListActivity::class.java).putExtra("isFaRen",0).putExtra("OrgModel", OrgModel))
+            startActivity(Intent(this, LegalPersonActivity::class.java).putExtra("isFaRen",0).putExtra("OrgModel", OrgModel))
         }
         org_close_btn.setOnClickListener { finish() }
     }
