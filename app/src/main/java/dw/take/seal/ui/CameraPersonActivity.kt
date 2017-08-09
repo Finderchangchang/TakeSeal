@@ -6,6 +6,8 @@ import android.view.View
 import android.view.WindowManager
 import dw.take.seal.R
 import dw.take.seal.model.OrganizationJianModel
+import dw.take.seal.view.CameraQianSurfaceView
+import dw.take.seal.view.CameraSurfaceView
 import kotlinx.android.synthetic.main.activity_camera.*
 import net.tsz.afinal.view.LoadingDialog
 import wai.gr.cla.base.BaseActivity
@@ -15,34 +17,39 @@ import wai.gr.cla.base.BaseActivity
  * Created by Administrator on 2017/8/3.
  */
 
-class CameraPersonActivity : BaseActivity() {
-    var orgModel:OrganizationJianModel?=null
-    var pdialog: LoadingDialog?=null
+class CameraPersonActivity : BaseActivity(), CameraSurfaceView.onScan {
+    override fun get(url: String?) {
+        //返回人员头像
+        if (pdialog != null) {
+            pdialog!!.dismiss()
+        }
+        if (url != null) {
+            var myintent = intent
+            myintent.putExtra("PATH", url)
+            setResult(12, myintent)
+
+
+        } else {
+            toast("图片保存失败")
+        }
+        finish()
+    }
+
+    var pdialog: LoadingDialog? = null
     override fun initViews() {
         /**
          * 设置全屏显示
          * */
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_camera)
-
+        textView2.text = "请将您的材料与四个角对齐"
         //select_pic_btn.visibility= View.INVISIBLE
         ///textView2.text="请拍摄您的正脸"
         //点击拍照执行的操作。
-        take_pic_btn.setOnClickListener {
-            pdialog= LoadingDialog(this)
+        fangtake_pic_btn.setOnClickListener {
+            pdialog = LoadingDialog(this)
             pdialog!!.show()
-            main_cv.takePicture { result ->
-                System.out.println("path:::"+result)
-
-                var myintent=intent
-                myintent.putExtra("PATH",result)
-                setResult(12,myintent)
-                //返回人员头像
-                if(pdialog!=null){
-                    pdialog!!.dismiss()
-                }
-                finish()
-            }
+            main_cv.takePicture(this)
         }
     }
 

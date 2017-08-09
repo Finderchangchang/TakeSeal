@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/main_bg"
     tools:context="dw.take.seal.ui.StepTwoActivity">
 
     <TextView
@@ -26,7 +27,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#fff">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -179,12 +181,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:background="@drawable/line_bg" />
-
 
                 </LinearLayout>
             </LinearLayout>

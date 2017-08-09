@@ -31,7 +31,7 @@ import java.util.List;
  */
 
 public class CameraQianSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Camera.AutoFocusCallback {
-    private static final String TAG = "CameraSurfaceView";
+    private static final String TAG = "CameraQianSurfaceView";
 
     private SurfaceHolder holder;
     private Camera mCamera;
@@ -96,8 +96,17 @@ public class CameraQianSurfaceView extends SurfaceView implements SurfaceHolder.
             Log.i(TAG, "onAutoFocus success=" + success);
         }
     }
-
-    public void takePicture(final CameraSurfaceView.onScan onsan) {
+    public long phone_storage_free()
+    {
+        long val=0;
+        File path = Environment.getDataDirectory();
+        StatFs stat = new StatFs(path.getPath());
+        long blockSize = stat.getBlockSize();
+        long availableBlocks = stat.getAvailableBlocks();
+        val=availableBlocks * blockSize;
+        return val;
+    }
+    public void takePicture(final onScan myscan) {
         //设置参数,并拍照
         setCameraParams(mCamera, mScreenWidth, mScreenHeight);
         // 当调用camera.takePiture方法后，camera关闭了预览，这时需要调用startPreview()来重新开启预览
@@ -107,7 +116,7 @@ public class CameraQianSurfaceView extends SurfaceView implements SurfaceHolder.
                 mCamera.cancelAutoFocus(); //这一句很关键
                 String path = save(data);
                 System.out.println();
-                onsan.get(path);
+                myscan.get(path);
                 //scan.result(bitmapToBase64(compressImage(bmp)));
                 setPictureDegreeZero(path);
                 camera.stopPreview();
@@ -145,9 +154,9 @@ public class CameraQianSurfaceView extends SurfaceView implements SurfaceHolder.
             //判断是否装有SD卡
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 //判断SD卡上是否有足够的空间
-                String storage = Environment.getExternalStorageDirectory().toString();
-                StatFs fs = new StatFs(storage);
-                long available = fs.getAvailableBlocks() * fs.getBlockSize();
+//                String storage = Environment.getExternalStorageDirectory().toString();
+//                StatFs fs = new StatFs(storage);
+                long available = phone_storage_free();
                 if (available < data.length) {
                     //空间不足直接返回空
                     return null;

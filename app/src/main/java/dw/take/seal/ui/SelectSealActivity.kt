@@ -32,7 +32,11 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
      * */
     override fun GetSpecificationCodesResult(success: Boolean, list: ArrayList<CodeModel>?, type: String) {
         if (success) {
-            ShowMyDialog(list!!)
+            if(list!=null) {
+                ShowMyDialog(list!!)
+            }else{
+                toast("加载字典失败:"+type)
+            }
         } else {
             toast("加载字典失败")
         }
@@ -97,12 +101,10 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
                 toast("请选择印章材质")
             } else {
                 var intent = Intent()
-//                intent.putExtra("code", seal_code)
-//                intent.putExtra("specifi", seal_specifi)
-//                intent.putExtra("num", seal_tv_num.text.toString())
                 var num = seal_tv_num.text.toString().toInt()
                 seal_model!!.num = num
                 seal_model!!.isSelect = true
+
                 intent.putExtra("select_model", seal_model)
                 setResult(1, intent)
                 finish()

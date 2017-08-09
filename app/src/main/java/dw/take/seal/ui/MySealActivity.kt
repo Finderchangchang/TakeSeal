@@ -43,9 +43,9 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         setContentView(R.layout.activity_myseal)
         isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         if (isfaren) {
-            shop_list_title.text="第八步"
+            myseal_title.text="第八步"
         } else {
-            shop_list_title.text="第十步"
+            myseal_title.text="第十步"
         }
         LoadData()
         //GetSpecificationCodesListener().getSpecificationSeal(this, selectType)
@@ -61,13 +61,21 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
                 } else {
                     holder.setText(R.id.is_tv_guige, "规格：" + model.SealGGName)
                 }
-                if (TextUtils.isEmpty(model.SealGGName)) {
+                if (TextUtils.isEmpty(model.SealContent)) {
                     holder.setText(R.id.is_tv_content, "内容：未选择")
                 } else {
                     holder.setText(R.id.is_tv_content, "内容：" + model.SealContent)
                 }
-                holder.setText(R.id.is_tv_caizhi, "材质：" + model.SealSpecificationName)
-                holder.setSelect(R.id.seal_ck, model.isSelect)
+                if (TextUtils.isEmpty(model.SealSpecificationName)) {
+                    holder.setText(R.id.is_tv_caizhi, "材质：未选择")
+                }else{
+                    holder.setText(R.id.is_tv_caizhi, "材质：" + model.SealSpecificationName)
+                }
+                if(model.isSelect){
+                    holder.setImageResource(R.id.seal_ck,R.mipmap.xuanzhong)
+                }else{
+                    holder.setImageResource(R.id.seal_ck,R.mipmap.weixuanzhong)
+                }
                 holder.setOnClickListener(R.id.is_tv_edit) {
                     click_position = position//当前点击的列表位置
                     //跳转到编辑界面
@@ -80,6 +88,23 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
             }
         }
         myseal_lv.adapter = adapter
+        select_close_btn.setOnClickListener {
+            //findb!!.deleteAll(SealModel::class.java)
+            finish()
+        }
+        select_next_btn.setOnClickListener {
+            if(list!![0].SealGGId.equals("")||list!![0].SealSpecificationId.equals("")||list!![1].SealGGId.equals("")||list!![1].SealSpecificationId.equals("")) {
+                toast("请先选择印章类型")
+
+            }else{
+                for(i in 0..list!!.size-1){
+                    if(list!![i].num>0){
+                        findb!!.save(list!![i])
+                    }
+                }
+                startActivity(Intent(this@MySealActivity, ShopListActivity::class.java))
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -105,6 +130,7 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         var model: SealModel = SealModel()
         model!!.SealContent = "保定亮达机电设备安装服务有限公司"
         model!!.SealTypeName = "单位专用章"
+        model!!.SealType="01"
         model!!.isSelect = true
         model!!.num = 1
         list!!.add(model)
@@ -112,6 +138,7 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         model1!!.SealContent = "保定亮达机电设备安装服务有限公司财务专用章"
         model1!!.SealTypeName = "财务专用章"
         model1!!.isSelect = true
+        model1!!.SealType="02"
         model1!!.num = 1
         list!!.add(model1)
         var model2: SealModel = SealModel()
@@ -119,11 +146,13 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         model2!!.SealTypeName = "发票专用章"
         model2!!.isSelect = false
         model2!!.num = 0
+        model2!!.SealType="03"
         list!!.add(model2)
         var model3: SealModel = SealModel()
         model3!!.SealContent = "保定亮达机电设备安装服务有限公司合同专用章"
         model3!!.SealTypeName = "合同专用章"
         model3!!.isSelect = false
+        model3!!.SealType="04"
         model3!!.num = 0
         list!!.add(model3)
         var mode14: SealModel = SealModel()
@@ -131,6 +160,7 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         mode14!!.SealTypeName = "法定人名专用章"
         mode14!!.isSelect = false
         mode14!!.num = 0
+        mode14!!.SealType="05"
         list!!.add(mode14)
 
     }

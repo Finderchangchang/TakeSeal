@@ -33,6 +33,8 @@
         android:layout_marginTop="10dp"
         android:background="@color/huang"
         android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="温馨提示：承诺在办理公章刻制备案信息采集过程中提供的所有证件材料均为原件且真实有效，否则，由此所产生的一切责任及经济损失均由我单位承担。"
         android:textColor="@color/__picker_black_40" />
 
@@ -83,7 +85,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:text="统一社会信用代码：" />
+                        android:text="统一社会信用代码："
+                        android:textColor="@color/__picker_black_40"/>
 
                     <TextView
                         android:id="@+id/showinfo_tv_uc"
@@ -102,6 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
+                        android:textColor="@color/__picker_black_40"
                         android:text="企     业      名     称：" />
 
                     <TextView
@@ -121,7 +125,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:text="法    定   代   表  人：" />
+                        android:text="法    定   代   表  人："
+                        android:textColor="@color/__picker_black_40"/>
 
                     <TextView
                         android:id="@+id/showinfo_tv_daibiao"
@@ -164,6 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
+                        android:textColor="@color/__picker_black_40"
                         android:text="姓        名：" />
 
                     <TextView
@@ -183,6 +189,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
+                        android:textColor="@color/__picker_black_40"
                         android:text="证件号码：" />
 
                     <TextView
@@ -202,6 +209,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
+                        android:textColor="@color/__picker_black_40"
                         android:text="手机号码：" />
 
                     <TextView
@@ -272,7 +280,8 @@
                 <dw.take.seal.view.LoadListView
                     android:id="@+id/showinfo_lv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></dw.take.seal.view.LoadListView>
+                    android:layout_height="match_parent"
+                    android:padding="10dp"></dw.take.seal.view.LoadListView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

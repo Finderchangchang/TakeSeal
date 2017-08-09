@@ -16,7 +16,10 @@ import pub.devrel.easypermissions.EasyPermissions
 import android.widget.Button
 import dw.take.seal.control.IScan_result
 import dw.take.seal.control.ScanCodeLogin
+import dw.take.seal.model.ApplySealCertificateData
+import dw.take.seal.model.CardInfoModel
 import dw.take.seal.model.OrganizationJianModel
+import dw.take.seal.model.SealModel
 import net.tsz.afinal.view.LoadingDialog
 
 
@@ -88,12 +91,22 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         }
         //扫描营业执照
         scan_code_login_btn.setOnClickListener {
+            check_camera_permission()
+            findb!!.deleteAll(CardInfoModel::class.java)
+            findb!!.deleteAll(SealModel::class.java)
+            findb!!.deleteAll(OrganizationJianModel::class.java)
+            findb!!.deleteAll(ApplySealCertificateData::class.java)
             if (check_camera_permission()) {
                 val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
                 startActivityForResult(intent, 1)
             }
         }
         test_btn.setOnClickListener {
+            check_camera_permission()
+            findb!!.deleteAll(CardInfoModel::class.java)
+            findb!!.deleteAll(SealModel::class.java)
+            findb!!.deleteAll(OrganizationJianModel::class.java)
+            findb!!.deleteAll(ApplySealCertificateData::class.java)
             ScanCodeLogin().scan_login_xin("http://www.hebscztxyxx.gov.cn/noticehb/query/queryEntInfoMain.do?uuid=XVd2MWuqNrcg8lrqJP.32zDEvtmAo694", this)
         }
     }
@@ -134,7 +147,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
      * 检测相机权限
      * */
     fun check_camera_permission(): Boolean {
-        val perms = arrayOf<String>(Manifest.permission.CAMERA)
+        val perms = arrayOf<String>(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
         if (EasyPermissions.hasPermissions(this, *perms)) {//检查是否获取该权限
             return true
         } else {
@@ -142,6 +155,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
             //第三个参数是请求码
             //第四个参数是要申请的权限
             EasyPermissions.requestPermissions(this, "必要的权限", 0, *perms)
+
         }
         return false
     }

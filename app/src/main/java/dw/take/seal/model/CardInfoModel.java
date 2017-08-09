@@ -14,7 +14,7 @@ public class CardInfoModel implements Serializable {
     private String PersonNation;
     private String PersonAddress;
     private String PersonFaceImage;
-    private Boolean isFaren;//true法人  false 经办人
+    private String isFaren;//true法人  false 经办人
     private String PersonBaseImg;//身份证照片
 
     public String getPersonBaseImg() {
@@ -33,12 +33,12 @@ public class CardInfoModel implements Serializable {
         this.id = id;
     }
 
-    public Boolean getFaren() {
+    public String getIsFaren() {
         return isFaren;
     }
 
-    public void setFaren(Boolean faren) {
-        isFaren = faren;
+    public void setIsFaren(String isFaren) {
+        this.isFaren = isFaren;
     }
 
     public String getIdentyNumber() {

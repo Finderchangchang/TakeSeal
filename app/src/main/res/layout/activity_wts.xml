@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     android:orientation="vertical">
 
     <TextView
@@ -22,6 +23,17 @@
         android:textColor="@color/__picker_black_40"
         android:textSize="16dp" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/huang"
+        android:padding="10dp"
+        android:text="小提示：请确保您的委托书摆放平整，信息清晰可见"
+        android:textColor="@color/__picker_black_40"
+        android:textSize="12dp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
@@ -37,7 +49,7 @@
         <ImageView
             android:id="@+id/wts_iv_farenz"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:layout_margin="10dp"
             android:src="@mipmap/weituoshu" />
 
@@ -52,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="姓名：某某"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/lp_tv_cardid"
@@ -60,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="身份证号码：1234567891234"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 

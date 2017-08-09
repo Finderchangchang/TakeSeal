@@ -4,6 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     android:orientation="vertical">
 
     <TextView
@@ -42,13 +43,15 @@
                 android:layout_height="10dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/line_bg" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:background="#ffffff"
                 android:lineSpacingExtra="2dp"
-                android:textColor="@color/__picker_text_40"
                 android:text="@string/tg_val"
+                android:textColor="@color/__picker_text_40"
                 android:textSize="14sp" />
 
             <RadioGroup
@@ -56,23 +59,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/yes_rb"
+                    style="@style/BottomTabStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="40dp"
+                    android:drawableLeft="@drawable/select_redio"
                     android:text="同意" />
 
                 <RadioButton
                     android:id="@+id/no_rb"
+                    style="@style/BottomTabStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="-32.5dp"
+                    android:layout_marginLeft="10dp"
                     android:checked="true"
+                    android:drawableLeft="@drawable/select_redio"
                     android:text="不同意" />
 
             </RadioGroup>
@@ -95,9 +100,9 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
-            android:textSize="12sp"
             android:layout_weight="1"
-            android:text="上一步" />
+            android:text="上一步"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/next_btn"
@@ -109,7 +114,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:textSize="12sp"
-            android:text="下一步" />
+            android:text="下一步"
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

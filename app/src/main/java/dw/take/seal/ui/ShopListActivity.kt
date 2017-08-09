@@ -25,8 +25,8 @@ class ShopListActivity : BaseActivity(), GetShopsView {
 
                 var code:CodeModel= CodeModel()
                 code.Key="1"
-                code.Value="43242424"
-                code.Parameter="nofsfsdfslfnsf"
+                code.Value="测试数据"
+                code.Parameter="测试数据（**）"
                 code.is_check=false
                 seal_type_list.add(code)
                 seal_type_adapter!!.refresh(seal_type_list)
@@ -53,6 +53,13 @@ class ShopListActivity : BaseActivity(), GetShopsView {
             override fun convert(holder: CommonViewHolder, model: CodeModel, position: Int) {
                 holder.setText(R.id.company_name_tv, model.Value)
                 holder.setText(R.id.company_address_tv, model.Parameter)
+                if(model.is_check){
+                    holder.setImageResource(R.id.main_cb,R.mipmap.xuanzhong)
+                }else{
+                    holder.setImageResource(R.id.main_cb,R.mipmap.weixuanzhong)
+                }
+
+
                 holder.setOnClickListener(R.id.shop_ll) {
                     //刷新checkbox点击状态
                     selectindex=position
@@ -62,6 +69,7 @@ class ShopListActivity : BaseActivity(), GetShopsView {
                         seal_type_list[i].is_check = false
                         i++
                     }
+
                     seal_type_list[position].is_check = true
                     seal_type_adapter!!.refresh(seal_type_list)
                 }
@@ -74,7 +82,7 @@ class ShopListActivity : BaseActivity(), GetShopsView {
         shop_next_btn.setOnClickListener {
             //信息展示
             dw.take.seal.utils.Utils(this).WriteString(key.KEY_SHOP_ID,seal_type_list[selectindex].Key)
-            val intent = Intent(this@ShopListActivity, ShopListActivity::class.java)
+            val intent = Intent(this@ShopListActivity, ShowInfoActivity::class.java)
             startActivity(intent)
         }
     }

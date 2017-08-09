@@ -2,18 +2,9 @@ package dw.take.seal.ui
 
 import android.app.ProgressDialog
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import dw.take.seal.R
-import dw.take.seal.utils.ImgUtils
 import wai.gr.cla.base.BaseActivity
-import wai.gr.cla.method.Utils
 import java.util.*
-import android.graphics.BitmapFactory
-import android.graphics.Bitmap
-import android.support.design.widget.Snackbar
-import android.util.Base64
-import android.widget.Toast
 import com.google.gson.Gson
 import dw.take.seal.control.SubmitListener
 import dw.take.seal.control.SubmitView
@@ -21,7 +12,6 @@ import dw.take.seal.method.CommonAdapter
 import dw.take.seal.method.CommonViewHolder
 import dw.take.seal.model.*
 import kotlinx.android.synthetic.main.activity_show_info.*
-import kotlinx.android.synthetic.main.activity_step_three.*
 import net.tsz.afinal.view.LoadingDialog
 import wai.gr.cla.model.key
 
@@ -32,10 +22,9 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
     var list: MutableList<SealModel>? = null
     var isFa: Boolean = true
     var pdialog: ProgressDialog? = null
+    var orgs: MutableList<OrganizationJianModel>? =null//营业执照信息
+    var cards: MutableList<CardInfoModel>? = null//如果是法人就是法人信息，不是法人就是经办人信息
     override fun getCertifyNumberResult(success: Boolean, result: String) {
-        if (pdialog != null) {
-            pdialog!!.dismiss()
-        }
         if (success) {
             regionid = result
             loadData()
@@ -43,12 +32,14 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
         } else {
             toast("提交出错：" + result)
         }
-
     }
 
     override fun SubmitResult(success: Boolean, result: String) {
+        if (pdialog != null) {
+            pdialog!!.dismiss()
+        }
         if (success) {
-            val intent = Intent(this@ShowInfoActivity, ShowInfoActivity::class.java)
+            val intent = Intent(this@ShowInfoActivity, CompleteActivity::class.java)
             startActivity(intent)
         } else {
             toast("提交出错：" + result)
@@ -79,8 +70,8 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
         setContentView(R.layout.activity_show_info)
         list = findb!!.findAll(SealModel::class.java)
 
-        var orgs: MutableList<OrganizationJianModel>? = findb!!.findAll(OrganizationJianModel::class.java)
-        var where = "true"
+         orgs = findb!!.findAll(OrganizationJianModel::class.java)
+        var where:String = "true"
         isFa = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         if (isFa) {
             where = "true"
@@ -92,94 +83,133 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
             showinfo_tv_title.text = "第十二步"
         }
         //加载法人信息
-        var cards: MutableList<CardInfoModel>? = findb!!.findAllByWhere(CardInfoModel::class.java, "isfaren=" + where + "")
+        cards = findb!!.findAllByWhere(CardInfoModel::class.java, "isFaren='" + where + "'")
         if (cards!!.size > 0) {
-            showinfo_tv_jingname.text = cards[0].personName
-            show_info_zj.text = cards[0].identyNumber
+            showinfo_tv_jingname.text = cards!![0].personName
+            show_info_zj.text = cards!![0].identyNumber
             showinfo_tv_jmobile.text = dw.take.seal.utils.Utils(this).ReadString(key.KEY_MOBILE_NUMBER)
         }
         if (orgs!!.size > 0) {
-            showinfo_tv_uc.text = orgs[0].organizationUSCC
-            showinfo_tv_cname.text = orgs[0].organizationName
-            showinfo_tv_daibiao.text = orgs[0].organizationLeader
+            showinfo_tv_uc.text = orgs!![0].organizationUSCC
+            showinfo_tv_cname.text = orgs!![0].organizationName
+            showinfo_tv_daibiao.text = orgs!![0].organizationLeader
         } else {
             toast("加载数据失败")
             finish()
         }
-
     }
-
     fun loadData() {
         var command: ApplySealCommand = ApplySealCommand()
         var group: GroupModel = GroupModel();
-
-        group.SealApplyer = "胡海珍"
-        group.SealApplyerCertNumber = "130682199206033463"
         group.SealCertifyNumber = regionid
-        group.SealApplyerMobileNumber = "15132210143"
-        group.OrganizationRegionId = "130903"
-        group.OrganizationName = "中信银行股份有限公司沧州分行"
-        group.OrganizationUSCC = "91130900083779987J"
-        group.OrganizationLeader = "冯永成"
-        group.OrganizationLeaderCertNumber = "130682199206033463"
-        group.OrganizationLeaderMobileNumber = "151225584587"
-        group.OrganizationAddress = "河北省沧州市运河区"
-        group.OrganizationPostCode = "061001"
-        group.OrganizationTelephoneNumber = "15933317777"
-        group.SealRegister = "耿建"
-        group.SealContractShopId = "130903000001"
+        if (isFa) {
+            //法人证件信息
+            group.OrganizationLeader = cards!![0].personName
+            group.OrganizationLeaderCertNumber = cards!![0].identyNumber
+            group.OrganizationLeaderMobileNumber = showinfo_tv_jmobile.text.toString()
+
+            group.SealApplyer = cards!![0].personName
+            group.SealApplyerCertNumber = cards!![0].identyNumber
+            group.SealApplyerMobileNumber = showinfo_tv_jmobile.text.toString()
+
+            group.OrganizationTelephoneNumber =showinfo_tv_jmobile.text.toString()
+            group.SealRegister = cards!![0].personName
+        } else {
+            //经办人姓名
+            group.SealApplyer = cards!![0].personName
+            group.SealApplyerCertNumber = cards!![0].identyNumber
+            group.SealApplyerMobileNumber = showinfo_tv_jmobile.text.toString()
+            //加载法人信息
+            var cardjings = findb!!.findAllByWhere(CardInfoModel::class.java, "isFaren='true'")
+            //法人证件信息
+            if (cardjings.size > 0) {
+                group.OrganizationLeader = cardjings!![0].personName
+                group.OrganizationLeaderCertNumber = cardjings!![0].identyNumber
+                // group.OrganizationLeaderMobileNumber =showinfo_tv_jmobile.text.toString()
+            }
+            group.OrganizationTelephoneNumber = showinfo_tv_jmobile.text.toString()
+            group.SealRegister =cards!![0].personName
+        }
+        //营业执照信息
+        group.OrganizationRegionId = orgs!![0].organizationRegionId
+        group.OrganizationName = orgs!![0].organizationName
+        group.OrganizationUSCC = orgs!![0].organizationUSCC
+        group.OrganizationAddress = orgs!![0].organizationAddress
+        group.OrganizationPostCode = "000000"
+        group.SealContractShopId = dw.take.seal.utils.Utils(this).ReadString(key.KEY_SHOP_ID)
 
 
         group.SealRegisteDepartmentId = "123456789874"
+        group.SealIdentificationRemark = "手机申请"
 
-
-        group.SealIdentificationRemark = "测试数据"
         command.Group = group
         command.Seals = ArrayList<ApplySealData>()
-        var apply: ApplySealData = ApplySealData()
-        apply.SealContent = "中信银行股份有限公司沧州分行"
-        apply.SealType = "01"
-        apply.SealMaterial = "04"
-        apply.SealSpecificationId = "13090002"
-        command.Seals!!.add(apply)
-        var apply1: ApplySealData = ApplySealData()
-        apply1.SealContent = "中信银行股份有限公司沧州分行1"
-        apply1.SealType = "02"
-        apply1.SealMaterial = "03"
-        apply1.SealSpecificationId = "13090002"
-        command.Seals!!.add(apply1)
 
-        var certificate: ApplySealCertificateData = ApplySealCertificateData()
-        certificate.SealCertificateType = "01"
-        certificate.SealCertificateName = "营业执照"
-        val bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.yinyezhizhao)
+        if(list!!.size>0){
+            for( i in 0..list!!.size-1){
+                var apply: SealModel = list!![i]
+                if(apply.num>0){
+                    for(j in 0..apply.num-1){
+                        var applymodel:ApplySealData= ApplySealData()
+                        var name:String=""
+                        if(j>0){
+                            name=j.toString()
+                        }
+                        applymodel.SealContent =apply.SealContent+" "+ apply.SealTypeName+" "+ name
+                        applymodel.SealType =apply.SealType
+                        applymodel.SealMaterial =  apply.SealSpecificationId
+                        applymodel.SealSpecificationId =apply.SealGGId
+                        command.Seals!!.add(applymodel)
+                    }
+                }
+            }
+        }
+//        var apply: ApplySealData = ApplySealData()
+//        apply.SealContent = "中信银行股份有限公司沧州分行"
+//        apply.SealType = "01"
+//        apply.SealMaterial = "04"
+//        apply.SealSpecificationId = "13090002"
+//        command.Seals!!.add(apply)
+//        var apply1: ApplySealData = ApplySealData()
+//        apply1.SealContent = "中信银行股份有限公司沧州分行1"
+//        apply1.SealType = "02"
+//        apply1.SealMaterial = "03"
+//        apply1.SealSpecificationId = "13090002"
+//        command.Seals!!.add(apply1)
 
-        certificate.SealCertificateImageString = ImgUtils().bitmapToBase64(bitmap)
+//        var certificate: ApplySealCertificateData = ApplySealCertificateData()
+//        certificate.SealCertificateType = "01"
+//        certificate.SealCertificateName = "营业执照"
+//        val bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.yinyezhizhao)
+//
+//        certificate.SealCertificateImageString = ImgUtils().bitmapToBase64(bitmap)
 
-        var certificate1: ApplySealCertificateData = ApplySealCertificateData()
-        certificate1.SealCertificateType = "02"
-        certificate1.SealCertificateName = "法人代表人身份证（董事长护照)"
-        //val bitmap1 = BitmapFactory.decodeResource(this.getResources(), R.drawable.yinyezhizhao)
-        certificate1.SealCertificateImageString = ImgUtils().bitmapToBase64(bitmap)
-        var certificate2: ApplySealCertificateData = ApplySealCertificateData()
-        certificate2.SealCertificateType = "03"
-        certificate2.SealCertificateName = "经办人身份证"
-        //val bitmap2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.yinyezhizhao)
-        certificate2.SealCertificateImageString = ImgUtils().bitmapToBase64(bitmap)
-
-
-        var certificate3: ApplySealCertificateData = ApplySealCertificateData()
-        certificate3.SealCertificateType = "04"
-        certificate3.SealCertificateName = "委托书（法人/乡政府委托书/首席代表)"
-        //val bitmap3 = BitmapFactory.decodeResource(this.getResources(), R.drawable.yinyezhizhao)
-        certificate3.SealCertificateImageString = ImgUtils().bitmapToBase64(bitmap)
+//        var certificate1: ApplySealCertificateData = ApplySealCertificateData()
+//        certificate1.SealCertificateType = "02"
+//        certificate1.SealCertificateName = "法人代表人身份证（董事长护照)"
+//        //val bitmap1 = BitmapFactory.decodeResource(this.getResources(), R.drawable.yinyezhizhao)
+//        certificate1.SealCertificateImageString = ImgUtils().bitmapToBase64(bitmap)
+//        var certificate2: ApplySealCertificateData = ApplySealCertificateData()
+//        certificate2.SealCertificateType = "03"
+//        certificate2.SealCertificateName = "经办人身份证"
+//        //val bitmap2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.yinyezhizhao)
+//        certificate2.SealCertificateImageString = ImgUtils().bitmapToBase64(bitmap)
+//
+//
+//        var certificate3: ApplySealCertificateData = ApplySealCertificateData()
+//        certificate3.SealCertificateType = "04"
+//        certificate3.SealCertificateName = "委托书（法人/乡政府委托书/首席代表)"
+//        //val bitmap3 = BitmapFactory.decodeResource(this.getResources(), R.drawable.yinyezhizhao)
+//        certificate3.SealCertificateImageString = ImgUtils().bitmapToBase64(bitmap)
 
 
         command.Certificates = ArrayList<ApplySealCertificateData>()
-        command.Certificates!!.add(certificate)
-        command.Certificates!!.add(certificate1)
-        command.Certificates!!.add(certificate2)
-        command.Certificates!!.add(certificate3)
+        command.Certificates=findb!!.findAll(ApplySealCertificateData::class.java) as ArrayList<ApplySealCertificateData>
+//        command.Certificates!!.add(certificate)
+//        command.Certificates!!.add(certificate1)
+//        command.Certificates!!.add(certificate2)
+//        command.Certificates!!.add(certificate3)
+
         SubmitListener().Submit(Gson().toJson(command), this)
     }
 }

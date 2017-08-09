@@ -50,7 +50,7 @@ class OrganizationActivity : BaseActivity(), IScan_result {
             }
         }
         org_next_btn.setOnClickListener {
-            startActivity(Intent(this, LegalPersonActivity::class.java).putExtra("isFaRen",0).putExtra("OrgModel", OrgModel))
+            startActivity(Intent(this, SelectFaRenActivity::class.java))
         }
         org_close_btn.setOnClickListener { finish() }
     }

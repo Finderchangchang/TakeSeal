@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/main_bg">
 
     <TextView
         android:layout_width="match_parent"
@@ -21,11 +22,6 @@
         android:textColor="@color/__picker_black_40"
         android:textSize="16dp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/line_bg" />
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -33,8 +29,10 @@
         android:padding="10dp">
 
         <RadioButton
-            android:layout_width="match_parent"
+            style="@style/BottomTabStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/select_redio"
             android:checked="true"
             android:text="法人本人"
             android:id="@+id/faren_rb_fa"/>
@@ -43,20 +41,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
+            android:background="@color/huang"
             android:text="小提示：需要法人的证件信息和法人自拍照片" />
 
         <RadioButton
             android:id="@+id/faren_rb_jing"
-            android:layout_width="match_parent"
+            style="@style/BottomTabStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="代办人" />
+            android:drawableLeft="@drawable/select_redio"
+            android:text="经办人" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
+            android:background="@color/huang"
             android:text="小提示：需要法人的证件信息，经办人的证件信息和经办人自拍照片及委托材料照片" />
     </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/line_bg" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

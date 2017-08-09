@@ -24,9 +24,6 @@ class GetShopInfoListener {
                     override fun onSuccess(s: String, call: Call, response: Response) {
                         var result=s
                         //result=s.replace("[{","[").replace("]}","]")
-
-
-
                     }
 
                     override fun onError(call: Call?, response: Response?, e: Exception?) {

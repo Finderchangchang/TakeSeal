@@ -2,6 +2,7 @@ package dw.take.seal.ui
 
 import android.content.Intent
 import dw.take.seal.R
+import dw.take.seal.R.style.BottomTabStyle
 import kotlinx.android.synthetic.main.ac_select_faren.*
 import wai.gr.cla.base.BaseActivity
 import wai.gr.cla.model.key
@@ -11,18 +12,15 @@ import wai.gr.cla.model.key
  * Created by Administrator on 2017/8/7.
  */
 
-class SelectFaRenActivity : BaseActivity(){
+class SelectFaRenActivity : BaseActivity() {
     override fun initEvents() {
         faren_next_btn.setOnClickListener {
             var it: Intent = Intent()
+            it.setClass(this, LegalPersonActivity::class.java)
             if(faren_rb_fa.isChecked){
-                //是法人本人
-                it.setClass(this,LegalPersonActivity::class.java)
-                dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_ISFAREN,"1")
+                dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_ISFAREN, "1")
             }else{
-                //经办人
-                it.setClass(this,JBRActivity::class.java)
-                dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_ISFAREN,"0")
+                dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_ISFAREN, "2")
             }
 
             startActivity(it)

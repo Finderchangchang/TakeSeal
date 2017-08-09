@@ -10,6 +10,7 @@ import android.view.View
 import dw.take.seal.R
 import dw.take.seal.control.ZJSBListener
 import dw.take.seal.control.card_view
+import dw.take.seal.model.ApplySealCertificateData
 import dw.take.seal.model.CardInfoModel
 import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.utils.ImgUtils
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_jbr.*
 import net.tsz.afinal.view.LoadingDialog
 import wai.gr.cla.base.BaseActivity
 import wai.gr.cla.method.Utils
+import wai.gr.cla.model.key
 
 /**
  * Created by Administrator on 2017/8/5.
@@ -29,6 +31,8 @@ class JBRActivity : BaseActivity(), card_view {
     var cardInfo: CardInfoModel? = null
     var pdialog: ProgressDialog? = null
     var isSuccess: Boolean = false
+    var isFa: Boolean = true
+    var apply: ApplySealCertificateData = ApplySealCertificateData()
     override fun card_info_view(result: Boolean, info: CardInfoModel, mes: String) {
         //证件识别结果
         //toast(mes);
@@ -39,7 +43,7 @@ class JBRActivity : BaseActivity(), card_view {
         isSuccess = result
         if (result) {
             if (info != null) {
-                cardInfo!!.faren = false
+                cardInfo!!.isFaren = "false"
                 cardInfo = info
                 findb!!.save(cardInfo)
                 jbr_tv_name.visibility = View.VISIBLE
@@ -59,32 +63,36 @@ class JBRActivity : BaseActivity(), card_view {
     }
 
     override fun initEvents() {
-
         jbr_iv_farenz!!.setOnClickListener {
             startActivityForResult(Intent(this, CameraPersonActivity::class.java), 12)
         }
         jbr_next_btn.setOnClickListener {
             if (isSuccess) {
+                apply.SealCertificateType = "03"
+                apply.SealCertificateName = "经办人身份证"
+                findb!!.save(apply)
+                cardInfo!!.isFaren = "false"
+                findb!!.save(cardInfo)
                 startActivity(Intent(this, FaceActivity::class.java))
             } else {
                 toast("请先上传经办人证件照片,验证通过才可进入下一步")
             }
         }
         jbr_close_btn.setOnClickListener {
-            findb!!.deleteByWhere(CardInfoModel::class.java,"isfaren=false")
-            finish() }
-
+            findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='false'")
+            finish()
+        }
     }
 
     override fun initViews() {
         setContentView(R.layout.activity_jbr)
-
+        isFa = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 11 && resultCode == Activity.RESULT_OK) {
-            val photo = Utils.getimage(200, path.toString())
+            val photo = Utils.getimage(100, path.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
             pdialog = LoadingDialog(this)
             pdialog!!.show()
@@ -100,6 +108,8 @@ class JBRActivity : BaseActivity(), card_view {
             jbr_iv_farenz!!.setImageBitmap(photo)
             cardInfo = CardInfoModel()
             cardInfo!!.personBaseImg = ImgUtils().bitmapToBase64(photo!!)
+            apply.SealCertificateImageString = cardInfo!!.personBaseImg
+
 //            val bm = Utils.compressImagexin(photo, 200)
             ZJSBListener().cardRecognition_img(cardInfo!!.personBaseImg, this)
         }

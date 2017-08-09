@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/main_bg">
 
     <TextView
         android:layout_width="match_parent"
@@ -20,7 +21,16 @@
         android:text="法人身份证采集识别"
         android:textColor="@color/__picker_black_40"
         android:textSize="16dp" />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="小提示：请确保您的身份证摆放平整，信息清晰可见"
+        android:textColor="@color/__picker_black_40"
+        android:background="@color/huang"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="12dp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
@@ -41,12 +51,13 @@
             android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:text="拍照"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/lp_iv_farenz"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
             android:layout_margin="10dp"
             android:src="@mipmap/shenfenzhong" />
 

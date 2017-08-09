@@ -27,6 +27,8 @@ import wai.gr.cla.method.Utils
 import wai.gr.cla.model.key
 import java.io.File
 import java.util.*
+import android.graphics.drawable.BitmapDrawable
+
 
 /**
  * 自拍照片
@@ -38,14 +40,13 @@ class FaceActivity : BaseActivity(), FaceView {
     var isSuccess: Boolean = false;
     var facemodel: ApplySealCertificateData = ApplySealCertificateData()
     override fun face_result(result: Boolean, mes: String) {
-
         if (pdialog != null) {
             pdialog!!.dismiss()
         }
-        if(result){
-            dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_XSD,mes)
-        }else{
-            dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_XSD,"")
+        if (result) {
+            dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_XSD, mes)
+        } else {
+            dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_XSD, "")
         }
         isSuccess = result
         face_tv_name.visibility = View.VISIBLE
@@ -58,8 +59,8 @@ class FaceActivity : BaseActivity(), FaceView {
     var carInfofa: CardInfoModel? = null
     override fun initEvents() {
         facemodel.SealCertificateName = face_tv_title.text.toString().trim()
-        facemodel.SealCertificateType = ""
-        btn_face_upload_faren.setOnClickListener {
+
+        face_iv_farenz.setOnClickListener {
             //            //拍照
 //            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 //            intent.putExtra("android.intent.extras.CAMERA_FACING", 1)
@@ -69,15 +70,21 @@ class FaceActivity : BaseActivity(), FaceView {
             startActivityForResult(Intent(this, FaceCameraActivity::class.java), 12)
         }
         face_next_btn.setOnClickListener {
-
             //手机验证码
             if (isSuccess) {
-                startActivity(Intent(this, MySealActivity::class.java).putExtra("isFaRen", false).putExtra("OrgModel", orgModel))
+
+                findb!!.save(facemodel)
+                startActivity(Intent(this, CheckCodeActivity::class.java))
             } else {
                 toast("请先上传您的自拍照片,验证通过才可进入下一步")
             }
         }
         face_close_btn.setOnClickListener {
+            if (isfaren) {
+                findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='20'")
+            } else {
+                findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='21'")
+            }
             finish()
         }
 
@@ -86,16 +93,19 @@ class FaceActivity : BaseActivity(), FaceView {
     override fun initViews() {
         setContentView(R.layout.activity_face)
         isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
-        carInfofa = intent.getSerializableExtra("CardInfo") as CardInfoModel?
+        carInfofa = CardInfoModel()
         var list: MutableList<CardInfoModel>
+        list = findb!!.findAll(CardInfoModel::class.java)
         if (isfaren) {
-            list = findb!!.findAllByWhere(CardInfoModel::class.java, "isfaren=true")
+            facemodel.SealCertificateType = "20"
+            list = findb!!.findAllByWhere(CardInfoModel::class.java, "isFaren='true'")
             face_tv_title.text = "法人自拍"
-            face_tv_title1.text="第四步"
+            face_tv_title1.text = "第四步"
         } else {
+            facemodel.SealCertificateType = "21"
             face_tv_title.text = "经办人自拍"
-            face_tv_title1.text="第五步"
-            list = findb!!.findAllByWhere(CardInfoModel::class.java, "isfaren=false")
+            face_tv_title1.text = "第五步"
+            list = findb!!.findAllByWhere(CardInfoModel::class.java, "isFaren='false'")
 
         }
 
@@ -120,8 +130,9 @@ class FaceActivity : BaseActivity(), FaceView {
 //            bos.close()
             // var jiaodu = Utils.readPictureDegree(mmypath)
             bm = Utils.rotaingImageView(-90, bm)
+            //face_iv_farenz!!.setImageBitmap(bm)
             face_iv_farenz!!.setImageBitmap(bm)
-            facemodel.SealCertificateImageString = ImgUtils().bitmapToBase64(bm!!)
+            facemodel.SealCertificateImageString = ImgUtils().bitmapToBase64(Utils.rotaingImageView(-90, bm))
             if (carInfofa != null) {
                 FaceListener().card_fackRecognition_img(facemodel.SealCertificateImageString!!, carInfofa!!.personFaceImage, this)
             } else {

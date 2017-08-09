@@ -43,7 +43,13 @@ class SendListener{
                         if (model.Success) {
                             toast_result = "验证码验证成功"
                         } else {
-                            toast_result = model.Message!!
+                            if(model.Message!=null){
+                                toast_result = model.Message!!
+
+                            }else{
+                                toast_result="数据错误"
+                            }
+
                         }
                         main.yan_code_result(model.Success, toast_result)
                     }

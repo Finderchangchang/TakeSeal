@@ -47,12 +47,12 @@ class WTSActivity : BaseActivity() {
 
         if (requestCode == 12 && resultCode == 12) {
             var mypath = data!!.getStringExtra("PATH")
-            val photo = Utils.getimage(200, mypath.toString())
+            var photo = Utils.getimage(100, mypath.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
+            photo = Utils.rotaingImageView(90, photo)
             wts_iv_farenz!!.setImageBitmap(photo)
+            facemodel.SealCertificateImageString= ImgUtils().bitmapToBase64(Utils.rotaingImageView(-90, photo))
             isSuccess=true
-            facemodel.SealCertificateImageString= ImgUtils().bitmapToBase64(photo!!)
-
         }
     }
 

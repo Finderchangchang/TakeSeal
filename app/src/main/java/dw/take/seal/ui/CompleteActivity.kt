@@ -6,6 +6,7 @@ import dw.take.seal.R
 import dw.take.seal.control.GetShopInfoListener
 import dw.take.seal.control.GetShopView
 import dw.take.seal.method.CommonAdapter
+import dw.take.seal.method.CommonViewHolder
 import dw.take.seal.model.CardInfoModel
 import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.model.SealModel
@@ -42,13 +43,21 @@ class CompleteActivity : BaseActivity(), GetShopView {
         isFa = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         if (isFa) {
             where = "true"
-            complete_tvname.text = "法      人："
+            complete_tvname.text = "法       人："
         } else {
             where = "false"
-            complete_tvname.text = "经  办  人："
+            complete_tvname.text = "经   办  人："
+        }
+        adapter = object : CommonAdapter<SealModel>(this@CompleteActivity, list, R.layout.item_seal_info) {
+            override fun convert(holder: CommonViewHolder?, t: SealModel?, position: Int) {
+                holder!!.setText(R.id.item_seal_info_type, t!!.SealTypeName)
+                holder!!.setText(R.id.item_seal_info_cz, t!!.SealGGName)
+                holder!!.setText(R.id.item_seal_info_num, t!!.num.toString())
+                holder!!.setText(R.id.item_seal_info_gg, t!!.SealSpecificationName)
+            }
         }
         //加载法人信息
-        var cards: MutableList<CardInfoModel>? = findb!!.findAllByWhere(CardInfoModel::class.java, "isfaren=" + where + "")
+        var cards: MutableList<CardInfoModel>? = findb!!.findAllByWhere(CardInfoModel::class.java, "isFaren='" + where + "'")
         if (cards!!.size > 0) {
             complete_person.text = cards[0].personName
         }
@@ -60,11 +69,13 @@ class CompleteActivity : BaseActivity(), GetShopView {
         }
         complete_date.text = getNowDate()
         complete_lv.adapter = adapter
+        select_close_btn.setOnClickListener {
+            finish()
+        }
     }
 
     override fun initViews() {
         setContentView(R.layout.activity_complete)
-
         GetShopInfoListener().Getshopinfo(this, dw.take.seal.utils.Utils(this).ReadString(key.KEY_SHOP_ID))
     }
 

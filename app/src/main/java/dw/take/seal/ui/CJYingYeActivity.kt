@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.widget.Toast
 import dw.take.seal.R
 import dw.take.seal.control.ZJSBListener
+import dw.take.seal.model.ApplySealCertificateData
 import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.utils.ImgUtils
 import kotlinx.android.synthetic.main.ac_legal_person.*
@@ -28,6 +29,7 @@ class CJYingYeActivity : BaseActivity() {
 
     var isPai: Boolean = false;
     var isfaren:Boolean=true
+    var facemodel: ApplySealCertificateData = ApplySealCertificateData()
     override fun initEvents() {
 
         ying_iv_farenz.setOnClickListener {
@@ -37,12 +39,22 @@ class CJYingYeActivity : BaseActivity() {
         ying_next_btn.setOnClickListener {
             //下一步
             if (isPai) {
-                startActivity(Intent(this, StepThreeActivity::class.java).putExtra("isFaRen", false))
+                facemodel.SealCertificateName="营业执照"
+                facemodel.SealCertificateType="01"
+                findb!!.save(facemodel)
+                if(isfaren){
+                    startActivity(Intent(this, MainActivity::class.java).putExtra("isFaRen", false))
+                }else{
+                    startActivity(Intent(this, WTSActivity::class.java).putExtra("isFaRen", false))
+                }
+
             } else {
                 toast("请先上传营业执照照片")
             }
         }
-        ying_close_btn.setOnClickListener { finish() }
+        ying_close_btn.setOnClickListener {
+            findb!!.deleteByWhere(ApplySealCertificateData::class.java,"SealCertificateType='01'")
+            finish() }
     }
 
     override fun initViews() {
@@ -59,13 +71,12 @@ class CJYingYeActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 12 && resultCode == 12) {
             var mypath = data!!.getStringExtra("PATH")
-            var photo = Utils.getimage(200, mypath.toString())
+            var photo = Utils.getimage(100, mypath.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
-            photo = Utils.rotaingImageView(-90, photo)
+            photo = Utils.rotaingImageView(90, photo)
             ying_iv_farenz!!.setImageBitmap(photo)
+            facemodel.SealCertificateImageString=ImgUtils().bitmapToBase64(Utils.rotaingImageView(90, photo))
             isPai = true
         }
     }
-
-
 }

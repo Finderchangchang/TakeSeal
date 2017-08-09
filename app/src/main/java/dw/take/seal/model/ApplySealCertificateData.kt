@@ -11,7 +11,7 @@ class ApplySealCertificateData: Serializable {
     //材料类型，根据材料类型字典，网上申请需根据情况提交01，02，03，04（如法人本人办理提供01，02，否则4项全提供）。-->
     var SealCertificateType:String?=null
     //
-    var SealCertificatePageNumber:String?=null
+    var SealCertificatePageNumber:String="0"
     //
     var SealCertificateName:String?=null
     //图片类型

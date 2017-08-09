@@ -115,6 +115,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
 
     public void takePicture(final onScan scan) {
+        System.out.println("path::******");
         //设置参数,并拍照
         setCameraParams(mCamera, mScreenWidth, mScreenHeight);
         // 当调用camera.takePiture方法后，camera关闭了预览，这时需要调用startPreview()来重新开启预览
@@ -124,9 +125,10 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
                 mCamera.cancelAutoFocus(); //这一句很关键
                 String path=save(data);
                 scan.get(path);
+                System.out.println("path::"+path);
                 //scan.result(bitmapToBase64(compressImage(bmp)));
                 camera.stopPreview();
-                camera.startPreview();
+               // camera.startPreview();
             }
         });
     }
@@ -162,9 +164,9 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
             //判断是否装有SD卡
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 //判断SD卡上是否有足够的空间
-                String storage = Environment.getExternalStorageDirectory().toString();
-                StatFs fs = new StatFs(storage);
-                long available = fs.getAvailableBlocks() * fs.getBlockSize();
+//                String storage = Environment.getExternalStorageDirectory().toString();
+//                StatFs fs = new StatFs(storage);
+                long available =phone_storage_free();
                 if (available < data.length) {
                     //空间不足直接返回空
                     return null;
@@ -183,7 +185,17 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         }
         return path;
     }
-
+    //data路径下内存
+    public long phone_storage_free()
+    {
+        long val=0;
+        File path = Environment.getDataDirectory();
+        StatFs stat = new StatFs(path.getPath());
+        long blockSize = stat.getBlockSize();
+        long availableBlocks = stat.getAvailableBlocks();
+        val=availableBlocks * blockSize;
+        return val;
+    }
     private void setCameraParams(Camera camera, int width, int height) {
         Log.i(TAG, "setCameraParams  width=" + width + "  height=" + height);
         Camera.Parameters parameters = mCamera.getParameters();
@@ -254,7 +266,6 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
                 }
             }
         }
-
         return result;
     }
 
@@ -303,7 +314,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
     onScan scan;
 
-    interface onScan {
+    public interface onScan {
         void get(String url);
     }
 

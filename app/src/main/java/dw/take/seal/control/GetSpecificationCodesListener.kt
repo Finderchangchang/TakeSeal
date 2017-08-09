@@ -32,7 +32,7 @@ class GetSpecificationCodesListener {
                         if (s.Success) {
                             main.GetSpecificationCodesResult(true,s.Codes as ArrayList<CodeModel>,"")
                         }else{
-                            main.GetSpecificationCodesResult(false,s.Codes as ArrayList<CodeModel>,s.Message)
+                            main.GetSpecificationCodesResult(false,null,s.Message)
                         }
                     }
 

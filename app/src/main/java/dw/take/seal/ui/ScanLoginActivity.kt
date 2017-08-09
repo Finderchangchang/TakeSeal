@@ -45,7 +45,7 @@ class ScanLoginActivity : BaseActivity(), IScanLogin {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_camera)
         //点击拍照执行的操作。
-        take_pic_btn.setOnClickListener {
+        fangtake_pic_btn.setOnClickListener {
             main_cv.takePicture { result ->
                 System.out.println("path:::"+result)
                 scan123123(result)

@@ -1,5 +1,6 @@
 package dw.take.seal.ui
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,7 @@ import dw.take.seal.control.SendListener
 import dw.take.seal.control.login
 import kotlinx.android.synthetic.main.activity_check_code.*
 import kotlinx.android.synthetic.main.activity_mobilecheck.*
+import net.tsz.afinal.view.LoadingDialog
 import wai.gr.cla.base.BaseActivity
 import wai.gr.cla.method.Utils
 import wai.gr.cla.model.key
@@ -22,13 +24,16 @@ class CheckCodeActivity : BaseActivity(), SendCodeView {
     internal var num = 600
     val timer = Timer()
     var isfaren:Boolean=true
+    var pdialog: ProgressDialog? = null
     override fun yan_code_result(result: Boolean, toast: String) {
-
+        code_code_btn.isClickable = true
+        if (pdialog != null) {
+            pdialog!!.dismiss()
+        }
         if (result) {
             //验证成功就下一步
             //免责
-            //方便测试就直接到选章
-
+            dw.take.seal.utils.Utils(this).WriteString(key.KEY_MOBILE_NUMBER,code_tel_et.text.toString().trim())
             startActivity(Intent(this, CJYingYeActivity::class.java))
         } else {
             toast(toast)
@@ -37,6 +42,9 @@ class CheckCodeActivity : BaseActivity(), SendCodeView {
 
     override fun send_code_result(result: Boolean, toast: String) {
         toast(toast)
+        if(!result){
+            no_internet()
+        }
     }
 
     override fun initViews() {
@@ -67,6 +75,7 @@ class CheckCodeActivity : BaseActivity(), SendCodeView {
                     }
                 }
                 timer.schedule(task, 1000 * 1, 1000 * 1)
+                code_code_btn.isClickable = false
                 SendListener().send_code(mobile, this@CheckCodeActivity)
             }
 
@@ -77,6 +86,8 @@ class CheckCodeActivity : BaseActivity(), SendCodeView {
             if (TextUtils.isEmpty(yan)) {
                 toast("请输入验证码")
             } else {
+                pdialog = LoadingDialog(this);
+                pdialog!!.show();
                 SendListener().Check_code(yan, this)
             }
         }
