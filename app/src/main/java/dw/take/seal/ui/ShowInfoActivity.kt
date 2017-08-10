@@ -30,6 +30,9 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
             loadData()
             //是否成功界面
         } else {
+            if (pdialog != null) {
+                pdialog!!.dismiss()
+            }
             toast("提交出错：" + result)
         }
     }

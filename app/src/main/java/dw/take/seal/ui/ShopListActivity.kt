@@ -22,13 +22,12 @@ class ShopListActivity : BaseActivity(), GetShopsView {
             seal_type_list = list
             if (seal_type_list.size > 0) {
                 seal_type_list[0].is_check = true
-
-                var code:CodeModel= CodeModel()
-                code.Key="1"
-                code.Value="测试数据"
-                code.Parameter="测试数据（**）"
-                code.is_check=false
-                seal_type_list.add(code)
+//                var code:CodeModel= CodeModel()
+//                code.Key="1"
+//                code.Value="测试数据"
+//                code.Parameter="测试数据（**）"
+//                code.is_check=false
+//                seal_type_list.add(code)
                 seal_type_adapter!!.refresh(seal_type_list)
             }
         } else {

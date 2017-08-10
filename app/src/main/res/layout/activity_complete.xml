@@ -59,11 +59,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/huang"
                 android:padding="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:text="温馨提示：请携带身份证，营业执照的原件以及复印件经办人身份证，委托书到刻制单位领取印章！"
                 android:textColor="@color/__picker_black_40" />
 
@@ -97,7 +97,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="申请单位：" />
+                    android:text="申请单位："
+                    android:textColor="@color/__picker_black_40" />
 
                 <TextView
                     android:id="@+id/complete_cname"
@@ -117,7 +118,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="经  办  人：" />
+                    android:text="经  办  人："
+                    android:textColor="@color/__picker_black_40" />
 
                 <TextView
                     android:id="@+id/complete_person"
@@ -136,7 +138,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="申请时间：" />
+                    android:text="申请时间："
+                    android:textColor="@color/__picker_black_40" />
 
                 <TextView
                     android:id="@+id/complete_date"
@@ -159,6 +162,7 @@
                 android:layout_height="10dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/line_bg" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -178,6 +182,7 @@
                     android:layout_weight="1"
                     android:text="印章规格"
                     android:textColor="@color/__picker_black_40" />
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -192,6 +197,7 @@
                     android:text="印章数量"
                     android:textColor="@color/__picker_black_40" />
             </LinearLayout>
+
             <dw.take.seal.view.LoadListView
                 android:id="@+id/complete_lv"
                 android:layout_width="match_parent"
@@ -222,7 +228,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="名称：" />
+                    android:text="名称："
+                    android:textColor="@color/__picker_black_40" />
 
                 <TextView
                     android:id="@+id/complete_kname"
@@ -241,7 +248,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="地址：" />
+                    android:text="地址："
+                    android:textColor="@color/__picker_black_40" />
 
                 <TextView
                     android:id="@+id/complete_kaddress"
@@ -260,7 +268,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="电话：" />
+                    android:text="电话："
+                    android:textColor="@color/__picker_black_40" />
 
                 <TextView
                     android:id="@+id/complete_mobile"
@@ -268,7 +277,74 @@
                     android:layout_height="wrap_content"
                     android:text="电话" />
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="支付方式"
+                android:textColor="@color/__picker_black_40" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/line_bg" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@mipmap/erweimao" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="支付二维码"
+                        android:textColor="@color/__picker_black_40"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center|bottom">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="4367424540600632402"
+                        android:textColor="@color/__picker_black_40" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="银行卡号"
+                        android:textColor="@color/__picker_black_40"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="开户行：建设银行"
+                        android:textColor="@color/__picker_black_40"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

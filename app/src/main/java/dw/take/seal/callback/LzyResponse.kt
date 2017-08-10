@@ -21,6 +21,7 @@ class LzyResponse<T> : Serializable {
     var Message: String = ""
     var Organizations: List<OrganizationModel>? = null
     var Shops: List<ShopModel>? = null
+    var Shop:ShopModel?=null
     var RandomNumber: String=""
     var Success: Boolean = false
     var time: T?=null

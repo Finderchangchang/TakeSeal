@@ -122,7 +122,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
                 pdialog = LoadingDialog(this)
                 pdialog!!.show()
                 var bundle: Bundle? = data.extras ?: return;
-                toast(bundle.toString())
+                //toast(bundle.toString())
                 if (bundle!!.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     var result = bundle.getString(CodeUtils.RESULT_STRING);
                     ScanCodeLogin().scan_login_xin(result, this)

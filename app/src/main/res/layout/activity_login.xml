@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/login_btn"
-        android:text="扫码登录"
+        android:text="扫执照二维码登录"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
 

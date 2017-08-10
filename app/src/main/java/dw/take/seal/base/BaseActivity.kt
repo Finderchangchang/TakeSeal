@@ -8,6 +8,16 @@ import android.widget.Toast
 import dw.take.seal.R
 import dw.take.seal.control.IBaseInter
 import net.tsz.afinal.FinalDb
+import android.content.Intent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.IntentFilter
+import wai.gr.cla.base.BaseActivity.ExitReceiver
+
+
+
+
+
 
 /**
  * BaseActivity声明相关通用方法
@@ -19,6 +29,9 @@ import net.tsz.afinal.FinalDb
 abstract class BaseActivity : AppCompatActivity(), IBaseInter {
     internal var dialog: ProgressDialog? = null
     var findb:FinalDb?=null
+    private val EXITACTION = "action.exit"
+
+    private val exitReceiver = ExitReceiver()
 
 
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +39,10 @@ abstract class BaseActivity : AppCompatActivity(), IBaseInter {
         findb=FinalDb.create(this,"taskseal.db");
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//强制竖屏
+        val filter = IntentFilter()
+        filter.addAction(EXITACTION)
+        registerReceiver(exitReceiver, filter)
+
         initViews()
         initEvents()
     }
@@ -52,4 +69,18 @@ abstract class BaseActivity : AppCompatActivity(), IBaseInter {
     override fun error_toast(msg: String) {
         toast(msg)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(exitReceiver)
+    }
+
+    internal inner class ExitReceiver : BroadcastReceiver() {
+
+        override fun onReceive(context: Context, intent: Intent) {
+            this@BaseActivity.finish()
+        }
+
+    }
+
 }

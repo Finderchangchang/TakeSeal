@@ -18,6 +18,9 @@ import wai.gr.cla.method.Utils
 import wai.gr.cla.model.key
 import java.text.SimpleDateFormat
 import java.util.*
+import android.content.Intent
+import dw.take.seal.base.App.Companion.context
+
 
 //申请完成
 class CompleteActivity : BaseActivity(), GetShopView {
@@ -70,7 +73,9 @@ class CompleteActivity : BaseActivity(), GetShopView {
         complete_date.text = getNowDate()
         complete_lv.adapter = adapter
         select_close_btn.setOnClickListener {
-            finish()
+            val intent = Intent()
+            intent.action = "action.exit"
+            context!!.sendBroadcast(intent)
         }
     }
 
