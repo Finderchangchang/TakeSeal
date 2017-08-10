@@ -22,24 +22,10 @@ import wai.gr.cla.base.BaseActivity
 
 @Suppress("UNREACHABLE_CODE")
 //第二步，扫描营业执照信息
-class OrganizationActivity : BaseActivity(), IScan_result {
+class OrganizationActivity : BaseActivity() {
     var isSaoMiao: Boolean = false;
     var OrgModel: OrganizationJianModel? = null;
-    override fun scan_result(istrue: Boolean, model: OrganizationJianModel, result: String) {
-        if (istrue) {
-            isSaoMiao = true;
-            //营业执照识别成功，跳页显示营业执照内容
-            code_id_tv.text = OrgModel!!.organizationUSCC
-            name_tv.text = OrgModel!!.organizationName
-            qy_tv.text = OrgModel!!.organizationEstablishDate
-            fr_tv.text = OrgModel!!.organizationLeader
-            org_ll_content.visibility = View.VISIBLE
-            address_tv.text = model.organizationAddress
-        } else {
-            btn_org_saomiao.isEnabled = true;
-            toast(result)
-        }
-    }
+
 
     override fun initEvents() {
         btn_org_saomiao.setOnClickListener {
@@ -52,7 +38,11 @@ class OrganizationActivity : BaseActivity(), IScan_result {
         org_next_btn.setOnClickListener {
             startActivity(Intent(this, SelectFaRenActivity::class.java))
         }
-        org_close_btn.setOnClickListener { finish() }
+        org_close_btn.setOnClickListener {
+            //删除保存的信息
+            findb!!.deleteAll(OrganizationJianModel::class.java)
+            finish()
+        }
     }
 
     /**
@@ -83,7 +73,7 @@ class OrganizationActivity : BaseActivity(), IScan_result {
                 //toast(bundle.toString())
                 if (bundle!!.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     var result = bundle.getString(CodeUtils.RESULT_STRING);
-                    ScanCodeLogin().scan_login(result, this)
+
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toast.makeText(this@OrganizationActivity, "解析二维码失败", Toast.LENGTH_LONG).show();
                 }

@@ -28,6 +28,11 @@ import net.tsz.afinal.view.LoadingDialog
  */
 class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.PermissionCallbacks {
     var pdialog: LoadingDialog? = null
+
+    companion object {
+        var loginmin: LoginActivity? = null
+    }
+
     override fun scan_result(sucess: Boolean, model: OrganizationJianModel, result: String) {
         if (pdialog != null) {
             pdialog!!.dismiss()
@@ -65,6 +70,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
     }
 
     override fun initViews() {
+        loginmin = this
         setContentView(R.layout.activity_login)
     }
 
@@ -147,7 +153,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
      * 检测相机权限
      * */
     fun check_camera_permission(): Boolean {
-        val perms = arrayOf<String>(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
+        val perms = arrayOf<String>(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
         if (EasyPermissions.hasPermissions(this, *perms)) {//检查是否获取该权限
             return true
         } else {

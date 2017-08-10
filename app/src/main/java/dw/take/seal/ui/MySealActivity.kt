@@ -89,7 +89,7 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         }
         myseal_lv.adapter = adapter
         select_close_btn.setOnClickListener {
-            //findb!!.deleteAll(SealModel::class.java)
+            findb!!.deleteAll(SealModel::class.java)
             finish()
         }
         select_next_btn.setOnClickListener {

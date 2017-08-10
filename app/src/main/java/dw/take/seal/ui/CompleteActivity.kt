@@ -7,10 +7,6 @@ import dw.take.seal.control.GetShopInfoListener
 import dw.take.seal.control.GetShopView
 import dw.take.seal.method.CommonAdapter
 import dw.take.seal.method.CommonViewHolder
-import dw.take.seal.model.CardInfoModel
-import dw.take.seal.model.OrganizationJianModel
-import dw.take.seal.model.SealModel
-import dw.take.seal.model.ShopModel
 import kotlinx.android.synthetic.main.activity_complete.*
 import kotlinx.android.synthetic.main.activity_show_info.*
 import wai.gr.cla.base.BaseActivity
@@ -20,11 +16,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.content.Intent
 import dw.take.seal.base.App.Companion.context
+import dw.take.seal.model.*
 
 
 //申请完成
 class CompleteActivity : BaseActivity(), GetShopView {
-    var regionid: String = ""
     var adapter: CommonAdapter<SealModel>? = null
     var list: MutableList<SealModel>? = null
     var isFa: Boolean = true
@@ -39,7 +35,6 @@ class CompleteActivity : BaseActivity(), GetShopView {
     }
 
     override fun initEvents() {
-
         list = findb!!.findAll(SealModel::class.java)
         var orgs: MutableList<OrganizationJianModel>? = findb!!.findAll(OrganizationJianModel::class.java)
         var where = "true"
@@ -72,6 +67,14 @@ class CompleteActivity : BaseActivity(), GetShopView {
         }
         complete_date.text = getNowDate()
         complete_lv.adapter = adapter
+
+        //清楚数据库和缓存数据
+        findb!!.deleteAll(CardInfoModel::class.java)
+        findb!!.deleteAll(SealModel::class.java)
+        findb!!.deleteAll(OrganizationJianModel::class.java)
+        findb!!.deleteAll(ApplySealCertificateData::class.java)
+
+
         select_close_btn.setOnClickListener {
             val intent = Intent()
             intent.action = "action.exit"

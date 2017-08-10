@@ -72,7 +72,6 @@ class FaceActivity : BaseActivity(), FaceView {
         face_next_btn.setOnClickListener {
             //手机验证码
             if (isSuccess) {
-
                 findb!!.save(facemodel)
                 startActivity(Intent(this, CheckCodeActivity::class.java))
             } else {
@@ -95,7 +94,6 @@ class FaceActivity : BaseActivity(), FaceView {
         isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         carInfofa = CardInfoModel()
         var list: MutableList<CardInfoModel>
-        list = findb!!.findAll(CardInfoModel::class.java)
         if (isfaren) {
             facemodel.SealCertificateType = "20"
             list = findb!!.findAllByWhere(CardInfoModel::class.java, "isFaren='true'")

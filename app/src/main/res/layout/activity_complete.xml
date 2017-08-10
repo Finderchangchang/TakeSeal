@@ -98,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="申请单位："
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/__picker_black_40" />
 
                 <TextView
@@ -119,6 +120,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="经  办  人："
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/__picker_black_40" />
 
                 <TextView
@@ -139,6 +141,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="申请时间："
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/__picker_black_40" />
 
                 <TextView
@@ -229,6 +232,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="名称："
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/__picker_black_40" />
 
                 <TextView
@@ -249,6 +253,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="地址："
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/__picker_black_40" />
 
                 <TextView
@@ -269,6 +274,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="电话："
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/__picker_black_40" />
 
                 <TextView
@@ -293,7 +299,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                android:background="@color/main_bg">
 
                 <LinearLayout
                     android:layout_width="0dp"

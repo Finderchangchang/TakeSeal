@@ -42,10 +42,8 @@ class SubmitListener {
                            main.getCertifyNumberResult(t.Success,t.CertifyNumber!!)
                        }else{
                            main.getCertifyNumberResult(t.Success,t.Message)
-
                        }
                     }
-
                     override fun onError(call: Call?, response: Response?, e: Exception?) {
                         super.onError(call, response, e)
                     }
