@@ -22,7 +22,7 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
     var list: MutableList<SealModel>? = null
     var isFa: Boolean = true
     var pdialog: ProgressDialog? = null
-    var orgs: MutableList<OrganizationJianModel>? =null//营业执照信息
+    var orgs: MutableList<OrganizationJianModel>? = null//营业执照信息
     var cards: MutableList<CardInfoModel>? = null//如果是法人就是法人信息，不是法人就是经办人信息
     override fun getCertifyNumberResult(success: Boolean, result: String) {
         if (success) {
@@ -58,6 +58,7 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
                 holder!!.setText(R.id.item_seal_info_gg, t!!.SealSpecificationName)
             }
         }
+        showinfo_close_btn.setOnClickListener { finish() }
         showinfo_next_btn.setOnClickListener {
             pdialog = LoadingDialog(this);
             pdialog!!.show();
@@ -73,8 +74,8 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
         setContentView(R.layout.activity_show_info)
         list = findb!!.findAll(SealModel::class.java)
 
-         orgs = findb!!.findAll(OrganizationJianModel::class.java)
-        var where:String = "true"
+        orgs = findb!!.findAll(OrganizationJianModel::class.java)
+        var where: String = "true"
         isFa = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         if (isFa) {
             where = "true"
@@ -101,6 +102,7 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
             finish()
         }
     }
+
     fun loadData() {
         var command: ApplySealCommand = ApplySealCommand()
         var group: GroupModel = GroupModel();
@@ -115,7 +117,7 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
             group.SealApplyerCertNumber = cards!![0].identyNumber
             group.SealApplyerMobileNumber = showinfo_tv_jmobile.text.toString()
 
-            group.OrganizationTelephoneNumber =showinfo_tv_jmobile.text.toString()
+            group.OrganizationTelephoneNumber = showinfo_tv_jmobile.text.toString()
             group.SealRegister = cards!![0].personName
         } else {
             //经办人姓名
@@ -131,7 +133,7 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
                 // group.OrganizationLeaderMobileNumber =showinfo_tv_jmobile.text.toString()
             }
             group.OrganizationTelephoneNumber = showinfo_tv_jmobile.text.toString()
-            group.SealRegister =cards!![0].personName
+            group.SealRegister = cards!![0].personName
         }
         //营业执照信息
         group.OrganizationRegionId = orgs!![0].organizationRegionId
@@ -141,27 +143,26 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
         group.OrganizationPostCode = "000000"
         group.SealContractShopId = dw.take.seal.utils.Utils(this).ReadString(key.KEY_SHOP_ID)
 
-
         group.SealRegisteDepartmentId = "123456789874"
         group.SealIdentificationRemark = "手机申请"
 
         command.Group = group
         command.Seals = ArrayList<ApplySealData>()
 
-        if(list!!.size>0){
-            for( i in 0..list!!.size-1){
+        if (list!!.size > 0) {
+            for (i in 0..list!!.size - 1) {
                 var apply: SealModel = list!![i]
-                if(apply.num>0){
-                    for(j in 0..apply.num-1){
-                        var applymodel:ApplySealData= ApplySealData()
-                        var name:String=""
-                        if(j>0){
-                            name=j.toString()
+                if (apply.num > 0) {
+                    for (j in 0..apply.num - 1) {
+                        var applymodel: ApplySealData = ApplySealData()
+                        var name: String = ""
+                        if (j > 0) {
+                            name = j.toString()
                         }
-                        applymodel.SealContent =apply.SealContent+" "+ apply.SealTypeName+" "+ name
-                        applymodel.SealType =apply.SealType
-                        applymodel.SealMaterial =  apply.SealSpecificationId
-                        applymodel.SealSpecificationId =apply.SealGGId
+                        applymodel.SealContent = apply.SealContent + " " + apply.SealTypeName + " " + name
+                        applymodel.SealType = apply.SealType
+                        applymodel.SealMaterial = apply.SealSpecificationId
+                        applymodel.SealSpecificationId = apply.SealGGId
                         command.Seals!!.add(applymodel)
                     }
                 }
@@ -207,7 +208,7 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
 
 
         command.Certificates = ArrayList<ApplySealCertificateData>()
-        command.Certificates=findb!!.findAll(ApplySealCertificateData::class.java) as ArrayList<ApplySealCertificateData>
+        command.Certificates = findb!!.findAll(ApplySealCertificateData::class.java) as ArrayList<ApplySealCertificateData>
 //        command.Certificates!!.add(certificate)
 //        command.Certificates!!.add(certificate1)
 //        command.Certificates!!.add(certificate2)
