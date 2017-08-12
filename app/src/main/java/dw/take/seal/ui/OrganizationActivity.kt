@@ -86,7 +86,12 @@ class OrganizationActivity : BaseActivity() {
         OrgModel = intent.getSerializableExtra("OrgModel") as OrganizationJianModel?
         code_id_tv.text = OrgModel!!.organizationUSCC
         name_tv.text = OrgModel!!.organizationName
-        qy_tv.text = OrgModel!!.organizationEstablishDate
+        if(OrgModel!!.organizationEstablishDate.length>10){
+            qy_tv.text = OrgModel!!.organizationEstablishDate.substring(0,10)
+        }else{
+            qy_tv.text = OrgModel!!.organizationEstablishDate
+        }
+
         fr_tv.text = OrgModel!!.organizationLeader
         address_tv.text = OrgModel!!.organizationAddress
     }

@@ -23,7 +23,7 @@ class GetSpecificationCodesListener {
     fun getSpecificationSeal(main: GetSpecificationCodesView, search_type: String, type: String) {
         var url = ""
         when (search_type) {
-            "1" -> url = app_url.url_get_code + "GetSpecificationCodes&sealType=" + type
+            "1" -> url = app_url.url_get_code + "GetSpecificationCodes&sealType=" + type+"&Online=true"
             else -> url = app_url.url_get_code + "GetCodes&CodeName=SealMaterial"
         }
         OkGo.get(url)
@@ -35,7 +35,6 @@ class GetSpecificationCodesListener {
                             main.GetSpecificationCodesResult(false,null,s.Message)
                         }
                     }
-
                     override fun onError(call: Call?, response: Response?, e: Exception?) {
                         super.onError(call, response, e)
                         main.error_net()

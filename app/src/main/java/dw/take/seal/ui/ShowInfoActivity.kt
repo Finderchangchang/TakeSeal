@@ -138,7 +138,7 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
             if (cardjings.size > 0) {
                 group.OrganizationLeader = cardjings!![0].personName
                 group.OrganizationLeaderCertNumber = cardjings!![0].identyNumber
-                // group.OrganizationLeaderMobileNumber =showinfo_tv_jmobile.text.toString()
+                 group.OrganizationLeaderMobileNumber =showinfo_tv_jmobile.text.toString()
             }
             group.OrganizationTelephoneNumber = showinfo_tv_jmobile.text.toString()
             group.SealRegister = cards!![0].personName
@@ -170,9 +170,14 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
                         var applymodel: ApplySealData = ApplySealData()
                         var name: String = ""
                         if (j > 0) {
-                            name = j.toString()
+                            name = " ("+j.toString()+")"
                         }
-                        applymodel.SealContent = apply.SealContent + " " + apply.SealTypeName + " " + name
+                        if(apply.SealType.equals("04")){
+                            applymodel.SealContent = apply.SealContent + " " + apply.SealTypeName + name+" "+group.OrganizationUSCC
+                        }else{
+                            applymodel.SealContent = apply.SealContent + " " + apply.SealTypeName + name
+                        }
+
                         applymodel.SealType = apply.SealType
                         applymodel.SealMaterial = apply.SealSpecificationId
                         applymodel.SealSpecificationId = apply.SealGGId

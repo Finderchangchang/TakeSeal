@@ -58,13 +58,13 @@ class LegalPersonActivity : BaseActivity(), card_view {
         isSuccess = result
         if (result) {
             if (info != null) {
-//                if (!org!!.organizationLeader.equals(info.personName)) {
-//                    isSuccess = false
-//                    lp_tv_name.visibility = View.VISIBLE
-//                    lp_tv_cardid.visibility = View.GONE
-//                    lp_tv_name.text="不是法人本人身份证"
-//                    lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
-//                }else {
+                if (!org!!.organizationLeader.equals(info.personName)) {
+                    isSuccess = false
+                    lp_tv_name.visibility = View.VISIBLE
+                    lp_tv_cardid.visibility = View.GONE
+                    lp_tv_name.text="不是法人本人身份证"
+                    lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
+                }else {
                     cardInfo = info
                     cardInfo!!.isFaren = "true"
 
@@ -72,7 +72,7 @@ class LegalPersonActivity : BaseActivity(), card_view {
                     lp_tv_cardid.visibility = View.VISIBLE
                     lp_tv_name.text = "姓名：" + info.personName
                     lp_tv_cardid.text = "身份证号码：" + info.identyNumber
-//                }
+                }
             } else {
                 lp_tv_name.visibility = View.VISIBLE
                 lp_tv_name.text = mes;

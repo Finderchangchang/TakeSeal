@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import dw.take.seal.R
@@ -44,7 +45,8 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
 
     var now_click = 1//1.选择规格，2.选择材质
     override fun initEvents() {
-        seal_model = intent.getSerializableExtra("SealModel") as SealModel
+
+
         seal_tv_type.text = seal_model!!.SealTypeName
         var seal_num = seal_model!!.num.toString()
         if (TextUtils.isEmpty(seal_num)) {
@@ -94,6 +96,10 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
 
     override fun initViews() {
         setContentView(R.layout.activity_select_seal)
+        seal_model = intent.getSerializableExtra("SealModel") as SealModel
+        if(seal_model!!.SealType.equals("01")||seal_model!!.SealType.equals("02")) {
+            seal_ll_num.visibility = View.GONE
+        }
         save_btn.setOnClickListener {
             if (("请选择印章规格").equals(seal_tv_guige.text)) {
                 toast("请选择印章规格")

@@ -25,6 +25,7 @@ class ShopListActivity : BaseActivity(), GetShopsView {
                 seal_type_adapter!!.refresh(seal_type_list)
             }
         } else {
+             selectindex=-1
             toast(mes)
         }
     }
@@ -34,7 +35,7 @@ class ShopListActivity : BaseActivity(), GetShopsView {
     var seal_type_adapter: CommonAdapter<CodeModel>? = null//评论列表
     var isfaren: Boolean = true
 
-    var selectindex:Int=-1;
+    var selectindex:Int=0;
     override fun initViews() {
         setContentView(R.layout.activity_step_four)
         isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
