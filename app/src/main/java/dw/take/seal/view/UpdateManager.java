@@ -96,7 +96,7 @@ public class UpdateManager {
     private void showNoticeDialog(){
         utils = new Utils(mContext);
         String stringIP =  utils.ReadString("IP");
-        apkUrl = "http://"+stringIP+"/APK/SystemOne/"+stringVersion+".apk";
+        apkUrl =stringVersion;
         Builder builder = new Builder(mContext);
         builder.setTitle("软件版本更新");
         builder.setMessage(updateMsg);

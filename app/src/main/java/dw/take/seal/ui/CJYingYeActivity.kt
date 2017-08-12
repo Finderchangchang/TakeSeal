@@ -38,6 +38,7 @@ class CJYingYeActivity : BaseActivity() {
             if (isPai) {
                 facemodel.SealCertificateName = "营业执照"
                 facemodel.SealCertificateType = "01"
+                findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='01'")
                 findb!!.save(facemodel)
                 if (isfaren) {
                     startActivity(Intent(this, MainActivity::class.java).putExtra("isFaRen", false))
@@ -49,7 +50,6 @@ class CJYingYeActivity : BaseActivity() {
             }
         }
         ying_close_btn.setOnClickListener {
-            findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='01'")
             finish()
         }
     }
@@ -72,8 +72,13 @@ class CJYingYeActivity : BaseActivity() {
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
             photo = Utils.rotaingImageView(90, photo)
             ying_iv_farenz!!.setImageBitmap(photo)
-            facemodel.SealCertificateImageString = ImgUtils().bitmapToBase64(Utils.rotaingImageView(90, photo))
+            facemodel.SealCertificateImage = ImgUtils().bitmapToBase64(Utils.rotaingImageView(90, photo))
             isPai = true
         }
+    }
+
+    override fun onDestroy() {
+        findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='01'")
+        super.onDestroy()
     }
 }

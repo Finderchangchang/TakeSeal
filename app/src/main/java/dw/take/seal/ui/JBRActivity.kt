@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import com.kaopiz.kprogresshud.KProgressHUD
 import dw.take.seal.R
 import dw.take.seal.control.ZJSBListener
 import dw.take.seal.control.card_view
@@ -29,7 +30,7 @@ class JBRActivity : BaseActivity(), card_view {
     //图片保存路径
     private var path = StringBuffer()
     var cardInfo: CardInfoModel? = null
-    var pdialog: ProgressDialog? = null
+    var pdialog: KProgressHUD? = null
     var isSuccess: Boolean = false
     var isFa: Boolean = true
     var apply: ApplySealCertificateData = ApplySealCertificateData()
@@ -70,6 +71,7 @@ class JBRActivity : BaseActivity(), card_view {
             if (isSuccess) {
                 apply.SealCertificateType = "03"
                 apply.SealCertificateName = "经办人身份证"
+                findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='false'")
                 findb!!.save(apply)
                 cardInfo!!.isFaren = "false"
                 findb!!.save(cardInfo)
@@ -79,11 +81,15 @@ class JBRActivity : BaseActivity(), card_view {
             }
         }
         jbr_close_btn.setOnClickListener {
-            findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='false'")
+
             finish()
         }
     }
 
+    override fun onDestroy() {
+        findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='false'")
+        super.onDestroy()
+    }
     override fun initViews() {
         setContentView(R.layout.activity_jbr)
         isFa = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
@@ -94,7 +100,12 @@ class JBRActivity : BaseActivity(), card_view {
         if (requestCode == 11 && resultCode == Activity.RESULT_OK) {
             val photo = Utils.getimage(100, path.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
-            pdialog = LoadingDialog(this)
+            pdialog = KProgressHUD.create(this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setLabel("加载中")
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
             pdialog!!.show()
             lp_iv_farenz!!.setImageBitmap(photo)
 //            val bm = Utils.compressImagexin(photo, 200)
@@ -103,12 +114,17 @@ class JBRActivity : BaseActivity(), card_view {
             var mypath = data!!.getStringExtra("PATH")
             val photo = Utils.getimage(200, mypath.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
-            pdialog = LoadingDialog(this)
+            pdialog = KProgressHUD.create(this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setLabel("加载中")
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
             pdialog!!.show()
             jbr_iv_farenz!!.setImageBitmap(photo)
             cardInfo = CardInfoModel()
             cardInfo!!.personBaseImg = ImgUtils().bitmapToBase64(photo!!)
-            apply.SealCertificateImageString = cardInfo!!.personBaseImg
+            apply.SealCertificateImage = cardInfo!!.personBaseImg
 
 //            val bm = Utils.compressImagexin(photo, 200)
             ZJSBListener().cardRecognition_img(cardInfo!!.personBaseImg, this)

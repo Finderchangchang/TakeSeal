@@ -26,6 +26,7 @@ dependencies {
     compile project(':afinal')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.kaopiz:kprogresshud:1.0.2'//加载动画
     //图片压缩工具
     //权限管理
     compile 'com.android.support:appcompat-v7:25.0.3'

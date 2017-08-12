@@ -89,7 +89,7 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         }
         myseal_lv.adapter = adapter
         select_close_btn.setOnClickListener {
-            findb!!.deleteAll(SealModel::class.java)
+
             finish()
         }
         select_next_btn.setOnClickListener {
@@ -97,6 +97,7 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
                 toast("请先选择印章类型")
 
             }else{
+                findb!!.deleteAll(SealModel::class.java)
                 for(i in 0..list!!.size-1){
                     if(list!![i].num>0){
                         findb!!.save(list!![i])
@@ -105,6 +106,11 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
                 startActivity(Intent(this@MySealActivity, ShopListActivity::class.java))
             }
         }
+    }
+
+    override fun onDestroy() {
+        findb!!.deleteAll(SealModel::class.java)
+        super.onDestroy()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

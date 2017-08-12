@@ -29,4 +29,6 @@ class LzyResponse<T> : Serializable {
     var Data:T?=null
     var Codes:List<T>?=null
     var CertifyNumber:String?=null
+    var Version:String?=null
+    var Path:String?=null
 }

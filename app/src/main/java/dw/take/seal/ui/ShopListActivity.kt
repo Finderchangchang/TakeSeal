@@ -22,12 +22,6 @@ class ShopListActivity : BaseActivity(), GetShopsView {
             seal_type_list = list
             if (seal_type_list.size > 0) {
                 seal_type_list[0].is_check = true
-//                var code:CodeModel= CodeModel()
-//                code.Key="1"
-//                code.Value="测试数据"
-//                code.Parameter="测试数据（**）"
-//                code.is_check=false
-//                seal_type_list.add(code)
                 seal_type_adapter!!.refresh(seal_type_list)
             }
         } else {
@@ -39,7 +33,8 @@ class ShopListActivity : BaseActivity(), GetShopsView {
     internal var seal_type_list: ArrayList<CodeModel> = ArrayList()//评论列表
     var seal_type_adapter: CommonAdapter<CodeModel>? = null//评论列表
     var isfaren: Boolean = true
-    var selectindex:Int=0;
+
+    var selectindex:Int=-1;
     override fun initViews() {
         setContentView(R.layout.activity_step_four)
         isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
@@ -80,9 +75,13 @@ class ShopListActivity : BaseActivity(), GetShopsView {
         shop_close_btn.setOnClickListener { finish() }
         shop_next_btn.setOnClickListener {
             //信息展示
-            dw.take.seal.utils.Utils(this).WriteString(key.KEY_SHOP_ID,seal_type_list[selectindex].Key)
-            val intent = Intent(this@ShopListActivity, ShowInfoActivity::class.java)
-            startActivity(intent)
+            if(selectindex==-1){
+                toast("未能选择刻制单位")
+            }else {
+                dw.take.seal.utils.Utils(this).WriteString(key.KEY_SHOP_ID, seal_type_list[selectindex].Key)
+                val intent = Intent(this@ShopListActivity, ShowInfoActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 

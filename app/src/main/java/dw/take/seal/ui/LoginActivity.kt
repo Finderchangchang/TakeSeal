@@ -8,26 +8,43 @@ import android.widget.Toast
 import com.uuzuche.lib_zxing.activity.CaptureActivity
 import com.uuzuche.lib_zxing.activity.CodeUtils
 import dw.take.seal.R
-import dw.take.seal.control.login
-import dw.take.seal.control.mLogin
 import kotlinx.android.synthetic.main.activity_login.*
 import wai.gr.cla.base.BaseActivity
 import pub.devrel.easypermissions.EasyPermissions
 import android.widget.Button
-import dw.take.seal.control.IScan_result
-import dw.take.seal.control.ScanCodeLogin
+import com.kaopiz.kprogresshud.KProgressHUD
+import dw.take.seal.control.*
 import dw.take.seal.model.ApplySealCertificateData
 import dw.take.seal.model.CardInfoModel
 import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.model.SealModel
+import dw.take.seal.view.UpdateManager
 import net.tsz.afinal.view.LoadingDialog
-
+import wai.gr.cla.method.Utils
 
 /***
  * 登录
  */
-class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.PermissionCallbacks {
-    var pdialog: LoadingDialog? = null
+class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.PermissionCallbacks, UpdateView {
+    var apkpath: String? = null
+    override fun UpdateVersionResult(success: Boolean, version: String, path: String) {
+        //获取最新版本号
+        if (success) {
+            if (!version.equals(Utils.version)) {
+                apkpath = path
+                runOnUiThread(update)
+            }
+        }
+    }
+
+    var mUpdateManager: UpdateManager? = null
+    internal var update: Runnable = Runnable {
+        mUpdateManager = UpdateManager(this@LoginActivity, apkpath)
+        mUpdateManager!!.checkUpdateInfo()
+    }
+
+
+    var pdialog: KProgressHUD? = null
 
     companion object {
         var loginmin: LoginActivity? = null
@@ -72,6 +89,8 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
     override fun initViews() {
         loginmin = this
         setContentView(R.layout.activity_login)
+        //获取最新版本号
+        UpdateListener().UpdateVersion(this)
     }
 
     override fun initEvents() {
@@ -125,7 +144,12 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         if (requestCode == 1) {
             //处理扫描结果（在界面上显示）
             if (null != data) {
-                pdialog = LoadingDialog(this)
+                pdialog = KProgressHUD.create(this)
+                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                        .setLabel("加载中")
+                        .setCancellable(true)
+                        .setAnimationSpeed(2)
+                        .setDimAmount(0.5f)
                 pdialog!!.show()
                 var bundle: Bundle? = data.extras ?: return;
                 //toast(bundle.toString())

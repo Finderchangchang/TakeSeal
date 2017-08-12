@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="dw.take.seal.ui.CompleteActivity">
+    tools:context="dw.take.seal.ui.CompleteActivity"
+    android:background="#fff">
 
     <TextView
         android:layout_width="match_parent"
@@ -44,8 +45,8 @@
 
             <ImageView
                 android:id="@+id/complete_iv"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@mipmap/dui" />
 
             <TextView
@@ -313,7 +314,7 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@mipmap/erweimao" />
+                        android:src="@mipmap/erweima" />
 
                     <TextView
                         android:layout_width="match_parent"

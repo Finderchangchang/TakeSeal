@@ -28,6 +28,7 @@ import wai.gr.cla.model.key
 import java.io.File
 import java.util.*
 import android.graphics.drawable.BitmapDrawable
+import com.kaopiz.kprogresshud.KProgressHUD
 
 
 /**
@@ -55,7 +56,7 @@ class FaceActivity : BaseActivity(), FaceView {
 
     var orgModel: OrganizationJianModel? = null
     var isfaren: Boolean = true
-    var pdialog: ProgressDialog? = null
+    var pdialog: KProgressHUD? = null
     var carInfofa: CardInfoModel? = null
     override fun initEvents() {
         facemodel.SealCertificateName = face_tv_title.text.toString().trim()
@@ -72,6 +73,11 @@ class FaceActivity : BaseActivity(), FaceView {
         face_next_btn.setOnClickListener {
             //手机验证码
             if (isSuccess) {
+                if (isfaren) {
+                    findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='20'")
+                } else {
+                    findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='21'")
+                }
                 findb!!.save(facemodel)
                 startActivity(Intent(this, CheckCodeActivity::class.java))
             } else {
@@ -79,11 +85,7 @@ class FaceActivity : BaseActivity(), FaceView {
             }
         }
         face_close_btn.setOnClickListener {
-            if (isfaren) {
-                findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='20'")
-            } else {
-                findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='21'")
-            }
+
             finish()
         }
 
@@ -104,7 +106,6 @@ class FaceActivity : BaseActivity(), FaceView {
             face_tv_title.text = "经办人自拍"
             face_tv_title1.text = "第五步"
             list = findb!!.findAllByWhere(CardInfoModel::class.java, "isFaren='false'")
-
         }
 
         if (list.size > 0) {
@@ -118,8 +119,13 @@ class FaceActivity : BaseActivity(), FaceView {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 12 && resultCode == 12) {
             var mmypath = data!!.getStringExtra("PATH")
-            pdialog = LoadingDialog(this);
-            pdialog!!.show();
+            pdialog = KProgressHUD.create(this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setLabel("加载中")
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
+            pdialog!!.show()
             // val newFile = CompressHelper.getDefault(this).compressToFile(File(mmypath))
             var bm = dw.take.seal.utils.Utils.getimage(this, mmypath)
 //            var bos = BufferedOutputStream(FileOutputStream(newFile))
@@ -130,9 +136,9 @@ class FaceActivity : BaseActivity(), FaceView {
             bm = Utils.rotaingImageView(-90, bm)
             //face_iv_farenz!!.setImageBitmap(bm)
             face_iv_farenz!!.setImageBitmap(bm)
-            facemodel.SealCertificateImageString = ImgUtils().bitmapToBase64(Utils.rotaingImageView(-90, bm))
+            facemodel.SealCertificateImage = ImgUtils().bitmapToBase64(Utils.rotaingImageView(-90, bm))
             if (carInfofa != null) {
-                FaceListener().card_fackRecognition_img(facemodel.SealCertificateImageString!!, carInfofa!!.personFaceImage, this)
+                FaceListener().card_fackRecognition_img(facemodel.SealCertificateImage!!, carInfofa!!.personFaceImage, this)
             } else {
                 if (pdialog != null) {
                     pdialog!!.dismiss()
@@ -164,4 +170,12 @@ class FaceActivity : BaseActivity(), FaceView {
         }
     }
 
+    override fun onDestroy() {
+        if (isfaren) {
+            findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='20'")
+        } else {
+            findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='21'")
+        }
+        super.onDestroy()
+    }
 }

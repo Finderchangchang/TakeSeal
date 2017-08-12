@@ -29,19 +29,17 @@
     <application
         android:name=".base.App"
         android:allowBackup="true"
-        android:icon="@mipmap/logo_03"
+        android:icon="@mipmap/loading_logos"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.MySealActivity">
-
-        </activity>
+        <activity android:name=".ui.MySealActivity"></activity>
         <activity android:name=".ui.LegalPersonActivity" />
         <activity android:name="me.iwf.photopicker.PhotoPickerActivity" />
         <activity android:name="me.iwf.photopicker.PhotoPagerActivity" />
         <activity android:name=".ui.StepTwoActivity" />
-        <activity android:name=".ui.SelectFaRenActivity"/>
+        <activity android:name=".ui.SelectFaRenActivity" />
         <activity android:name=".ui.StepThreeActivity" />
         <activity android:name=".ui.ShopListActivity" />
         <activity android:name=".ui.CameraPersonActivity" />
@@ -51,10 +49,10 @@
         <activity android:name=".ui.ScanResultActivity" />
         <activity android:name=".ui.FaceCameraActivity" />
         <activity android:name=".ui.FaceActivity" />
-        <activity android:name=".ui.ShowInfoActivity"/>
-        <activity android:name=".ui.WTSActivity"/>
-        <activity android:name=".ui.CJYingYeActivity"/>
-        <activity android:name=".ui.JBRActivity"/>
+        <activity android:name=".ui.ShowInfoActivity" />
+        <activity android:name=".ui.WTSActivity" />
+        <activity android:name=".ui.CJYingYeActivity" />
+        <activity android:name=".ui.JBRActivity" />
         <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,8 +70,9 @@
         <activity android:name=".ui.OrganizationActivity" />
         <activity android:name=".ui.MobileCheckActivity" />
         <activity android:name=".ui.CheckCodeActivity" />
-        <activity android:name=".ui.SelectSealActivity"></activity>
-        <activity android:name=".ui.CompleteActivity"/>
+        <activity android:name=".ui.SelectSealActivity" />
+        <activity android:name=".ui.CompleteActivity" />
+        <activity android:name=".ui.CompleteErrorActivity"></activity>
 
     </application>
 

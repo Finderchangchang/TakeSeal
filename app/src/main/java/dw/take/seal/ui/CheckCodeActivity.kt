@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.text.TextUtils
+import com.kaopiz.kprogresshud.KProgressHUD
 import dw.take.seal.R
 import dw.take.seal.control.SendCodeView
 import dw.take.seal.control.SendListener
@@ -24,7 +25,7 @@ class CheckCodeActivity : BaseActivity(), SendCodeView {
     internal var num = 600
     val timer = Timer()
     var isfaren:Boolean=true
-    var pdialog: ProgressDialog? = null
+    var pdialog: KProgressHUD? = null
     override fun yan_code_result(result: Boolean, toast: String) {
         code_code_btn.isClickable = true
         if (pdialog != null) {
@@ -86,8 +87,13 @@ class CheckCodeActivity : BaseActivity(), SendCodeView {
             if (TextUtils.isEmpty(yan)) {
                 toast("请输入验证码")
             } else {
-                pdialog = LoadingDialog(this);
-                pdialog!!.show();
+                pdialog = KProgressHUD.create(this)
+                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                        .setLabel("加载中")
+                        .setCancellable(true)
+                        .setAnimationSpeed(2)
+                        .setDimAmount(0.5f)
+                pdialog!!.show()
                 SendListener().Check_code(yan, this)
             }
         }

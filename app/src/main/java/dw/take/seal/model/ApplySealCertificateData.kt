@@ -17,6 +17,6 @@ class ApplySealCertificateData: Serializable {
     //图片类型
     var SealCertificateSuffix:String="jpg"
     //图片Base64
-    var SealCertificateImageString:String?=null
+    var SealCertificateImage:String?=null
 
 }

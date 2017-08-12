@@ -4,6 +4,7 @@ import android.content.Intent
 import android.provider.MediaStore
 import android.view.View
 import android.view.WindowManager
+import com.kaopiz.kprogresshud.KProgressHUD
 import dw.take.seal.R
 import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.view.CameraQianSurfaceView
@@ -35,7 +36,7 @@ class CameraPersonActivity : BaseActivity(), CameraSurfaceView.onScan {
         finish()
     }
 
-    var pdialog: LoadingDialog? = null
+    var pdialog: KProgressHUD? = null
     override fun initViews() {
         /**
          * 设置全屏显示
@@ -47,7 +48,12 @@ class CameraPersonActivity : BaseActivity(), CameraSurfaceView.onScan {
         ///textView2.text="请拍摄您的正脸"
         //点击拍照执行的操作。
         fangtake_pic_btn.setOnClickListener {
-            pdialog = LoadingDialog(this)
+            pdialog = KProgressHUD.create(this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setLabel("加载中")
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
             pdialog!!.show()
             main_cv.takePicture(this)
         }

@@ -26,6 +26,7 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import com.kaopiz.kprogresshud.KProgressHUD
 import dw.take.seal.model.ApplySealCertificateData
 import dw.take.seal.model.OrganizationJianModel
 import kotlinx.android.synthetic.main.activity_face.*
@@ -43,10 +44,11 @@ class LegalPersonActivity : BaseActivity(), card_view {
     //图片保存路径
     private var path = StringBuffer()
     var cardInfo: CardInfoModel? = null
-    var pdialog: ProgressDialog? = null
+    var pdialog: KProgressHUD? = null
     var isSuccess: Boolean = false
     var apply: ApplySealCertificateData = ApplySealCertificateData()
     var isFa: Boolean = true
+    var org: OrganizationJianModel? = null
     override fun card_info_view(result: Boolean, info: CardInfoModel, mes: String) {
         //证件识别结果
         //toast(mes);
@@ -56,13 +58,21 @@ class LegalPersonActivity : BaseActivity(), card_view {
         isSuccess = result
         if (result) {
             if (info != null) {
-                cardInfo = info
-                cardInfo!!.isFaren = "true"
+//                if (!org!!.organizationLeader.equals(info.personName)) {
+//                    isSuccess = false
+//                    lp_tv_name.visibility = View.VISIBLE
+//                    lp_tv_cardid.visibility = View.GONE
+//                    lp_tv_name.text="不是法人本人身份证"
+//                    lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
+//                }else {
+                    cardInfo = info
+                    cardInfo!!.isFaren = "true"
 
-                lp_tv_name.visibility = View.VISIBLE
-                lp_tv_cardid.visibility = View.VISIBLE
-                lp_tv_name.text = "姓名：" + info.personName
-                lp_tv_cardid.text = "身份证号码：" + info.identyNumber
+                    lp_tv_name.visibility = View.VISIBLE
+                    lp_tv_cardid.visibility = View.VISIBLE
+                    lp_tv_name.text = "姓名：" + info.personName
+                    lp_tv_cardid.text = "身份证号码：" + info.identyNumber
+//                }
             } else {
                 lp_tv_name.visibility = View.VISIBLE
                 lp_tv_name.text = mes;
@@ -81,6 +91,11 @@ class LegalPersonActivity : BaseActivity(), card_view {
         apply.SealCertificateType = "02"
         apply.SealCertificateName = "法人代表人身份证（董事长护照）"
         isFa = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
+        var orgs: MutableList<OrganizationJianModel>;
+        orgs = findb!!.findAll(OrganizationJianModel::class.java)
+        if (orgs.size > 0) {
+            org = orgs[0]
+        }
     }
 
     override fun initEvents() {
@@ -89,21 +104,29 @@ class LegalPersonActivity : BaseActivity(), card_view {
         }
         lp_next_btn.setOnClickListener {
             if (isSuccess) {
-                findb!!.save(cardInfo)
+
+                findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='true'")
+                findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='02'")
                 findb!!.save(apply)
+                findb!!.save(cardInfo)
                 if (isFa) {
                     startActivity(Intent(this, FaceActivity::class.java))
                 } else {
                     startActivity(Intent(this, JBRActivity::class.java))
                 }
             } else {
-                toast("请先上传身份证照片")
+                toast("请先上传法人身份证照片")
             }
         }
         lp_close_btn.setOnClickListener {
-            findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='true'")
             finish()
         }
+    }
+
+    override fun onDestroy() {
+        findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='true'")
+        findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='02'")
+        super.onDestroy()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -111,7 +134,12 @@ class LegalPersonActivity : BaseActivity(), card_view {
         if (requestCode == 11 && resultCode == Activity.RESULT_OK) {
             val photo = Utils.getimage(200, path.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
-            pdialog = LoadingDialog(this)
+            pdialog = KProgressHUD.create(this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setLabel("加载中")
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
             pdialog!!.show()
             lp_iv_farenz!!.setImageBitmap(photo)
 //            val bm = Utils.compressImagexin(photo, 200)
@@ -120,13 +148,18 @@ class LegalPersonActivity : BaseActivity(), card_view {
             var mypath = data!!.getStringExtra("PATH")
             val photo = Utils.getimage(100, mypath.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
-            pdialog = LoadingDialog(this)
+            pdialog = KProgressHUD.create(this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setLabel("加载中")
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
             pdialog!!.show()
             lp_iv_farenz!!.setImageBitmap(photo)
 //            val bm = Utils.compressImagexin(photo, 200)
             cardInfo = CardInfoModel()
-            apply.SealCertificateImageString = ImgUtils().bitmapToBase64(photo!!)
-            cardInfo!!.personBaseImg = apply.SealCertificateImageString
+            apply.SealCertificateImage = ImgUtils().bitmapToBase64(photo!!)
+            cardInfo!!.personBaseImg = apply.SealCertificateImage
             ZJSBListener().cardRecognition_img(cardInfo!!.personBaseImg, this)
         }
     }

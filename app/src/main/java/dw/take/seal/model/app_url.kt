@@ -6,7 +6,8 @@ package dw.take.seal.model
 object app_url{
     val normal_url="http://192.168.1.115:2003"
     val base_url1="http://118.190.47.63:1399"
-    val base_url="http://www.hbgdfw.com"
+    val base_urlceshi="http://www.hbgdfw.com"
+    val base_url="https://seal.hbgdfw.com:6006"
 
     var url_organizations=base_url+"/Service/Organization.aspx?Action="//获得当前登录账号信息
     var url_user=base_url+"/Service/User.aspx?Action="//获得当前登录账号信息
@@ -16,7 +17,8 @@ object app_url{
     var url_scan_img=base_url+"/Service/Recognition.aspx?Action="
     var url_upload_img= base_url+"/Service/SealProcess.aspx?Action="//提交图片接口
     //扫码识别营业执照
-    var scan_code="http://www.hbgdfw.com/Service/Recognition.aspx?Action=BusinessAnalysis"
-    var scan_code_xin="http://www.hbgdfw.com/Service/User.aspx?Action=BusinessAnalysisLogin"
+    var scan_code= base_url+"/Service/Recognition.aspx?Action=BusinessAnalysis"
+    var scan_code_xin=base_url+"/Service/User.aspx?Action=BusinessAnalysisLogin"
     var url_get_certifynumber=base_url+"/Service/Common.aspx?Action="
+    var update= base_url+"/Service/Manage.aspx?Action=GetAndroidVersion"
 }

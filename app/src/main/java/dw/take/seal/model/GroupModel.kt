@@ -57,7 +57,7 @@ class GroupModel : Serializable {
     //选择的印章刻制单位GetShopCodes接口调取
     var SealContractShopId: String? = null
     //始终填1
-    var SealIdentificationType: String = "1"
+    var SealIdentificationType: String = "2"
     //内容根据人像识别结果构建
     var SealIdentificationRemark: String? = null
 

@@ -6,6 +6,7 @@ import dw.take.seal.R
 import wai.gr.cla.base.BaseActivity
 import java.util.*
 import com.google.gson.Gson
+import com.kaopiz.kprogresshud.KProgressHUD
 import dw.take.seal.control.SubmitListener
 import dw.take.seal.control.SubmitView
 import dw.take.seal.method.CommonAdapter
@@ -21,7 +22,7 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
     var adapter: CommonAdapter<SealModel>? = null
     var list: MutableList<SealModel>? = null
     var isFa: Boolean = true
-    var pdialog: ProgressDialog? = null
+    var pdialog: KProgressHUD? = null
     var orgs: MutableList<OrganizationJianModel>? = null//营业执照信息
     var cards: MutableList<CardInfoModel>? = null//如果是法人就是法人信息，不是法人就是经办人信息
     override fun getCertifyNumberResult(success: Boolean, result: String) {
@@ -45,7 +46,10 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
             val intent = Intent(this@ShowInfoActivity, CompleteActivity::class.java)
             startActivity(intent)
         } else {
-            toast("提交出错：" + result)
+            //toast("提交出错：" + result)
+            val intent = Intent(this@ShowInfoActivity, CompleteErrorActivity::class.java)
+            intent.putExtra("resultmes","提交出错：" +result)
+            startActivity(intent)
         }
     }
 
@@ -60,8 +64,13 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
         }
         showinfo_close_btn.setOnClickListener { finish() }
         showinfo_next_btn.setOnClickListener {
-            pdialog = LoadingDialog(this);
-            pdialog!!.show();
+            pdialog = KProgressHUD.create(this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setLabel("加载中")
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
+            pdialog!!.show()
             var models: MutableList<OrganizationJianModel>? = findb!!.findAll(OrganizationJianModel::class.java)
             if (models!!.size > 0) {
                 SubmitListener().getCertifyNumber(this, models[0].organizationRegionId)
@@ -116,7 +125,6 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
             group.SealApplyer = cards!![0].personName
             group.SealApplyerCertNumber = cards!![0].identyNumber
             group.SealApplyerMobileNumber = showinfo_tv_jmobile.text.toString()
-
             group.OrganizationTelephoneNumber = showinfo_tv_jmobile.text.toString()
             group.SealRegister = cards!![0].personName
         } else {
@@ -144,7 +152,12 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
         group.SealContractShopId = dw.take.seal.utils.Utils(this).ReadString(key.KEY_SHOP_ID)
 
         group.SealRegisteDepartmentId = "123456789874"
-        group.SealIdentificationRemark = "手机申请"
+        if (isFa) {
+            group.SealIdentificationRemark = "法人证件识别,、法人人像比对" + dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_XSD) + "。"
+        } else {
+            group.SealIdentificationRemark = "营业执照扫码验证、经办人证件识别、法人证件识别、经办人人像比对，" + dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_XSD) + "。"
+        }
+
 
         command.Group = group
         command.Seals = ArrayList<ApplySealData>()
