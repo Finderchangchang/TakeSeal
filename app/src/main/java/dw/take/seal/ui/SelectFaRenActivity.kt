@@ -25,6 +25,7 @@ class SelectFaRenActivity : BaseActivity() {
 
             startActivity(it)
         }
+        faren_close_btn.setOnClickListener { finish() }
     }
 
     override fun initViews() {

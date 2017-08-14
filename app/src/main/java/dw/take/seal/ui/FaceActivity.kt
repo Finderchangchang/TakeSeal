@@ -146,6 +146,7 @@ class FaceActivity : BaseActivity(), FaceView {
                 toast("已超时，请重新登录")
                 finish()
             }
+
         }
     }
 

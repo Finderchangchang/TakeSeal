@@ -83,5 +83,5 @@
         android:text="测试"
         android:textColor="@android:color/white"
         android:textSize="14sp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 </LinearLayout>

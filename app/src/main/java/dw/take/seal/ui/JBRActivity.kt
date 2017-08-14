@@ -128,6 +128,7 @@ class JBRActivity : BaseActivity(), card_view {
 
 //            val bm = Utils.compressImagexin(photo, 200)
             ZJSBListener().cardRecognition_img(cardInfo!!.personBaseImg, this)
+
         }
     }
 

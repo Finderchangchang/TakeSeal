@@ -324,7 +324,6 @@ object Utils {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
         return degree
     }
 

@@ -58,6 +58,4 @@ class WTSActivity : BaseActivity() {
         findb!!.deleteByWhere(ApplySealCertificateData::class.java,"SealCertificateType='04'")
         super.onDestroy()
     }
-
-
 }

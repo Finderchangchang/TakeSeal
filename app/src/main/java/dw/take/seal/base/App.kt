@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cookie.store.MemoryCookieStore
+import com.tencent.bugly.crashreport.CrashReport
 import com.uuzuche.lib_zxing.activity.ZXingLibrary
 
 
@@ -18,6 +19,7 @@ class App : Application() {
         context = applicationContext
         OkGo.init(this)
         OkGo.getInstance().setCookieStore(MemoryCookieStore())
+        CrashReport.initCrashReport(getApplicationContext(), "b1c8d7ea6c", true);
         ZXingLibrary.initDisplayOpinion(this);
     }
 
