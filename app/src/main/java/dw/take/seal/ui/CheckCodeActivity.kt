@@ -89,8 +89,8 @@ class CheckCodeActivity : BaseActivity(), SendCodeView {
             } else {
                 pdialog = KProgressHUD.create(this)
                         .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                        .setLabel("加载中")
-                        .setCancellable(true)
+                        .setLabel("验证信息中，请稍后")
+                        .setCancellable(false)
                         .setAnimationSpeed(2)
                         .setDimAmount(0.5f)
                 pdialog!!.show()

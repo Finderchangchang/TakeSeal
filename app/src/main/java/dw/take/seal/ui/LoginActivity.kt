@@ -36,16 +36,12 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
             }
         }
     }
-
     var mUpdateManager: UpdateManager? = null
     internal var update: Runnable = Runnable {
         mUpdateManager = UpdateManager(this@LoginActivity, apkpath)
         mUpdateManager!!.checkUpdateInfo()
     }
-
-
     var pdialog: KProgressHUD? = null
-
     companion object {
         var loginmin: LoginActivity? = null
     }
@@ -146,8 +142,8 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
             if (null != data) {
                 pdialog = KProgressHUD.create(this)
                         .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                        .setLabel("加载中")
-                        .setCancellable(true)
+                        .setLabel("识别中，请稍后")
+                        .setCancellable(false)
                         .setAnimationSpeed(2)
                         .setDimAmount(0.5f)
                 pdialog!!.show()
@@ -164,7 +160,6 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
                 }
             }
         }
-
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -185,7 +180,6 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
             //第三个参数是请求码
             //第四个参数是要申请的权限
             EasyPermissions.requestPermissions(this, "必要的权限", 0, *perms)
-
         }
         return false
     }

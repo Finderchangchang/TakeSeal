@@ -19,7 +19,6 @@ import wai.gr.cla.base.BaseActivity
 class FaceCameraActivity : BaseActivity(), CameraQianSurfaceView.onScan {
     override fun get(url: String?) {
         //返回人员头像
-
         if (url != null) {
             System.out.println("path:::" + url)
             //返回人员头像
@@ -51,11 +50,11 @@ class FaceCameraActivity : BaseActivity(), CameraQianSurfaceView.onScan {
             pdialog = KProgressHUD.create(this)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                     .setLabel("加载中")
-                    .setCancellable(true)
+                    .setCancellable(false)
                     .setAnimationSpeed(2)
                     .setDimAmount(0.5f)
             pdialog!!.show()
-            qian_main_cv.takePicture(this);
+            qian_main_cv.takePicture(this)
 //            qian_main_cv.takePicture {
 //                System.out.println("path:::" + result)
 //                //返回人员头像
@@ -67,7 +66,6 @@ class FaceCameraActivity : BaseActivity(), CameraQianSurfaceView.onScan {
 //                }
 //                finish()
 //            }
-
         }
     }
 

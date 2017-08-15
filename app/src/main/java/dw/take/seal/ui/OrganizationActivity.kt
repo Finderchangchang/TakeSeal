@@ -23,7 +23,6 @@ import wai.gr.cla.base.BaseActivity
 @Suppress("UNREACHABLE_CODE")
 //第二步，扫描营业执照信息
 class OrganizationActivity : BaseActivity() {
-    var isSaoMiao: Boolean = false;
     var OrgModel: OrganizationJianModel? = null;
 
 
@@ -91,7 +90,6 @@ class OrganizationActivity : BaseActivity() {
         }else{
             qy_tv.text = OrgModel!!.organizationEstablishDate
         }
-
         fr_tv.text = OrgModel!!.organizationLeader
         address_tv.text = OrgModel!!.organizationAddress
     }

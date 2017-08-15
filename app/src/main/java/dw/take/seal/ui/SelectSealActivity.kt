@@ -23,11 +23,8 @@ import wai.gr.cla.base.BaseActivity
 import java.util.*
 
 class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
-    var listtype: ArrayList<CodeModel>? = null
     var list: ArrayList<CodeModel>? = null
     var seal_model: SealModel? = null
-    var seal_code: CodeModel? = null
-    var seal_specifi: CodeModel? = null
     /**
      * 获得印章规格列表，并显示
      * */
@@ -45,8 +42,6 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
 
     var now_click = 1//1.选择规格，2.选择材质
     override fun initEvents() {
-
-
         seal_tv_type.text = seal_model!!.SealTypeName
         var seal_num = seal_model!!.num.toString()
         if (TextUtils.isEmpty(seal_num)) {
@@ -110,7 +105,6 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
                 var num = seal_tv_num.text.toString().toInt()
                 seal_model!!.num = num
                 seal_model!!.isSelect = true
-
                 intent.putExtra("select_model", seal_model)
                 setResult(1, intent)
                 finish()
@@ -129,13 +123,11 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
                 when (now_click) {
                     1 -> {
                         seal_tv_guige.text = `model`.Value
-                        //seal_code = model
                         seal_model!!.SealGGId = model.Key
                         seal_model!!.SealGGName = model.Value
                     }
                     else -> {
                         seal_tv_caizhi.text = `model`.Value
-                        //seal_specifi = model
                         seal_model!!.SealSpecificationId = model.Key
                         seal_model!!.SealSpecificationName = model.Value
                     }

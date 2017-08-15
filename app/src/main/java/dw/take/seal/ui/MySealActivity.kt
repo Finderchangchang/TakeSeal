@@ -10,6 +10,7 @@ import dw.take.seal.control.GetSpecificationCodesView
 import dw.take.seal.method.CommonAdapter
 import dw.take.seal.method.CommonViewHolder
 import dw.take.seal.model.CodeModel
+import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.model.SealModel
 import kotlinx.android.synthetic.main.activity_myseal.*
 import kotlinx.android.synthetic.main.activity_step_four.*
@@ -23,8 +24,6 @@ import java.util.*
  */
 
 class MySealActivity : BaseActivity(), GetSpecificationCodesView {
-    var selectType: String = "01"
-    var guige: String = ""
     var isfaren: Boolean = true
 
     override fun GetSpecificationCodesResult(success: Boolean, list: ArrayList<CodeModel>?, mes: String) {
@@ -39,8 +38,10 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
     var list: ArrayList<SealModel>? = null
     var adapter: CommonAdapter<SealModel>? = null
     var click_position: Int = 0
+    var orgs: MutableList<OrganizationJianModel>? = null//营业执照信息
     override fun initViews() {
         setContentView(R.layout.activity_myseal)
+        orgs = findb!!.findAll(OrganizationJianModel::class.java)
         isfaren = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         if (isfaren) {
             myseal_title.text="第八步"
@@ -89,7 +90,6 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
         }
         myseal_lv.adapter = adapter
         select_close_btn.setOnClickListener {
-
             finish()
         }
         select_next_btn.setOnClickListener {
@@ -133,41 +133,45 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
 
     fun LoadData() {
         list = ArrayList()
-        var model: SealModel = SealModel()
-        model!!.SealContent = "保定亮达机电设备安装服务有限公司"
-        model!!.SealTypeName = "单位专用章"
-        model!!.SealType="01"
-        model!!.isSelect = true
-        model!!.num = 1
-        list!!.add(model)
-        var model1: SealModel = SealModel()
-        model1!!.SealContent = "保定亮达机电设备安装服务有限公司财务专用章"
-        model1!!.SealTypeName = "财务专用章"
-        model1!!.isSelect = true
-        model1!!.SealType="02"
-        model1!!.num = 1
-        list!!.add(model1)
-        var model2: SealModel = SealModel()
-        model2!!.SealContent = "保定亮达机电设备安装服务有限公司发票专用章"
-        model2!!.SealTypeName = "发票专用章"
-        model2!!.isSelect = false
-        model2!!.num = 0
-        model2!!.SealType="03"
-        list!!.add(model2)
-        var model3: SealModel = SealModel()
-        model3!!.SealContent = "保定亮达机电设备安装服务有限公司合同专用章"
-        model3!!.SealTypeName = "合同专用章"
-        model3!!.isSelect = false
-        model3!!.SealType="04"
-        model3!!.num = 0
-        list!!.add(model3)
-        var mode14: SealModel = SealModel()
-        mode14!!.SealContent = "高春亮"
-        mode14!!.SealTypeName = "法定人名专用章"
-        mode14!!.isSelect = false
-        mode14!!.num = 0
-        mode14!!.SealType="05"
-        list!!.add(mode14)
-
+        if(orgs!!.size>0) {
+            var org:OrganizationJianModel=orgs!![0]
+            var model: SealModel = SealModel()
+            model!!.SealContent =org.organizationName
+                    model!!.SealTypeName = "单位专用章"
+            model!!.SealType = "01"
+            model!!.isSelect = true
+            model!!.num = 1
+            list!!.add(model)
+            var model1: SealModel = SealModel()
+            model1!!.SealContent = org.organizationName+" 财务专用章"
+            model1!!.SealTypeName = "财务专用章"
+            model1!!.isSelect = true
+            model1!!.SealType = "02"
+            model1!!.num = 1
+            list!!.add(model1)
+            var model2: SealModel = SealModel()
+            model2!!.SealContent = org.organizationName+" 发票专用章"
+            model2!!.SealTypeName = "发票专用章"
+            model2!!.isSelect = false
+            model2!!.num = 0
+            model2!!.SealType = "03"
+            list!!.add(model2)
+            var model3: SealModel = SealModel()
+            model3!!.SealContent = org.organizationName+" 合同专用章"
+            model3!!.SealTypeName = "合同专用章"
+            model3!!.isSelect = false
+            model3!!.SealType = "04"
+            model3!!.num = 0
+            list!!.add(model3)
+            var mode14: SealModel = SealModel()
+            mode14!!.SealContent =org.organizationLeader+"印"
+            mode14!!.SealTypeName = "法定人名专用章"
+            mode14!!.isSelect = false
+            mode14!!.num = 0
+            mode14!!.SealType = "05"
+            list!!.add(mode14)
+        }else{
+            toast("数据加载失败")
+        }
     }
 }

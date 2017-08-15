@@ -66,8 +66,8 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
         showinfo_next_btn.setOnClickListener {
             pdialog = KProgressHUD.create(this)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                    .setLabel("加载中")
-                    .setCancellable(true)
+                    .setLabel("上传信息中，请稍后")
+                    .setCancellable(false)
                     .setAnimationSpeed(2)
                     .setDimAmount(0.5f)
             pdialog!!.show()
@@ -170,12 +170,12 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
                         var applymodel: ApplySealData = ApplySealData()
                         var name: String = ""
                         if (j > 0) {
-                            name = " ("+j.toString()+")"
+                            name = "("+j.toString()+")"
                         }
-                        if(apply.SealType.equals("04")){
-                            applymodel.SealContent = apply.SealContent + " " + apply.SealTypeName + name+" "+group.OrganizationUSCC
+                        if(apply.SealType.equals("03")){
+                            applymodel.SealContent = apply.SealContent + name+" "+group.OrganizationUSCC
                         }else{
-                            applymodel.SealContent = apply.SealContent + " " + apply.SealTypeName + name
+                            applymodel.SealContent = apply.SealContent + name
                         }
 
                         applymodel.SealType = apply.SealType
@@ -223,8 +223,6 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
 //        certificate3.SealCertificateName = "委托书（法人/乡政府委托书/首席代表)"
 //        //val bitmap3 = BitmapFactory.decodeResource(this.getResources(), R.drawable.yinyezhizhao)
 //        certificate3.SealCertificateImageString = ImgUtils().bitmapToBase64(bitmap)
-
-
         command.Certificates = ArrayList<ApplySealCertificateData>()
         command.Certificates = findb!!.findAll(ApplySealCertificateData::class.java) as ArrayList<ApplySealCertificateData>
 //        command.Certificates!!.add(certificate)

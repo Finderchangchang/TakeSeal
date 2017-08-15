@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="刻章申请"
+        android:text="印章网上申请"
         android:textSize="20sp" />
 
     <EditText
@@ -83,5 +83,5 @@
         android:text="测试"
         android:textColor="@android:color/white"
         android:textSize="14sp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 </LinearLayout>

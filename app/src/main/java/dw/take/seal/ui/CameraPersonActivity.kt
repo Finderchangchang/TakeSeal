@@ -51,7 +51,7 @@ class CameraPersonActivity : BaseActivity(), CameraSurfaceView.onScan {
             pdialog = KProgressHUD.create(this)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                     .setLabel("加载中")
-                    .setCancellable(true)
+                    .setCancellable(false)
                     .setAnimationSpeed(2)
                     .setDimAmount(0.5f)
             pdialog!!.show()

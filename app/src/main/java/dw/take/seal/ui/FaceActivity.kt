@@ -29,6 +29,7 @@ import java.io.File
 import java.util.*
 import android.graphics.drawable.BitmapDrawable
 import com.kaopiz.kprogresshud.KProgressHUD
+import kotlinx.android.synthetic.main.ac_legal_person.*
 
 
 /**
@@ -47,6 +48,7 @@ class FaceActivity : BaseActivity(), FaceView {
         if (result) {
             dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_XSD, mes)
         } else {
+            face_iv_farenz!!.setImageResource(R.mipmap.zhuomian)
             dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_XSD, "")
         }
         isSuccess = result
@@ -54,7 +56,6 @@ class FaceActivity : BaseActivity(), FaceView {
         face_tv_name.text = mes
     }
 
-    var orgModel: OrganizationJianModel? = null
     var isfaren: Boolean = true
     var pdialog: KProgressHUD? = null
     var carInfofa: CardInfoModel? = null
@@ -85,7 +86,6 @@ class FaceActivity : BaseActivity(), FaceView {
             }
         }
         face_close_btn.setOnClickListener {
-
             finish()
         }
 
@@ -122,7 +122,7 @@ class FaceActivity : BaseActivity(), FaceView {
             pdialog = KProgressHUD.create(this)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                     .setLabel("加载中")
-                    .setCancellable(true)
+                    .setCancellable(false)
                     .setAnimationSpeed(2)
                     .setDimAmount(0.5f)
             pdialog!!.show()
@@ -146,7 +146,6 @@ class FaceActivity : BaseActivity(), FaceView {
                 toast("已超时，请重新登录")
                 finish()
             }
-
         }
     }
 

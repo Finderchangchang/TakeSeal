@@ -22,7 +22,6 @@ class SelectFaRenActivity : BaseActivity() {
             }else{
                 dw.take.seal.utils.Utils(this).WriteString(key.KEY_TAKESEAL_ISFAREN, "2")
             }
-
             startActivity(it)
         }
         faren_close_btn.setOnClickListener { finish() }

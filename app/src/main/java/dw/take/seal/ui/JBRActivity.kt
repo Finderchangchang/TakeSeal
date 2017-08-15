@@ -55,11 +55,13 @@ class JBRActivity : BaseActivity(), card_view {
                 jbr_tv_name.visibility = View.VISIBLE
                 jbr_tv_name.text = mes;
                 jbr_tv_cardid.visibility = View.GONE
+                lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
             }
         } else {
             jbr_tv_name.visibility = View.VISIBLE
             jbr_tv_name.text = mes;
             jbr_tv_cardid.visibility = View.GONE
+            lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
         }
     }
 
@@ -102,8 +104,8 @@ class JBRActivity : BaseActivity(), card_view {
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
             pdialog = KProgressHUD.create(this)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                    .setLabel("加载中")
-                    .setCancellable(true)
+                    .setLabel("识别中，请稍后")
+                    .setCancellable(false)
                     .setAnimationSpeed(2)
                     .setDimAmount(0.5f)
             pdialog!!.show()
@@ -116,8 +118,8 @@ class JBRActivity : BaseActivity(), card_view {
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
             pdialog = KProgressHUD.create(this)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                    .setLabel("加载中")
-                    .setCancellable(true)
+                    .setLabel("识别中，请稍后")
+                    .setCancellable(false)
                     .setAnimationSpeed(2)
                     .setDimAmount(0.5f)
             pdialog!!.show()

@@ -57,14 +57,14 @@ class LegalPersonActivity : BaseActivity(), card_view {
         }
         isSuccess = result
         if (result) {
-//            if (info != null) {
-//                if (!org!!.organizationLeader.equals(info.personName)) {
-//                    isSuccess = false
-//                    lp_tv_name.visibility = View.VISIBLE
-//                    lp_tv_cardid.visibility = View.GONE
-//                    lp_tv_name.text = "不是法人本人身份证"
-//                    lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
-//                } else {
+            if (info != null) {
+                if (!org!!.organizationLeader.equals(info.personName)) {
+                    isSuccess = false
+                    lp_tv_name.visibility = View.VISIBLE
+                    lp_tv_cardid.visibility = View.GONE
+                    lp_tv_name.text = "不是法人本人身份证"
+                    lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
+                } else {
                     cardInfo = info
                     cardInfo!!.isFaren = "true"
 
@@ -72,12 +72,13 @@ class LegalPersonActivity : BaseActivity(), card_view {
                     lp_tv_cardid.visibility = View.VISIBLE
                     lp_tv_name.text = "姓名：" + info.personName
                     lp_tv_cardid.text = "身份证号码：" + info.identyNumber
-//                }
-//            } else {
-//                lp_tv_name.visibility = View.VISIBLE
-//                lp_tv_name.text = mes;
-//                lp_tv_cardid.visibility = View.GONE
-//            }
+                }
+            } else {
+                lp_tv_name.visibility = View.VISIBLE
+                lp_tv_name.text = mes;
+                lp_tv_cardid.visibility = View.GONE
+                lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
+            }
         } else {
             lp_tv_name.visibility = View.VISIBLE
             lp_tv_name.text = mes;
@@ -136,7 +137,7 @@ class LegalPersonActivity : BaseActivity(), card_view {
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
             pdialog = KProgressHUD.create(this)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                    .setLabel("加载中")
+                    .setLabel("识别中，请稍后")
                     .setCancellable(true)
                     .setAnimationSpeed(2)
                     .setDimAmount(0.5f)
@@ -146,20 +147,19 @@ class LegalPersonActivity : BaseActivity(), card_view {
             ZJSBListener().cardRecognition_img(ImgUtils().bitmapToBase64(photo!!), this)
         } else if (requestCode == 12 && resultCode == 12) {
             var mypath = data!!.getStringExtra("PATH")
-            System.out.println("path++++:"+mypath)
-            toast("path:"+mypath)
-            var photo:Bitmap?=null
-             photo = Utils.getimage(100, mypath.toString())
+//            System.out.println("path++++:" + mypath)
+//            toast("path:" + mypath)
+            var photo: Bitmap? = null
+            photo = Utils.getimage(100, mypath.toString())
             //val zhengbm = Utils.centerSquareScaleBitmap(photo, 100)
             pdialog = KProgressHUD.create(this)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                    .setLabel("加载中")
-                    .setCancellable(true)
+                    .setLabel("识别中，请稍后")
+                    .setCancellable(false)
                     .setAnimationSpeed(2)
                     .setDimAmount(0.5f)
             pdialog!!.show()
             lp_iv_farenz!!.setImageBitmap(photo)
-
             //val bm = Utils.compressImagexin(photo, 200)
             cardInfo = CardInfoModel()
             apply.SealCertificateImage = ImgUtils().bitmapToBase64(photo!!)

@@ -13,7 +13,6 @@ import wai.gr.cla.model.key
 //委托书采集
 class WTSActivity : BaseActivity() {
     var isSuccess: Boolean = false
-
     var facemodel: ApplySealCertificateData = ApplySealCertificateData()
     override fun initViews() {
         setContentView(R.layout.activity_wts)

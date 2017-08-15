@@ -74,7 +74,7 @@ class CompleteActivity : BaseActivity(), GetShopView {
         findb!!.deleteAll(OrganizationJianModel::class.java)
         findb!!.deleteAll(ApplySealCertificateData::class.java)
 
-
+        //关闭，退出程序
         select_close_btn.setOnClickListener {
             val intent = Intent()
             intent.action = "action.exit"
