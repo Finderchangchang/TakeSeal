@@ -26,17 +26,17 @@ class GetShopsListener{
                             if(s.Codes!=null){
                                 main.GetshopResult(true,s.Codes as ArrayList<CodeModel>,"")
                             }else{
-                                main.GetshopResult(true,null,s.Message)
+                                main.GetshopResult(true,null,s.Message!!)
                             }
 
                         }else{
-                            main.GetshopResult(false,null,s.Message)
+                            main.GetshopResult(false,null,s.Message!!)
                         }
                     }
                     override fun onError(call: Call?, response: Response?, e: Exception?) {
                         super.onError(call, response, e)
-                        var model:ArrayList<CodeModel>?=null;
-                        main.GetshopResult(true,model,e!!.message.toString())
+
+                        main.GetshopResult(false,null,e!!.message.toString())
                     }
                 })
     }

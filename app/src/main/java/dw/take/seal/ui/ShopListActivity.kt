@@ -23,6 +23,9 @@ class ShopListActivity : BaseActivity(), GetShopsView {
             if (seal_type_list.size > 0) {
                 seal_type_list[0].is_check = true
                 seal_type_adapter!!.refresh(seal_type_list)
+            }else{
+                selectindex=-1
+                toast(mes)
             }
         } else {
              selectindex=-1
@@ -54,17 +57,14 @@ class ShopListActivity : BaseActivity(), GetShopsView {
                     holder.setImageResource(R.id.main_cb,R.mipmap.weixuanzhong)
                 }
 
-
                 holder.setOnClickListener(R.id.shop_ll) {
                     //刷新checkbox点击状态
                     selectindex=position
-                    var seal = seal_type_list[position]
                     var i: Int = 0;
                     for (model in seal_type_list) {
                         seal_type_list[i].is_check = false
                         i++
                     }
-
                     seal_type_list[position].is_check = true
                     seal_type_adapter!!.refresh(seal_type_list)
                 }
@@ -79,9 +79,13 @@ class ShopListActivity : BaseActivity(), GetShopsView {
             if(selectindex==-1){
                 toast("未能选择刻制单位")
             }else {
-                dw.take.seal.utils.Utils(this).WriteString(key.KEY_SHOP_ID, seal_type_list[selectindex].Key)
-                val intent = Intent(this@ShopListActivity, ShowInfoActivity::class.java)
-                startActivity(intent)
+                if(selectindex>=0&&selectindex<seal_type_list.size) {
+                    dw.take.seal.utils.Utils(this).WriteString(key.KEY_SHOP_ID, seal_type_list[selectindex].Key)
+                    val intent = Intent(this@ShopListActivity, ShowInfoActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    toast("未能选择刻制单位")
+                }
             }
         }
     }

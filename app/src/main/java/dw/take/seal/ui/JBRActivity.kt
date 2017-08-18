@@ -34,7 +34,7 @@ class JBRActivity : BaseActivity(), card_view {
     var isSuccess: Boolean = false
     var isFa: Boolean = true
     var apply: ApplySealCertificateData = ApplySealCertificateData()
-    override fun card_info_view(result: Boolean, info: CardInfoModel, mes: String) {
+    override fun card_info_view(result: Boolean, info: CardInfoModel?, mes: String) {
         //证件识别结果
         //toast(mes);
         if (pdialog != null) {
@@ -55,13 +55,13 @@ class JBRActivity : BaseActivity(), card_view {
                 jbr_tv_name.visibility = View.VISIBLE
                 jbr_tv_name.text = mes;
                 jbr_tv_cardid.visibility = View.GONE
-                lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
+                jbr_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
             }
         } else {
             jbr_tv_name.visibility = View.VISIBLE
             jbr_tv_name.text = mes;
             jbr_tv_cardid.visibility = View.GONE
-            lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
+            jbr_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
         }
     }
 
@@ -83,7 +83,6 @@ class JBRActivity : BaseActivity(), card_view {
             }
         }
         jbr_close_btn.setOnClickListener {
-
             finish()
         }
     }

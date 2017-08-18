@@ -15,7 +15,7 @@ import okhttp3.Response
  * 身份证照片识别图片内容 1.法人2.经办人
  * */
 interface card_view {
-    fun card_info_view(result: Boolean, info: CardInfoModel, mes: String);
+    fun card_info_view(result: Boolean, info: CardInfoModel?, mes: String);
 }
 
 class ZJSBListener {
@@ -30,7 +30,7 @@ class ZJSBListener {
                         } else if (s.Data == null) {
                             main.card_info_view(s.Success, CardInfoModel(), s.Message!!)
                         } else {
-                            main.card_info_view(s.Success, s.Data!!, "")
+                            main.card_info_view(false, null, "")
                         }
                     }
 

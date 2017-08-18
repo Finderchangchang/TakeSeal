@@ -46,7 +46,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         var loginmin: LoginActivity? = null
     }
 
-    override fun scan_result(sucess: Boolean, model: OrganizationJianModel, result: String) {
+    override fun scan_result(sucess: Boolean, model: OrganizationJianModel?, result: String) {
         if (pdialog != null) {
             pdialog!!.dismiss()
         }
@@ -74,12 +74,12 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
      * 获得的权限
      * */
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
-        val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
-        startActivityForResult(intent, 1)
-        var btn: Button? = null
-        btn!!.setOnClickListener { view ->
-
-        }
+//        val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
+//        startActivityForResult(intent, 1)
+//        var btn: Button? = null
+//        btn!!.setOnClickListener { view ->
+//
+//        }
     }
 
     override fun initViews() {
@@ -113,6 +113,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         //扫描营业执照
         scan_code_login_btn.setOnClickListener {
             check_camera_permission()
+            //删除多余的信息
             findb!!.deleteAll(CardInfoModel::class.java)
             findb!!.deleteAll(SealModel::class.java)
             findb!!.deleteAll(OrganizationJianModel::class.java)
@@ -191,6 +192,6 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         if (result == 1) {
             startActivity(Intent(this@LoginActivity, MySealActivity::class.java))
             finish()
-        }
+    }
     }
 }

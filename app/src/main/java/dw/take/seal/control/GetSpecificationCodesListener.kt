@@ -30,14 +30,19 @@ class GetSpecificationCodesListener {
                 .execute(object : JsonCallback<LzyResponse<CodeModel>>() {
                     override fun onSuccess(s: LzyResponse<CodeModel>, call: Call, response: Response) {
                         if (s.Success) {
-                            main.GetSpecificationCodesResult(true,s.Codes as ArrayList<CodeModel>,"")
+                            if(search_type.equals("1")){
+                                main.GetSpecificationCodesResult(true,s.Codes as ArrayList<CodeModel>,type)
+                            }else{
+                                main.GetSpecificationCodesResult(true,s.Codes as ArrayList<CodeModel>,search_type)
+                            }
+
                         }else{
                             main.GetSpecificationCodesResult(false,null,s.Message)
                         }
                     }
                     override fun onError(call: Call?, response: Response?, e: Exception?) {
                         super.onError(call, response, e)
-                        main.error_net()
+                        main.GetSpecificationCodesResult(false,null, e!!.message!!)
                     }
                 })
     }

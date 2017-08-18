@@ -19,7 +19,7 @@ import okhttp3.Response
  * Created by Administrator on 2017/7/28.
  */
 interface IScan_result : IBaseInter {
-    fun scan_result(istrue: Boolean, model: OrganizationJianModel, result: String)
+    fun scan_result(istrue: Boolean, model: OrganizationJianModel?, result: String)
 }
 
 class ScanCodeLogin {
@@ -61,7 +61,11 @@ class ScanCodeLogin {
                 .execute(object : JsonCallback<LzyResponse<OrganizationJianModel>>() {
                     override fun onSuccess(model: LzyResponse<OrganizationJianModel>, call: Call, response: Response) {
                         if (model.Data == null) {
-                            scan.scan_result(false, OrganizationJianModel(), "数据异常")
+                            if(model.Message!=null) {
+                                scan.scan_result(false, OrganizationJianModel(), model.Message)
+                            }else{
+                                scan.scan_result(false, OrganizationJianModel(),"数据异常")
+                            }
                         } else {
                             // v//ar org= Gson().fromJson(model.Data,OrganizationJianModel::class.java)
                             scan.scan_result(model.Success!!, model.Data!!, "")
@@ -69,7 +73,7 @@ class ScanCodeLogin {
                     }
 
                     override fun onError(call: Call?, response: Response?, e: Exception?) {
-                        scan.error_net()
+                        scan.scan_result(false,null, "数据错误："+e!!.message)
                     }
                 })
     }

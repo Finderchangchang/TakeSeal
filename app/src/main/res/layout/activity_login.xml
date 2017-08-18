@@ -17,8 +17,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="印章网上申请"
-        android:textSize="20sp" />
+        android:text="刻章申请"
+        android:textColor="@color/__picker_black_40"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/count_et"
@@ -51,7 +53,7 @@
         android:text="登录"
         android:textColor="@android:color/white"
         android:textSize="16sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/scan_login_btn"
@@ -70,9 +72,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/login_btn"
-        android:text="扫执照二维码登录"
+        android:text="扫描执照二维码登录"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/__picker_black_40"
+        android:background="@drawable/bg_tishi"
+        android:textSize="12dp"
+        android:text="小提示：请扫描营业执照上的二维码进行登录\n（注：只有新成立企业，工商共享后才能申请，一般是领营业执照次日后即可申请。）"/>
 
     <Button
         android:id="@+id/test_btn"
@@ -83,5 +95,5 @@
         android:text="测试"
         android:textColor="@android:color/white"
         android:textSize="14sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </LinearLayout>

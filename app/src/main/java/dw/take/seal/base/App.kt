@@ -19,7 +19,7 @@ class App : Application() {
         context = applicationContext
         OkGo.init(this)
         OkGo.getInstance().setCookieStore(MemoryCookieStore())
-        CrashReport.initCrashReport(getApplicationContext(), "b1c8d7ea6c", false);
+        CrashReport.initCrashReport(getApplicationContext(), "b1c8d7ea6c", true);
         ZXingLibrary.initDisplayOpinion(this);
     }
 

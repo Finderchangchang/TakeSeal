@@ -41,8 +41,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:background="@color/huang"
-            android:text="小提示：需要法人的证件信息和法人自拍照片" />
+            android:background="@drawable/bg_tishi"
+            android:padding="10dp"
+            android:textColor="@color/__picker_black_40"
+            android:textSize="12dp"
+            android:text="小提示：需要法人的证件信息和法人自拍照片。" />
 
         <RadioButton
             android:id="@+id/faren_rb_jing"
@@ -56,8 +59,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:background="@color/huang"
-            android:text="小提示：需要法人的证件信息，经办人的证件信息和经办人自拍照片及委托材料照片" />
+            android:background="@drawable/bg_tishi"
+            android:padding="10dp"
+            android:textSize="12dp"
+            android:textColor="@color/__picker_black_40"
+            android:text="小提示：需要法人的证件信息，经办人的证件信息和经办人自拍照片及委托材料照片。" />
     </RadioGroup>
 
     <View

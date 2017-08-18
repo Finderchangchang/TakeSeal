@@ -49,7 +49,7 @@ class LegalPersonActivity : BaseActivity(), card_view {
     var apply: ApplySealCertificateData = ApplySealCertificateData()
     var isFa: Boolean = true
     var org: OrganizationJianModel? = null
-    override fun card_info_view(result: Boolean, info: CardInfoModel, mes: String) {
+    override fun card_info_view(result: Boolean, info: CardInfoModel?, mes: String) {
         //证件识别结果
         //toast(mes);
         if (pdialog != null) {
@@ -67,7 +67,6 @@ class LegalPersonActivity : BaseActivity(), card_view {
                 } else {
                     cardInfo = info
                     cardInfo!!.isFaren = "true"
-
                     lp_tv_name.visibility = View.VISIBLE
                     lp_tv_cardid.visibility = View.VISIBLE
                     lp_tv_name.text = "姓名：" + info.personName

@@ -4,7 +4,7 @@ package dw.take.seal.model
  * Created by lenovo on 2017/7/4.
  */
 object app_url{
-    val normal_url="http://192.168.1.115:2003"
+    val normal_url="http://192.168.1.115:6006"
     val base_url1="http://118.190.47.63:1399"
     val base_urlceshi="http://www.hbgdfw.com"
     val base_url="https://seal.hbgdfw.com:6006"

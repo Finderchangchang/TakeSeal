@@ -114,22 +114,24 @@ class SelectSealActivity : BaseActivity(), GetSpecificationCodesView {
 
 
     fun ShowMyDialog(listBlue: ArrayList<CodeModel>) {
-        var dialog: SpinnerDialog? = null
-        if (listBlue!!.size > 0) {
-            dialog = SpinnerDialog(this)
-            dialog.setListView(listBlue)
-            dialog.show()
-            dialog.setOnItemClick { position, model ->
-                when (now_click) {
-                    1 -> {
-                        seal_tv_guige.text = `model`.Value
-                        seal_model!!.SealGGId = model.Key
-                        seal_model!!.SealGGName = model.Value
-                    }
-                    else -> {
-                        seal_tv_caizhi.text = `model`.Value
-                        seal_model!!.SealSpecificationId = model.Key
-                        seal_model!!.SealSpecificationName = model.Value
+        if(this!=null) {
+            var dialog: SpinnerDialog? = null
+            if (listBlue!!.size > 0) {
+                dialog = SpinnerDialog(this)
+                dialog.setListView(listBlue)
+                dialog.show()
+                dialog.setOnItemClick { position, model ->
+                    when (now_click) {
+                        1 -> {
+                            seal_tv_guige.text = `model`.Value
+                            seal_model!!.SealGGId = model.Key
+                            seal_model!!.SealGGName = model.Value
+                        }
+                        else -> {
+                            seal_tv_caizhi.text = `model`.Value
+                            seal_model!!.SealSpecificationId = model.Key
+                            seal_model!!.SealSpecificationName = model.Value
+                        }
                     }
                 }
             }
