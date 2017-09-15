@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/main_bg">
+    android:background="@color/main_bg"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -21,69 +21,89 @@
         android:text="法人身份证采集识别"
         android:textColor="@color/__picker_black_40"
         android:textSize="16dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_tishi"
         android:padding="10dp"
         android:text="小提示：拍摄法人身份证正面照片，要与营业执照上的法人一致；确保您拍照的光线已经图片的清晰度；如果图片信息识别有错，请重拍。"
         android:textColor="@color/__picker_black_40"
-        android:background="@drawable/bg_tishi"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:textSize="12dp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/line_bg" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:weightSum="1">
-
-        <Button
-            android:id="@+id/btn_upload_faren"
-            style="@style/btn_style"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_gravity="center_horizontal"
-            android:text="拍照"
-            android:textSize="12dp"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/lp_iv_farenz"
-            android:layout_width="match_parent"
-            android:layout_height="260dp"
-            android:layout_margin="10dp"
-            android:src="@mipmap/shenfenzhong" />
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="1">
 
-            <TextView
-                android:id="@+id/lp_tv_name"
+            <Button
+                android:id="@+id/btn_upload_faren"
+                style="@style/btn_style"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:text="拍照"
+                android:textSize="12dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/lp_iv_farenz"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/sfza" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="姓名：某某"
-                android:visibility="gone"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/lp_tv_cardid"
+                <TextView
+                    android:id="@+id/lp_tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="姓名：某某"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/lp_tv_cardid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="身份证号码：1234567891234"
+                    android:visibility="gone" />
+            </LinearLayout>
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="身份证号码：1234567891234"
-                android:visibility="gone"/>
+                android:layout_height="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/line_bg" />
+
+            <ImageView
+                android:id="@+id/lp_iv_farenbm"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/sfzb" />
         </LinearLayout>
-    </LinearLayout>
 
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -38,42 +38,61 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/line_bg" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/jbr_iv_farenz"
-            android:layout_width="match_parent"
-            android:layout_height="260dp"
-            android:layout_margin="10dp"
-            android:src="@mipmap/shenfenzhong" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/jbr_tv_name"
+            <ImageView
+                android:id="@+id/jbr_iv_farenz"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="姓名：某某"
-                android:visibility="gone" />
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/sfzb" />
 
-            <TextView
-                android:id="@+id/jbr_tv_cardid"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="身份证号码：1234567891234"
-                android:visibility="gone" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/jbr_tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="姓名：某某"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/jbr_tv_cardid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="身份证号码：1234567891234"
+                    android:visibility="gone" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/line_bg" />
+
+            <ImageView
+                android:id="@+id/jbr_iv_farenbm"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/sfzb" />
         </LinearLayout>
-    </LinearLayout>
 
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"

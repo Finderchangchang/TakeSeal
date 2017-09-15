@@ -34,6 +34,7 @@ class JBRActivity : BaseActivity(), card_view {
     var isSuccess: Boolean = false
     var isFa: Boolean = true
     var apply: ApplySealCertificateData = ApplySealCertificateData()
+    var applybm: ApplySealCertificateData = ApplySealCertificateData()
     override fun card_info_view(result: Boolean, info: CardInfoModel?, mes: String) {
         //证件识别结果
         //toast(mes);
@@ -71,13 +72,22 @@ class JBRActivity : BaseActivity(), card_view {
         }
         jbr_next_btn.setOnClickListener {
             if (isSuccess) {
-                apply.SealCertificateType = "03"
-                apply.SealCertificateName = "经办人身份证"
-                findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='false'")
-                findb!!.save(apply)
-                cardInfo!!.isFaren = "false"
-                findb!!.save(cardInfo)
-                startActivity(Intent(this, FaceActivity::class.java))
+                if (applybm.SealCertificateImage == null) {
+                    toast("请先上传经办人证件背面照片,验证通过才可进入下一步")
+                } else {
+                    apply.SealCertificateType = "03"
+                    apply.SealCertificateName = "经办人身份证"
+                    applybm.SealCertificateType = "27"
+                    applybm.SealCertificateName = "经办人身份证背面"
+                    findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='false'")
+                    findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='27'")
+                    findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='03'")
+                    findb!!.save(apply)
+                    findb!!.save(applybm)
+                    cardInfo!!.isFaren = "false"
+                    findb!!.save(cardInfo)
+                    startActivity(Intent(this, FaceActivity::class.java))
+                }
             } else {
                 toast("请先上传经办人证件照片,验证通过才可进入下一步")
             }
@@ -85,12 +95,17 @@ class JBRActivity : BaseActivity(), card_view {
         jbr_close_btn.setOnClickListener {
             finish()
         }
+        jbr_iv_farenbm.setOnClickListener {
+            startActivityForResult(Intent(this, CameraPersonActivity::class.java), 13)
+        }
     }
 
     override fun onDestroy() {
         findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='false'")
+        findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='27'")
         super.onDestroy()
     }
+
     override fun initViews() {
         setContentView(R.layout.activity_jbr)
         isFa = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
@@ -130,6 +145,11 @@ class JBRActivity : BaseActivity(), card_view {
 //            val bm = Utils.compressImagexin(photo, 200)
             ZJSBListener().cardRecognition_img(cardInfo!!.personBaseImg, this)
 
+        } else if (requestCode == 13 && resultCode == 12) {
+            var mypath = data!!.getStringExtra("PATH")
+            val photo = Utils.getimage(100, mypath.toString())
+            jbr_iv_farenbm!!.setImageBitmap(photo)
+            applybm.SealCertificateImage = ImgUtils().bitmapToBase64(photo!!)
         }
     }
 

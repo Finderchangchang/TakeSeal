@@ -44,9 +44,11 @@ class LegalPersonActivity : BaseActivity(), card_view {
     //图片保存路径
     private var path = StringBuffer()
     var cardInfo: CardInfoModel? = null
+
     var pdialog: KProgressHUD? = null
     var isSuccess: Boolean = false
     var apply: ApplySealCertificateData = ApplySealCertificateData()
+    var applybm: ApplySealCertificateData = ApplySealCertificateData()
     var isFa: Boolean = true
     var org: OrganizationJianModel? = null
     override fun card_info_view(result: Boolean, info: CardInfoModel?, mes: String) {
@@ -58,20 +60,20 @@ class LegalPersonActivity : BaseActivity(), card_view {
         isSuccess = result
         if (result) {
             if (info != null) {
-                if (!org!!.organizationLeader.equals(info.personName)) {
-                    isSuccess = false
-                    lp_tv_name.visibility = View.VISIBLE
-                    lp_tv_cardid.visibility = View.GONE
-                    lp_tv_name.text = "不是法人本人身份证"
-                    lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
-                } else {
-                    cardInfo = info
-                    cardInfo!!.isFaren = "true"
-                    lp_tv_name.visibility = View.VISIBLE
-                    lp_tv_cardid.visibility = View.VISIBLE
-                    lp_tv_name.text = "姓名：" + info.personName
-                    lp_tv_cardid.text = "身份证号码：" + info.identyNumber
-                }
+//                if (!org!!.organizationLeader.equals(info.personName)) {
+//                    isSuccess = false
+//                    lp_tv_name.visibility = View.VISIBLE
+//                    lp_tv_cardid.visibility = View.GONE
+//                    lp_tv_name.text = "不是法人本人身份证"
+//                    lp_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
+//                } else {
+                cardInfo = info
+                cardInfo!!.isFaren = "true"
+                lp_tv_name.visibility = View.VISIBLE
+                lp_tv_cardid.visibility = View.VISIBLE
+                lp_tv_name.text = "姓名：" + info.personName
+                lp_tv_cardid.text = "身份证号码：" + info.identyNumber
+//                }
             } else {
                 lp_tv_name.visibility = View.VISIBLE
                 lp_tv_name.text = mes;
@@ -91,6 +93,8 @@ class LegalPersonActivity : BaseActivity(), card_view {
         setContentView(R.layout.ac_legal_person)
         apply.SealCertificateType = "02"
         apply.SealCertificateName = "法人代表人身份证（董事长护照）"
+        applybm.SealCertificateType = "26"
+        applybm.SealCertificateName = "法人代表人身份证背面"
         isFa = dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_ISFAREN).equals("1")
         var orgs: MutableList<OrganizationJianModel>;
         orgs = findb!!.findAll(OrganizationJianModel::class.java)
@@ -103,16 +107,26 @@ class LegalPersonActivity : BaseActivity(), card_view {
         lp_iv_farenz!!.setOnClickListener {
             startActivityForResult(Intent(this, CameraPersonActivity::class.java), 12)
         }
+        lp_iv_farenbm!!.setOnClickListener {
+            startActivityForResult(Intent(this, CameraPersonActivity::class.java), 13)
+        }
         lp_next_btn.setOnClickListener {
+
             if (isSuccess) {
-                findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='true'")
-                findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='02'")
-                findb!!.save(apply)
-                findb!!.save(cardInfo)
-                if (isFa) {
-                    startActivity(Intent(this, FaceActivity::class.java))
+                if (applybm.SealCertificateImage == null) {
+                    toast("请先上传法人身份证背面图片")
                 } else {
-                    startActivity(Intent(this, JBRActivity::class.java))
+                    findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='true'")
+                    findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='02'")
+                    findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='26'")
+                    findb!!.save(apply)
+                    findb!!.save(cardInfo)
+                    findb!!.save(applybm)
+                    if (isFa) {
+                        startActivity(Intent(this, FaceActivity::class.java))
+                    } else {
+                        startActivity(Intent(this, JBRActivity::class.java))
+                    }
                 }
             } else {
                 toast("请先上传法人身份证照片")
@@ -126,6 +140,7 @@ class LegalPersonActivity : BaseActivity(), card_view {
     override fun onDestroy() {
         findb!!.deleteByWhere(CardInfoModel::class.java, "isFaren='true'")
         findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='02'")
+        findb!!.deleteByWhere(ApplySealCertificateData::class.java, "SealCertificateType='26'")
         super.onDestroy()
     }
 
@@ -164,6 +179,12 @@ class LegalPersonActivity : BaseActivity(), card_view {
             apply.SealCertificateImage = ImgUtils().bitmapToBase64(photo!!)
             cardInfo!!.personBaseImg = apply.SealCertificateImage
             ZJSBListener().cardRecognition_img(cardInfo!!.personBaseImg, this)
+        } else if (requestCode == 13 && resultCode == 12) {
+            var mypath = data!!.getStringExtra("PATH")
+            var photo: Bitmap? = null
+            photo = Utils.getimage(100, mypath.toString())
+            lp_iv_farenbm!!.setImageBitmap(photo)
+            applybm.SealCertificateImage = ImgUtils().bitmapToBase64(photo!!)
         }
     }
 }

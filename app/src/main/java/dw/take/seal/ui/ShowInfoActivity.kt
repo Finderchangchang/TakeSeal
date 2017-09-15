@@ -153,7 +153,7 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
 
         group.SealRegisteDepartmentId = "123456789874"
         if (isFa) {
-            group.SealIdentificationRemark = "法人证件识别,、法人人像比对" + dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_XSD) + "。"
+            group.SealIdentificationRemark = "法人证件识别、法人人像比对" + dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_XSD) + "。"
         } else {
             group.SealIdentificationRemark = "营业执照扫码验证、经办人证件识别、法人证件识别、经办人人像比对，" + dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_XSD) + "。"
         }
