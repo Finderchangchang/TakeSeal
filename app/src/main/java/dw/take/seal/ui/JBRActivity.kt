@@ -56,13 +56,13 @@ class JBRActivity : BaseActivity(), card_view {
                 jbr_tv_name.visibility = View.VISIBLE
                 jbr_tv_name.text = mes;
                 jbr_tv_cardid.visibility = View.GONE
-                jbr_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
+                jbr_iv_farenz!!.setImageResource(R.mipmap.sfza)
             }
         } else {
             jbr_tv_name.visibility = View.VISIBLE
             jbr_tv_name.text = mes;
             jbr_tv_cardid.visibility = View.GONE
-            jbr_iv_farenz!!.setImageResource(R.mipmap.shenfenzhong)
+            jbr_iv_farenz!!.setImageResource(R.mipmap.sfza)
         }
     }
 

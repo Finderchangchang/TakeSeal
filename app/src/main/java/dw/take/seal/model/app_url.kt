@@ -7,7 +7,8 @@ object app_url{
     val normal_url="http://192.168.1.115:6006"
     val base_url1="http://118.190.47.63:1399"
     val base_urlceshi="http://www.hbgdfw.com"
-    val base_url="https://seal.hbgdfw.com:6006"
+    val base_url="https://seal.hbgdfw.com:6006"//正式
+    var base_urlqinghai="https://seal.hbgdfw.com:11001"//青海
 
     var url_organizations=base_url+"/Service/Organization.aspx?Action="//获得当前登录账号信息
     var url_user=base_url+"/Service/User.aspx?Action="//获得当前登录账号信息
