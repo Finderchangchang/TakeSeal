@@ -49,22 +49,22 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
             if (mes.equals("2")) {
                 speList = list
                 GetSpecificationCodesListener().getSpecificationSeal(this, "1", "01")
-            } else {
+            } else {//1.40 2.38 4.42 5.20
                 if(list!=null&&list.size>0) {
                     if (mes.equals("01") ) {
-                        code1 = list!![0]
+                        code1 = list!![1]
                         GetSpecificationCodesListener().getSpecificationSeal(this, "1", "02")
                     } else if (mes.equals("02")) {
-                        code2 = list!![0]
+                        code2 = list!![2]
                         GetSpecificationCodesListener().getSpecificationSeal(this, "1", "03")
                     } else if (mes.equals("03")) {
                         code3 = list!![0]
                         GetSpecificationCodesListener().getSpecificationSeal(this, "1", "04")
                     } else if (mes.equals("04")) {
-                        code4 = list!![0]
+                        code4 = list!![1]
                         GetSpecificationCodesListener().getSpecificationSeal(this, "1", "05")
                     } else if (mes.equals("05")) {
-                        code5 = list!![0]
+                        code5 = list!![1]
                         if(pdialog!=null){
                             pdialog!!.dismiss()
                         }
@@ -238,8 +238,8 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
                 model3!!.SealSpecificationName = speList!![0].Value
                 model3!!.num = 0
                 if(code3!=null){
-                    model3!!.SealGGId=code3!!.Key
-                    model3!!.SealGGName=code3!!.Value
+                    model3!!.SealGGId=code4!!.Key
+                    model3!!.SealGGName=code4!!.Value
                 }
                 list!!.add(model3)
                 var mode14: SealModel = SealModel()
@@ -251,8 +251,8 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
                 mode14!!.SealSpecificationId = speList!![0].Key
                 mode14!!.SealSpecificationName = speList!![0].Value
                 if(code4!=null){
-                    mode14!!.SealGGId=code4!!.Key
-                    mode14!!.SealGGName=code4!!.Value
+                    mode14!!.SealGGId=code5!!.Key
+                    mode14!!.SealGGName=code5!!.Value
                 }
                 list!!.add(mode14)
                 adapter!!.refresh(list)

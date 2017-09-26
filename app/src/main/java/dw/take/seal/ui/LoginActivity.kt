@@ -29,7 +29,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
     var apkpath: String? = null
     override fun UpdateVersionResult(success: Boolean, version: String, path: String) {
         //获取最新版本号
-        if (success) {
+        if (true) {
             if (!version.equals(Utils.version)) {
                 apkpath = path
                 runOnUiThread(update)
