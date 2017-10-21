@@ -86,7 +86,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         loginmin = this
         setContentView(R.layout.activity_login)
         //获取最新版本号
-        UpdateListener().UpdateVersion(this)
+        //UpdateListener().UpdateVersion(this)
     }
 
     override fun initEvents() {
