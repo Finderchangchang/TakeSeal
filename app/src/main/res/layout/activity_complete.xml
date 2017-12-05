@@ -377,7 +377,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="完成"
+            android:text="立即支付"
             android:textSize="12dp" />
 
     </LinearLayout>

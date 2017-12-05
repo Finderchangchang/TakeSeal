@@ -74,7 +74,7 @@ class MySealActivity : BaseActivity(), GetSpecificationCodesView {
                     if(pdialog!=null){
                         pdialog!!.dismiss()
                     }
-
+                    toast("获取数据异常")
                 }
             }
         }else{

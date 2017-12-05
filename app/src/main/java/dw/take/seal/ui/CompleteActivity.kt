@@ -76,9 +76,11 @@ class CompleteActivity : BaseActivity(), GetShopView {
 
         //关闭，退出程序
         select_close_btn.setOnClickListener {
-            val intent = Intent()
-            intent.action = "action.exit"
-            context!!.sendBroadcast(intent)
+//            val intent = Intent()
+//            intent.action = "action.exit"
+//            context!!.sendBroadcast(intent)
+            val intent = Intent(this@CompleteActivity, ShowZhiFuActivity::class.java)
+            startActivity(intent)
         }
     }
 

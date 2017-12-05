@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/showinfo_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="支付"
+        android:textColor="@android:color/white"
+        android:textSize="19sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:padding="10dp"
+        android:text="支付信息确认"
+        android:textColor="@color/__picker_black_40"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_tishi"
+        android:padding="10dp"
+        android:text="温馨提示：可通过下方二维码，进行支付宝或者微信支付。"
+        android:textColor="@color/__picker_black_40"
+        android:textSize="12dp" />
+    <TextView
+        android:id="@+id/zhifu_kezhishe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="收款单位：****"
+        android:textColor="@color/__picker_black_40"
+        android:textSize="16dp" />
+    <TextView
+        android:id="@+id/zhifu_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="印章总价格为：0.0元"
+        android:textColor="@color/__picker_black_40"
+        android:textSize="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/img_zhifubao"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:src="@mipmap/erweima" />
+
+        <ImageView
+            android:id="@+id/img_weixin"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:src="@mipmap/weixin" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="支付宝" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="微信" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
+
+        <Button
+            android:id="@+id/zhifu_complete"
+            style="@style/btn_style"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="关闭"
+            android:textSize="12dp" />
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package dw.take.seal.ui
 
 import android.Manifest
+import android.Manifest.permission.CAMERA
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -20,12 +21,14 @@ import dw.take.seal.model.OrganizationJianModel
 import dw.take.seal.model.SealModel
 import dw.take.seal.view.UpdateManager
 import net.tsz.afinal.view.LoadingDialog
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.AppSettingsDialog
 import wai.gr.cla.method.Utils
 
 /***
  * 登录
  */
-class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.PermissionCallbacks, UpdateView {
+class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.PermissionCallbacks, UpdateView  {
     var apkpath: String? = null
     override fun UpdateVersionResult(success: Boolean, version: String, path: String) {
         //获取最新版本号
@@ -55,6 +58,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
             findb!!.deleteAll(OrganizationJianModel::class.java)
             findb!!.save(model)
             val intent = Intent(this@LoginActivity, OrganizationActivity::class.java)
+            //val intent = Intent(this@LoginActivity, ShowZhiFuActivity::class.java)
             intent.putExtra("OrgModel", model)
             startActivity(intent)
         } else {
@@ -63,12 +67,6 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
     }
 
 
-    /**
-     * 获得失败的权限
-     * */
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
-        var s = ""
-    }
 
     /**
      * 获得的权限
@@ -86,9 +84,24 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         loginmin = this
         setContentView(R.layout.activity_login)
         //获取最新版本号
-        UpdateListener().UpdateVersion(this)
+        //UpdateListener().UpdateVersion(this)
     }
+    /**
+     * 请求CAMERA权限码
+     */
+    internal var REQUEST_CAMERA_PERM = 101
 
+    override fun onPermissionsDenied(requestCode: Int, perms: List<kotlin.String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this, "当前App需要申请camera权限,需要打开设置页面么?")
+                    .setTitle("权限申请")
+                    .setPositiveButton("确认")
+                    .setNegativeButton("取消", null /* click listener */)
+                    .setRequestCode(REQUEST_CAMERA_PERM)
+                    .build()
+                    .show()
+        }
+    }
     override fun initEvents() {
         /***
          * 用户密码登录
@@ -112,16 +125,22 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         }
         //扫描营业执照
         scan_code_login_btn.setOnClickListener {
-            check_camera_permission()
-            //删除多余的信息
             findb!!.deleteAll(CardInfoModel::class.java)
             findb!!.deleteAll(SealModel::class.java)
             findb!!.deleteAll(OrganizationJianModel::class.java)
             findb!!.deleteAll(ApplySealCertificateData::class.java)
-            if (check_camera_permission()) {
-                val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
-                startActivityForResult(intent, 1)
-            }
+
+            cameraTask()
+            //cameraTask()
+            // check_camera_permission()
+            //删除多余的信息
+
+//            if (cameraTask()) {
+//                val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
+//                startActivityForResult(intent, 1)
+//            }else{
+//                toast("无启用相机权限")
+//            }
         }
         test_btn.setOnClickListener {
             check_camera_permission()
@@ -173,7 +192,7 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
      * 检测相机权限
      * */
     fun check_camera_permission(): Boolean {
-        val perms = arrayOf<String>(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        val perms = arrayOf<String>(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.MOUNT_FORMAT_FILESYSTEMS)
         if (EasyPermissions.hasPermissions(this, *perms)) {//检查是否获取该权限
             return true
         } else {
@@ -184,7 +203,20 @@ class LoginActivity : BaseActivity(), mLogin, IScan_result, EasyPermissions.Perm
         }
         return false
     }
+    @AfterPermissionGranted(101)
+    fun cameraTask() {
 
+        var array= arrayOf<String>(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        if (EasyPermissions.hasPermissions(this,*array)) {
+            val intent = Intent(this@LoginActivity, CaptureActivity::class.java)
+            startActivityForResult(intent, 1)
+        } else {
+            EasyPermissions.requestPermissions(this, "需要请求camera权限",
+                    REQUEST_CAMERA_PERM, *array)
+//            EasyPermissions.requestPermissions(this, "需要请求camera权限",
+//                    1, Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.MOUNT_FORMAT_FILESYSTEMS)
+        }
+    }
     /**
      * 登录结果处理 true：登录成功
      * */

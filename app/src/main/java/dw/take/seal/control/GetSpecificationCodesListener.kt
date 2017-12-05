@@ -35,7 +35,6 @@ class GetSpecificationCodesListener {
                             }else{
                                 main.GetSpecificationCodesResult(true,s.Codes as ArrayList<CodeModel>,search_type)
                             }
-
                         }else{
                             main.GetSpecificationCodesResult(false,null,s.Message)
                         }
@@ -46,7 +45,6 @@ class GetSpecificationCodesListener {
                     }
                 })
     }
-
 }
 
 interface GetSpecificationCodesView : IBaseInter {

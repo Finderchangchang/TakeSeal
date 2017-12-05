@@ -36,8 +36,8 @@ class ZJSBListener {
 
                     override fun onError(call: Call?, response: Response?, e: Exception?) {
                         super.onError(call, response, e)
-                        var model: CardInfoModel? = null
-                        main.card_info_view(false, model!!, "网络错误")
+                       // var model: CardInfoModel? = null
+                        main.card_info_view(false, null, "网络错误")
                     }
                 })
     }

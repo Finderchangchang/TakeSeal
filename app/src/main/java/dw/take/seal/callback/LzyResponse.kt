@@ -31,4 +31,6 @@ class LzyResponse<T> : Serializable {
     var CertifyNumber:String?=null
     var Version:String?=null
     var Path:String?=null
+    var SealGroupId:String?=null
+    var SumaryPrice:Double?=null
 }

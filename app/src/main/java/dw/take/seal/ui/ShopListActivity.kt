@@ -81,6 +81,7 @@ class ShopListActivity : BaseActivity(), GetShopsView {
             }else {
                 if(selectindex>=0&&selectindex<seal_type_list.size) {
                     dw.take.seal.utils.Utils(this).WriteString(key.KEY_SHOP_ID, seal_type_list[selectindex].Key)
+                    dw.take.seal.utils.Utils(this).WriteString(key.KEY_SHOP_Name, seal_type_list[selectindex].Value)
                     val intent = Intent(this@ShopListActivity, ShowInfoActivity::class.java)
                     startActivity(intent)
                 }else{

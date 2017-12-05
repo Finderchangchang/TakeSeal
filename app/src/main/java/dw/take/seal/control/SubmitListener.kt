@@ -23,9 +23,11 @@ class SubmitListener {
                 .execute(object : JsonCallback<LzyResponse<String>>() {
                     override fun onSuccess(t: LzyResponse<String>?, call: Call?, response: Response?) {
                         if(t!!.Message!=null){
+                            //16CA406DDB010099B71F9433A6
+
                             main.SubmitResult(t!!.Success,t.Message)
                         }else {
-                            main.SubmitResult(t!!.Success,"±£´æ³É¹¦")
+                            main.SubmitResult(t!!.Success,t.SealGroupId)
                         }
                     }
                     override fun onError(call: Call?, response: Response?, e: Exception?) {
@@ -52,6 +54,6 @@ class SubmitListener {
 }
 
 interface SubmitView {
-    fun SubmitResult(success: Boolean, result: String)
+    fun SubmitResult(success: Boolean, result: String?)
     fun getCertifyNumberResult(success: Boolean, result: String)
 }

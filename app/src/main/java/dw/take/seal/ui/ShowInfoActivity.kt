@@ -12,6 +12,7 @@ import dw.take.seal.control.SubmitView
 import dw.take.seal.method.CommonAdapter
 import dw.take.seal.method.CommonViewHolder
 import dw.take.seal.model.*
+import dw.take.seal.utils.Utils
 import kotlinx.android.synthetic.main.activity_show_info.*
 import net.tsz.afinal.view.LoadingDialog
 import wai.gr.cla.model.key
@@ -38,13 +39,16 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
         }
     }
 
-    override fun SubmitResult(success: Boolean, result: String) {
+    override fun SubmitResult(success: Boolean, result: String?) {
         if (pdialog != null) {
             pdialog!!.dismiss()
         }
         if (success) {
+            Utils(this).WriteString("SealGroupId",result)
             val intent = Intent(this@ShowInfoActivity, CompleteActivity::class.java)
             startActivity(intent)
+
+
         } else {
             //toast("提交出错：" + result)
             val intent = Intent(this@ShowInfoActivity, CompleteErrorActivity::class.java)
@@ -157,11 +161,8 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
         } else {
             group.SealIdentificationRemark = "营业执照扫码验证、经办人证件识别、法人证件识别、经办人人像比对，" + dw.take.seal.utils.Utils(this).ReadString(key.KEY_TAKESEAL_XSD) + "。"
         }
-
-
         command.Group = group
         command.Seals = ArrayList<ApplySealData>()
-
         if (list!!.size > 0) {
             for (i in 0..list!!.size - 1) {
                 var apply: SealModel = list!![i]
@@ -177,7 +178,6 @@ class ShowInfoActivity : BaseActivity(), SubmitView {
                         }else{
                             applymodel.SealContent = apply.SealContent + name
                         }
-
                         applymodel.SealType = apply.SealType
                         applymodel.SealMaterial = apply.SealSpecificationId
                         applymodel.SealSpecificationId = apply.SealGGId

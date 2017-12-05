@@ -29,6 +29,7 @@ dependencies {
     compile 'com.kaopiz:kprogresshud:1.0.2'//加载动画
     //图片压缩工具
     //权限管理
+    compile 'pub.devrel:easypermissions:0.1.9'
     compile 'com.android.support:appcompat-v7:25.0.3'
     compile 'com.lzy.net:okgo:2.1.4'
     compile 'com.lzy.net:okrx:0.1.2'
