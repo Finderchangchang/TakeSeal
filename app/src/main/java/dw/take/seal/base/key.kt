@@ -10,5 +10,7 @@ object key {
     val KEY_TAKESEAL_XSD="KEY_TAKESEAL_SXD"//人像比对相似度
     val KEY_SHOP_ID="KEY_SHOP_ID"//刻制单位编码
     val KEY_SHOP_Name="KEY_SHOP_Name"//刻制单位名称
+    val KEY_SHOP_PHONE="KEY_SHOP_PHONE"//刻制单位联系方式
+    val KEY_SHOP_ADDRESS="KEY_SHOP_ADDRESS"//刻制单位地址
     var KEY_MOBILE_NUMBER="KEY_MOBILE_NUMBER"//手机号码
 }

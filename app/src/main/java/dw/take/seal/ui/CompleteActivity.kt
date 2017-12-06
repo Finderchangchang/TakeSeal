@@ -29,6 +29,8 @@ class CompleteActivity : BaseActivity(), GetShopView {
             complete_mobile.text = shop.ShopLeaderMobileNumber
             complete_kaddress.text = shop.ShopAddress
             complete_kname.text = shop.ShopName
+            dw.take.seal.utils.Utils(this).WriteString(key.KEY_SHOP_PHONE,shop.ShopLeaderMobileNumber)
+            dw.take.seal.utils.Utils(this).WriteString(key.KEY_SHOP_ADDRESS,shop.ShopAddress)
         } else {
             toast(mes)
         }

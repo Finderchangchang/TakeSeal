@@ -67,12 +67,16 @@ class ShowZhiFuActivity : BaseActivity(), ZhifuView {
 
     override fun initViews() {
         setContentView(R.layout.activity_zhifu_show)
-//        var shopid = dw.take.seal.utils.Utils(this).ReadString(key.KEY_SHOP_ID)
-//        ZhifuViewListener().GetImageWeChatQRCode(shopid, this)
-//        ZhifuViewListener().GetImageAlipayQRCode(shopid, this)
-//        var sealgroupid = Utils(this).ReadString("SealGroupId")
-//        ZhifuViewListener().GetSumarySealPrice(sealgroupid, this)
+        var shopid = dw.take.seal.utils.Utils(this).ReadString(key.KEY_SHOP_ID)
+        ZhifuViewListener().GetImageWeChatQRCode(shopid, this)
+        ZhifuViewListener().GetImageAlipayQRCode(shopid, this)
+        var sealgroupid = Utils(this).ReadString("SealGroupId")
+        ZhifuViewListener().GetSumarySealPrice(sealgroupid, this)
         var shopname=Utils(this).ReadString(key.KEY_SHOP_Name)
+        var phone= dw.take.seal.utils.Utils(this).ReadString(key.KEY_SHOP_PHONE)
+        var address= dw.take.seal.utils.Utils(this).ReadString(key.KEY_SHOP_ADDRESS)
+        zhifu_shop_phone.setText("联系电话："+phone)
+        zhifu_shop_address.setText("联系地址："+address)
         zhifu_kezhishe.setText("收款单位："+shopname)
     }
     /**
