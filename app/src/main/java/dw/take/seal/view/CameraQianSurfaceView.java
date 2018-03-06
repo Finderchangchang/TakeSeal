@@ -71,7 +71,7 @@ public class CameraQianSurfaceView extends SurfaceView implements SurfaceHolder.
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         Log.i(TAG, "surfaceCreated");
-
+        //前摄像头
         change();
     }
 
